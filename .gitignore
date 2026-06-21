@@ -1,0 +1,13 @@
+# Ignore everything in 2025 and 2026 directories
+2025/*
+2026/*
+
+# Allow tracking of the FILES/ folders and all files inside them
+!2025/FILES/
+!2025/FILES/**
+!2026/FILES/
+!2026/FILES/**
+
+# Ignore common OS junk files
+.DS_Store
+Thumbs.db
