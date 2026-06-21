@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Agents Course Hub | Google & Kaggle</title>
+  <title>Google & Kaggle AI Agents Course Hub</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,15 +12,19 @@
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- D3.js for Knowledge Graph -->
+  <script src="https://unpkg.com/d3@7.8.5/dist/d3.min.js"></script>
 
   <style>
-    /* CSS Custom Properties / Design Tokens (Light Mode Only) */
+    /* CSS Custom Properties / Design Tokens */
     :root {
       /* Core Gradients & Colors */
       --primary-grad: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
       --accent-grad: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
       --success-grad: linear-gradient(135deg, #10b981 0%, #059669 100%);
       --gold-grad: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --red-grad: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
 
       /* Clean Light Theme Colors */
       --bg-base: #f4f6fa;
@@ -103,9 +107,9 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
       border-bottom: 1px solid var(--border-color);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .brand-logo {
@@ -126,6 +130,7 @@
       font-weight: 700;
       background: linear-gradient(90deg, #a855f7, #6366f1);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.2;
     }
@@ -134,6 +139,36 @@
       font-size: 0.75rem;
       color: var(--text-muted);
       font-weight: 500;
+    }
+
+    /* Cohort Selector Switcher */
+    .cohort-selector {
+      display: flex;
+      background: rgba(15, 23, 42, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 0.25rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .cohort-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition-smooth);
+      font-family: var(--font-body);
+    }
+
+    .cohort-btn.active {
+      background: #ffffff;
+      color: #a855f7;
+      box-shadow: var(--shadow-sm);
     }
 
     /* Navigation Links */
@@ -183,11 +218,13 @@
 
     /* Bottom utilities in sidebar */
     .sidebar-footer {
-      padding-top: 1.5rem;
+      padding-top: 1.25rem;
       border-top: 1px solid var(--border-color);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      margin-top: auto;
     }
 
     /* Main Content Area */
@@ -289,10 +326,65 @@
       gap: 1.5rem;
     }
 
-    .dash-stats-grid {
+    .truth-resources-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .course-truth-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      transition: var(--transition-smooth);
+      height: 100%;
+      background: var(--bg-card);
+    }
+
+    .course-truth-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-highlight);
+      box-shadow: var(--shadow-md);
+    }
+
+    .truth-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .foundation-tag {
+      background: rgba(99, 102, 241, 0.08);
+      color: #6366f1;
+      border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+
+    .advanced-tag {
+      background: rgba(168, 85, 247, 0.08);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.15);
+    }
+
+    .truth-card-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .truth-card-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
     }
 
     .stat-card {
@@ -351,6 +443,7 @@
       margin-bottom: 0.75rem;
       background: linear-gradient(90deg, #0f172a, #6366f1);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -416,7 +509,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Subtabs Layout (Focus on Topic) */
+    /* Subtabs Layout */
     .day-subtabs {
       display: flex;
       gap: 0.5rem;
@@ -853,46 +946,335 @@
       opacity: 1;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 992px) {
-      .sidebar {
-        width: 80px;
-        padding: 1rem 0.5rem;
-      }
-      .brand-info, .nav-item-text, .sidebar-footer-text {
-        display: none;
-      }
-      .sidebar-footer {
-        justify-content: center;
-      }
-      .main-content {
-        margin-left: 80px;
-        padding: 1.5rem;
-      }
-      .brand {
-        justify-content: center;
-        padding-bottom: 1.5rem;
-      }
-      .nav-item button {
-        justify-content: center;
-        padding: 0.75rem;
-      }
-      .day-overview-panel {
-        grid-template-columns: 1fr;
-      }
+    /* KNOWLEDGE GRAPH TAB STYLES */
+    .graph-view-wrapper {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 1.5rem;
+      height: calc(100vh - 200px);
+      min-height: 550px;
     }
 
-    @media (max-width: 576px) {
-      .sidebar {
-        display: none;
-      }
-      .main-content {
-        margin-left: 0;
-        padding: 1rem;
-      }
-      .search-box-wrapper {
-        width: 100%;
-      }
+    .graph-panel {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      height: 100%;
+    }
+
+    #conceptGraph {
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+
+    #conceptGraph:active {
+      cursor: grabbing;
+    }
+
+    .graph-controls {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .graph-btn {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-smooth);
+    }
+
+    .graph-btn:hover {
+      background: var(--bg-base);
+    }
+
+    .details-panel {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      overflow-y: auto;
+      height: 100%;
+    }
+    .details-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-muted);
+      height: 100%;
+      gap: 0.75rem;
+    }
+
+    .details-placeholder i {
+      width: 32px;
+      height: 32px;
+    }
+
+    .details-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .details-content.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .details-title-section {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .details-node-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .details-node-group {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #6366f1;
+      margin-top: 0.2rem;
+      display: inline-block;
+    }
+
+    .details-definition {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .details-bullet-box {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .details-bullet-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .details-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+    }
+
+    .details-bullets li {
+      position: relative;
+      padding-left: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .details-bullets li::before {
+      content: "•";
+      color: #a855f7;
+      font-weight: bold;
+      position: absolute;
+      left: 0.25rem;
+    }
+
+    /* GLOSSARY & HIGHLIGHTS VIEW STYLES */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .highlight-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .highlight-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .highlight-card-header h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .highlight-card-header i {
+      color: #a855f7;
+      width: 20px;
+      height: 20px;
+    }
+
+    .highlight-card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .highlight-card-list li {
+      line-height: 1.4;
+    }
+
+    .highlight-card-list li strong {
+      color: #4f46e5;
+    }
+
+    /* Searchable Glossary Table */
+    .glossary-table-wrapper {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .glossary-filter-bar {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .glossary-filter-pills {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .glossary-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .glossary-pill:hover {
+      background: rgba(15, 23, 42, 0.04);
+    }
+
+    .glossary-pill.active {
+      background: var(--text-main);
+      color: white;
+      border-color: transparent;
+    }
+
+    .glossary-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .glossary-table th {
+      background: var(--bg-card);
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .glossary-table td {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .glossary-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .glossary-term-badge {
+      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .glossary-cat-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    /* D3 force graph styling */
+    .node {
+      cursor: pointer;
+      stroke: #fff;
+      stroke-width: 1.5px;
+      transition: r 0.2s ease, filter 0.2s ease;
+    }
+
+    .node:hover {
+      filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.6));
+    }
+
+    .link {
+      stroke: #cbd5e1;
+      stroke-opacity: 0.65;
+      stroke-width: 1.5px;
+      transition: stroke-opacity 0.2s ease, stroke 0.2s ease;
+    }
+
+    .node-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      fill: #334155;
+      pointer-events: none;
+      text-anchor: middle;
     }
   </style>
 </head>
@@ -912,6 +1294,8 @@
         </div>
       </div>
 
+      <!-- Year selector removed - Consolidated Masterclass Edition -->
+
       <!-- Navigation Links -->
       <ul class="nav-list">
         <li class="nav-item active" data-tab="dashboard">
@@ -926,6 +1310,18 @@
             <span class="nav-item-text">Course Syllabus</span>
           </button>
         </li>
+        <li class="nav-item" data-tab="knowledge-graph">
+          <button>
+            <i data-lucide="network"></i>
+            <span class="nav-item-text">Interactive Graph</span>
+          </button>
+        </li>
+        <li class="nav-item" data-tab="takeaways-glossary">
+          <button>
+            <i data-lucide="bookmark-check"></i>
+            <span class="nav-item-text">Takeaways & Glossary</span>
+          </button>
+        </li>
         <li class="nav-item" data-tab="all-resources">
           <button>
             <i data-lucide="folder-git-2"></i>
@@ -936,7 +1332,12 @@
 
       <!-- Sidebar Footer -->
       <div class="sidebar-footer">
-        <span class="sidebar-footer-text" style="font-size: 0.75rem; color: var(--text-muted); font-weight:500;">Archive Edition</span>
+        <span class="sidebar-footer-text" style="font-size: 0.8rem; color: var(--text-muted); font-weight:500;">
+          Curated by <a href="https://www.linkedin.com/in/daveankur/" target="_blank" style="color: #6366f1; text-decoration: none; font-weight: 600;">Ankur</a>.
+        </span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">
+          Thank you Google and Kaggle.
+        </span>
       </div>
     </aside>
 
@@ -965,11 +1366,11 @@
           <!-- Hero Card -->
           <div class="glass-card hero-banner">
             <div class="hero-banner-content">
-              <h2>5-Day AI Agents Course Hub</h2>
-              <p style="margin-top: 1rem; margin-bottom: 1rem; font-weight: 500;">
-                This course dives deep into building autonomous AI agents, transitioning from standard chatbot interfaces to intent-driven 'Vibe Coding' where natural language acts as the primary programming interface. Throughout the curriculum, you will explore how the Model Context Protocol (MCP) standardizes data integrations, learn to design portable 'Agent Skills' for context optimization, establish continuous trust through sandboxing and security evaluation, and scale your systems using Spec-Driven Development (SDD) to deploy governed agent fleets on Google Cloud.
+              <h2 id="heroTitle">5-Day AI Agents Course Hub</h2>
+              <p id="heroText" style="margin-top: 1rem; margin-bottom: 1rem; font-weight: 500;">
+                Loading course overview...
               </p>
-              <p>This self-paced dashboard contains consolidated links to all whitepapers, podcasts, and codelabs. Check items off inside each topic block as you complete them to track your learning journey.</p>
+              <p>This self-paced dashboard compiles all whitepapers, podcasts, and codelabs. Navigate between the syllabus topics, play YouTube podcast episodes directly, explore our interactive concepts map, or search the comprehensive glossary.</p>
             </div>
             
             <div class="course-badge-highlight">
@@ -985,43 +1386,35 @@
 
         </div>
 
-        <!-- Dashboard Statistics -->
-        <div class="dash-stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon-box" style="background: var(--primary-grad);">
-              <i data-lucide="book-open"></i>
+        <!-- Course Source of Truth Links -->
+        <h3 style="font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; margin-top: 2rem; margin-bottom: 1rem; border-left: 4px solid #6366f1; padding-left: 0.75rem;">
+          🔗 Official Course Links (Source of Truth)
+        </h3>
+        <div class="truth-resources-grid">
+          <!-- Dec 2025 Course Card -->
+          <div class="glass-card course-truth-card">
+            <div class="truth-card-header">
+              <span class="card-tag foundation-tag">Dec 2025 Edition</span>
+              <i data-lucide="award" style="color: #6366f1;"></i>
             </div>
-            <div>
-              <div class="stat-val">5 Topics</div>
-              <div class="stat-lbl">Core Curriculum</div>
-            </div>
+            <h3 class="truth-card-title">Kaggle 5-Day AI Agents Course</h3>
+            <p class="truth-card-desc">The foundational course introducing agentic workflows, Google ADK framework, tools, context engineering, and agent evaluations.</p>
+            <a href="https://www.kaggle.com/learn-guide/5-day-agents" target="_blank" class="card-action-btn">
+              Explore Dec 2025 Course <i data-lucide="external-link" style="width: 14px; height: 14px; margin-left: 4px;"></i>
+            </a>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon-box" style="background: var(--accent-grad);">
-              <i data-lucide="terminal"></i>
+
+          <!-- Jun 2026 Course Card -->
+          <div class="glass-card course-truth-card">
+            <div class="truth-card-header">
+              <span class="card-tag advanced-tag">Jun 2026 Edition</span>
+              <i data-lucide="zap" style="color: #a855f7;"></i>
             </div>
-            <div>
-              <div class="stat-val">10 Labs</div>
-              <div class="stat-lbl">Hands-on Codelabs</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon-box" style="background: var(--success-grad);">
-              <i data-lucide="headphones"></i>
-            </div>
-            <div>
-              <div class="stat-val">5 Episodes</div>
-              <div class="stat-lbl">Summary Podcasts</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon-box" style="background: var(--gold-grad);">
-              <i data-lucide="package-open"></i>
-            </div>
-            <div>
-              <div class="stat-val">2.0 Runtime</div>
-              <div class="stat-lbl">Antigravity SDK</div>
-            </div>
+            <h3 class="truth-card-title">5-Day AI Agents Intensive (Vibe Coding)</h3>
+            <p class="truth-card-desc">The advanced track focusing on vibe coding, Spec-Driven Development, MCP protocols, secure policy servers, and Agent-to-UI communication.</p>
+            <a href="https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google" target="_blank" class="card-action-btn" style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);">
+              Explore Jun 2026 Course <i data-lucide="external-link" style="width: 14px; height: 14px; margin-left: 4px;"></i>
+            </a>
           </div>
         </div>
 
@@ -1031,819 +1424,123 @@
       <section class="content-view" id="view-daily-syllabus">
         
         <!-- Topic-based Selector Tabs -->
-        <div class="day-subtabs">
-          <button class="day-subtab active" data-day="1">1. Intro & Vibe Coding</button>
-          <button class="day-subtab" data-day="2">2. Tools & MCP</button>
-          <button class="day-subtab" data-day="3">3. Agent Skills</button>
-          <button class="day-subtab" data-day="4">4. Security & Evaluation</button>
-          <button class="day-subtab" data-day="5">5. Production & Scaling</button>
+        <div class="day-subtabs" id="syllabusSubtabs">
+          <!-- Populated dynamically -->
         </div>
 
-        <!-- TOPIC 1: INTRO & VIBE CODING -->
-        <div class="day-content-panel" id="day-pane-1">
+        <!-- Dynamic Syllabus Topic Pane -->
+        <div class="day-content-panel" id="syllabusPane">
           <div class="day-overview-panel">
             
             <div class="glass-card">
-              <div class="learning-objectives">
-                <h3><i data-lucide="graduation-cap"></i> Unit 1: Introduction to Agents & Vibe Coding</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Explore the shift from manual syntax typing to natural language intention writing, and how developers design constraint boundaries.</p>
-                <ul class="learning-objectives-list">
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>The Factory Model:</strong> Learn how agents compress traditional software development cycles (SDLC).</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Antigravity Suite:</strong> Setup your environment and vibe-code with Antigravity 2.0 and IDE.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Cloud Deployment:</strong> Deploy code directly to Cloud Run endpoints from Google AI Studio.</span>
-                  </li>
-                </ul>
+              <div class="learning-objectives" id="syllabusObjectives">
+                <!-- Populated dynamically -->
               </div>
             </div>
 
-            <!-- Tasks Checklists (Independent Checkbox state) -->
+            <!-- Tasks Checklists -->
             <div class="checklist-wrapper">
               <div class="checklist-header">
                 <i data-lucide="check-square"></i> Study Progress
               </div>
-              <div class="checklist-items">
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-podcast">
-                  <span class="checklist-text">Listen to Unit 1 Podcast</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-whitepaper">
-                  <span class="checklist-text">Read "The New SDLC" Whitepaper</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-lab1">
-                  <span class="checklist-text">Complete Antigravity Setup Lab</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-lab2">
-                  <span class="checklist-text">Complete Cloud Run Deploy Lab</span>
-                </label>
+              <div class="checklist-items" id="syllabusChecklist">
+                <!-- Populated dynamically -->
               </div>
             </div>
 
           </div>
-
-          <!-- Cards for Topic 1 Resources -->
-          <div class="daily-grid" style="margin-top: 1.5rem;">
-            
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag podcast">Podcast</span>
-                  <i data-lucide="headphones" style="color: #a855f7;"></i>
-                </div>
-                <h3 class="card-title">Unit 1 Podcast</h3>
-                <p class="card-desc">An overview conversation introducing Vibe Coding workflows, shifting software development paradigms, and course configurations.</p>
-                <div class="media-player-preview">
-                  <button class="media-play-btn play-video-trigger" data-video-id="cbzmr7vt4XA">
-                    <i data-lucide="play"></i>
-                  </button>
-                  <div class="media-track-info">
-                    <div class="media-track-title">Listen on YouTube</div>
-                    <div class="media-track-meta">Duration: ~20 mins</div>
-                  </div>
-                </div>
-              </div>
-              <button class="card-action-btn play-video-trigger" data-video-id="cbzmr7vt4XA">
-                <i data-lucide="youtube"></i> Play Podcast
-              </button>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag whitepaper">Whitepaper</span>
-                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
-                </div>
-                <h3 class="card-title">The New SDLC with Vibe Coding</h3>
-                <p class="card-desc">Deep dive into SDLC compression, the intent-driven builder workflow, and structural harnesses for guiding code models safely.</p>
-              </div>
-              <a href="https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding" target="_blank" class="card-action-btn">
-                <i data-lucide="external-link"></i> Read Whitepaper
-              </a>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag codelab">Codelab</span>
-                  <i data-lucide="code-2" style="color: #10b981;"></i>
-                </div>
-                <h3 class="card-title">Labs: Getting Started & Deploying</h3>
-                <p class="card-desc">Set up your workspace inside the Antigravity IDE, then deploy a web application to Cloud Run from Google AI Studio.</p>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                <a href="https://codelabs.developers.google.com/getting-started-google-antigravity#0" target="_blank" class="card-action-btn">
-                  <i data-lucide="link"></i> Lab 1: Antigravity IDE
-                </a>
-                <a href="https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0" target="_blank" class="card-action-btn secondary">
-                  <i data-lucide="link"></i> Lab 2: Cloud Run Deploy
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- TOPIC 2: TOOLS & MCP -->
-        <div class="day-content-panel" id="day-pane-2" style="display:none;">
-          <div class="day-overview-panel">
-            
-            <div class="glass-card">
-              <div class="learning-objectives">
-                <h3><i data-lucide="graduation-cap"></i> Unit 2: Agent Tools & Interoperability</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Standardize the AI tools ecosystem. Connect models to data sources using unified protocols without complex custom code.</p>
-                <ul class="learning-objectives-list">
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Model Context Protocol (MCP):</strong> Expose clean APIs and data schemas directly to LLMs.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Inter-Agent Links:</strong> Master Agent-to-Agent collaboration and Generative UI (A2UI).</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>AP2 & Universal Commerce:</strong> Learn machine-to-machine payment concepts.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="checklist-wrapper">
-              <div class="checklist-header">
-                <i data-lucide="check-square"></i> Study Progress
-              </div>
-              <div class="checklist-items">
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-podcast">
-                  <span class="checklist-text">Listen to Unit 2 Podcast</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-whitepaper">
-                  <span class="checklist-text">Read "Tools & Interoperability" Whitepaper</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-lab1">
-                  <span class="checklist-text">Complete Antigravity CLI Lab</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-lab2">
-                  <span class="checklist-text">Explore Knowledge MCP Server Lab</span>
-                </label>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="daily-grid" style="margin-top: 1.5rem;">
-            
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag podcast">Podcast</span>
-                  <i data-lucide="headphones" style="color: #a855f7;"></i>
-                </div>
-                <h3 class="card-title">Unit 2 Podcast</h3>
-                <p class="card-desc">An engaging discussion on standardizing interfaces (MCP) so agents plug-and-play with documentation and tools.</p>
-                <div class="media-player-preview">
-                  <button class="media-play-btn play-video-trigger" data-video-id="GjjKXqxFTOY">
-                    <i data-lucide="play"></i>
-                  </button>
-                  <div class="media-track-info">
-                    <div class="media-track-title">Listen on YouTube</div>
-                    <div class="media-track-meta">Duration: ~22 mins</div>
-                  </div>
-                </div>
-              </div>
-              <button class="card-action-btn play-video-trigger" data-video-id="GjjKXqxFTOY">
-                <i data-lucide="youtube"></i> Play Podcast
-              </button>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag whitepaper">Whitepaper</span>
-                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
-                </div>
-                <h3 class="card-title">Agent Tools & Interoperability</h3>
-                <p class="card-desc">Read about system interfaces: Model Context Protocol (MCP), Agent-to-Agent (A2A), Generative UI (A2UI), and Agent Payments (AP2).</p>
-              </div>
-              <a href="https://www.kaggle.com/whitepaper-agent-tools-and-interoperability" target="_blank" class="card-action-btn">
-                <i data-lucide="external-link"></i> Read Whitepaper
-              </a>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag codelab">Codelab</span>
-                  <i data-lucide="code-2" style="color: #10b981;"></i>
-                </div>
-                <h3 class="card-title">Labs: CLI & MCP Servers</h3>
-                <p class="card-desc">Control environments via Antigravity CLI and integrate the Google Developer Knowledge MCP server to fetch developer documentation.</p>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                <a href="https://codelabs.developers.google.com/antigravity-cli-hands-on#0" target="_blank" class="card-action-btn">
-                  <i data-lucide="link"></i> Lab 1: Antigravity CLI
-                </a>
-                <a href="https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity" target="_blank" class="card-action-btn secondary">
-                  <i data-lucide="link"></i> Lab 2: Knowledge MCP
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- TOPIC 3: AGENT SKILLS -->
-        <div class="day-content-panel" id="day-pane-3" style="display:none;">
-          <div class="day-overview-panel">
-            
-            <div class="glass-card">
-              <div class="learning-objectives">
-                <h3><i data-lucide="graduation-cap"></i> Unit 3: Agent Skills</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Implement portable bundles of instructions. Load tools and checklists dynamically to keep models lightweight and optimize tokens.</p>
-                <ul class="learning-objectives-list">
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Skills Framework:</strong> Master directory configurations organized around SKILL.md.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Prevent Context Rot:</strong> Implement progressive disclosure to load execution guidelines on demand.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>ADK Development:</strong> Build custom skill scripts leveraging the Agent Development Kit (ADK).</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="checklist-wrapper">
-              <div class="checklist-header">
-                <i data-lucide="check-square"></i> Study Progress
-              </div>
-              <div class="checklist-items">
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-podcast">
-                  <span class="checklist-text">Listen to Unit 3 Podcast</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-whitepaper">
-                  <span class="checklist-text">Read "Agent Skills" Whitepaper</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-lab1">
-                  <span class="checklist-text">Complete Antigravity Skills Lab</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-lab2">
-                  <span class="checklist-text">Complete Agents CLI & ADK Lab</span>
-                </label>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="daily-grid" style="margin-top: 1.5rem;">
-            
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag podcast">Podcast</span>
-                  <i data-lucide="headphones" style="color: #a855f7;"></i>
-                </div>
-                <h3 class="card-title">Unit 3 Podcast</h3>
-                <p class="card-desc">Explaining the details of "Agent Skills" and how loading execution guides dynamically prevents overwhelming system prompts.</p>
-                <div class="media-player-preview">
-                  <button class="media-play-btn play-video-trigger" data-video-id="uYURYHhpmKc">
-                    <i data-lucide="play"></i>
-                  </button>
-                  <div class="media-track-info">
-                    <div class="media-track-title">Listen on YouTube</div>
-                    <div class="media-track-meta">Duration: ~24 mins</div>
-                  </div>
-                </div>
-              </div>
-              <button class="card-action-btn play-video-trigger" data-video-id="uYURYHhpmKc">
-                <i data-lucide="youtube"></i> Play Podcast
-              </button>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag whitepaper">Whitepaper</span>
-                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
-                </div>
-                <h3 class="card-title">Agent Skills</h3>
-                <p class="card-desc">Read about modular skill structuring, context-optimization tactics, and setting specialized boundaries for independent roles.</p>
-              </div>
-              <a href="https://www.kaggle.com/whitepaper-agent-skills" target="_blank" class="card-action-btn">
-                <i data-lucide="external-link"></i> Read Whitepaper
-              </a>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag codelab">Codelab</span>
-                  <i data-lucide="code-2" style="color: #10b981;"></i>
-                </div>
-                <h3 class="card-title">Labs: Custom Skills & ADK</h3>
-                <p class="card-desc">Build portable skill scripts, manage parameters, and use Agents CLI to orchestrate tasks using natural language prompts.</p>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                <a href="https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4" target="_blank" class="card-action-btn">
-                  <i data-lucide="link"></i> Lab 1: Skills Intro
-                </a>
-                <a href="https://codelabs.developers.google.com/agents-cli-adk-lifecycle" target="_blank" class="card-action-btn secondary">
-                  <i data-lucide="link"></i> Lab 2: ADK Lifecycle
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- TOPIC 4: SECURITY & EVALUATION -->
-        <div class="day-content-panel" id="day-pane-4" style="display:none;">
-          <div class="day-overview-panel">
-            
-            <div class="glass-card">
-              <div class="learning-objectives">
-                <h3><i data-lucide="graduation-cap"></i> Unit 4: Agent Security & Evaluation</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Mitigate non-deterministic bugs. Develop secure setups using sandboxing, threat testing, and safety evaluations.</p>
-                <ul class="learning-objectives-list">
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Effective Trust:</strong> Enforce strict verification bounds, sandboxes, and threat scans.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Slopsquatting Defenses:</strong> Safeguard dependency scopes from hallucinated code package names.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Human-in-the-Loop (HITL):</strong> Establish explicit human review approval stages for actions.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="checklist-wrapper">
-              <div class="checklist-header">
-                <i data-lucide="check-square"></i> Study Progress
-              </div>
-              <div class="checklist-items">
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-podcast">
-                  <span class="checklist-text">Listen to Unit 4 Podcast</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-whitepaper">
-                  <span class="checklist-text">Read "Security & Evaluation" Whitepaper</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-lab1">
-                  <span class="checklist-text">Complete Human-in-the-Loop Lab</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-lab2">
-                  <span class="checklist-text">Complete Security Testing Lab</span>
-                </label>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="daily-grid" style="margin-top: 1.5rem;">
-            
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag podcast">Podcast</span>
-                  <i data-lucide="headphones" style="color: #a855f7;"></i>
-                </div>
-                <h3 class="card-title">Unit 4 Podcast</h3>
-                <p class="card-desc">Discussing the continuous validation of agent actions, detecting slopsquatting dependencies, and sandboxing.</p>
-                <div class="media-player-preview">
-                  <button class="media-play-btn play-video-trigger" data-video-id="Ddz1b8CYPvg">
-                    <i data-lucide="play"></i>
-                  </button>
-                  <div class="media-track-info">
-                    <div class="media-track-title">Listen on YouTube</div>
-                    <div class="media-track-meta">Duration: ~21 mins</div>
-                  </div>
-                </div>
-              </div>
-              <button class="card-action-btn play-video-trigger" data-video-id="Ddz1b8CYPvg">
-                <i data-lucide="youtube"></i> Play Podcast
-              </button>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag whitepaper">Whitepaper</span>
-                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
-                </div>
-                <h3 class="card-title">Vibe Coding Security</h3>
-                <p class="card-desc">Read about continuous verification, the Red/Blue/Green security framework, and telemetry checks using OpenTelemetry.</p>
-              </div>
-              <a href="https://www.kaggle.com/whitepaper-vibe-coding-agent-security-and-evaluation" target="_blank" class="card-action-btn">
-                <i data-lucide="external-link"></i> Read Whitepaper
-              </a>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag codelab">Codelab</span>
-                  <i data-lucide="code-2" style="color: #10b981;"></i>
-                </div>
-                <h3 class="card-title">Labs: Secure Code & Triages</h3>
-                <p class="card-desc">Construct an expense assistant with manual human overrides, and write test suites scanning for insecure prompts.</p>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                <a href="https://codelabs.developers.google.com/vibecode-ambient-expense-agent" target="_blank" class="card-action-btn">
-                  <i data-lucide="link"></i> Lab 1: Expense Agent
-                </a>
-                <a href="https://codelabs.developers.google.com/secure-agentic-coding" target="_blank" class="card-action-btn secondary">
-                  <i data-lucide="link"></i> Lab 2: Secure Coding
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- TOPIC 5: PRODUCTION & SCALING -->
-        <div class="day-content-panel" id="day-pane-5" style="display:none;">
-          <div class="day-overview-panel">
-            
-            <div class="glass-card">
-              <div class="learning-objectives">
-                <h3><i data-lucide="graduation-cap"></i> Unit 5: Spec-Driven Development</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Shift to Spec-Driven Development (SDD). Graduate local prototypes into governed, observable production-ready fleets.</p>
-                <ul class="learning-objectives-list">
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Code as Disposable:</strong> Treat Gherkin behavior specifications as the ultimate source of truth.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Cloud Architecture:</strong> Deploy scalable agent runtimes directly to Google Cloud.</span>
-                  </li>
-                  <li>
-                    <i data-lucide="check-circle-2"></i>
-                    <span><strong>Front-End Integrations:</strong> Connect web UIs with cloud-hosted AI agents via event triggers.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="checklist-wrapper">
-              <div class="checklist-header">
-                <i data-lucide="check-square"></i> Study Progress
-              </div>
-              <div class="checklist-items">
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-podcast">
-                  <span class="checklist-text">Listen to Unit 5 Podcast</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-whitepaper">
-                  <span class="checklist-text">Read "Spec-Driven SDD" Whitepaper</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-lab1">
-                  <span class="checklist-text">Review Google Cloud Scale Lab</span>
-                </label>
-                <label class="checklist-item">
-                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-lab2">
-                  <span class="checklist-text">Review Frontend App Codelab</span>
-                </label>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="daily-grid" style="margin-top: 1.5rem;">
-            
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag podcast">Podcast</span>
-                  <i data-lucide="headphones" style="color: #a855f7;"></i>
-                </div>
-                <h3 class="card-title">Unit 5 Podcast</h3>
-                <p class="card-desc">Reviewing production lifecycle stages, cloud scaling, and the transition of prototypes into robust, spec-guarded fleets.</p>
-                <div class="media-player-preview">
-                  <button class="media-play-btn play-video-trigger" data-video-id="VSRdL4wlbLY">
-                    <i data-lucide="play"></i>
-                  </button>
-                  <div class="media-track-info">
-                    <div class="media-track-title">Listen on YouTube</div>
-                    <div class="media-track-meta">Duration: ~25 mins</div>
-                  </div>
-                </div>
-              </div>
-              <button class="card-action-btn play-video-trigger" data-video-id="VSRdL4wlbLY">
-                <i data-lucide="youtube"></i> Play Podcast
-              </button>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag whitepaper">Whitepaper</span>
-                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
-                </div>
-                <h3 class="card-title">Spec-Driven Development</h3>
-                <p class="card-desc">Deep dive into SDD, treating code as disposable, zero-trust deployment pipelines, and hybrid Policy Servers.</p>
-              </div>
-              <a href="https://www.kaggle.com/whitepaper-spec-driven-production-grade-development-in-the-age-of-vibe-coding" target="_blank" class="card-action-btn">
-                <i data-lucide="external-link"></i> Read Whitepaper
-              </a>
-            </div>
-
-            <div class="glass-card daily-section-card">
-              <div>
-                <div class="card-header-icon">
-                  <span class="card-tag codelab">Codelab</span>
-                  <i data-lucide="code-2" style="color: #10b981;"></i>
-                </div>
-                <h3 class="card-title">Labs: Scaling & Hosting</h3>
-                <p class="card-desc">Review host deployments on Google Cloud Run and wire asynchronous event streams into frontend templates.</p>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                <a href="https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud" target="_blank" class="card-action-btn">
-                  <i data-lucide="link"></i> Lab 1: Cloud Scale
-                </a>
-                <a href="https://codelabs.developers.google.com/vibecode-frontend-with-antigravity" target="_blank" class="card-action-btn secondary">
-                  <i data-lucide="link"></i> Lab 2: UI Frontend
-                </a>
-              </div>
-            </div>
-
+          <!-- Cards for Topic Resources -->
+          <div id="syllabusResources" style="margin-top: 1.5rem;">
+            <!-- Populated dynamically -->
           </div>
         </div>
 
       </section>
 
-      <!-- VIEW 3: ALL RESOURCES (GRID SEARCHABLE) -->
+      <!-- VIEW 3: INTERACTIVE KNOWLEDGE GRAPH -->
+      <section class="content-view" id="view-knowledge-graph">
+        <div class="graph-view-wrapper">
+          
+          <!-- D3 Force-Directed Canvas -->
+          <div class="graph-panel">
+            <svg id="conceptGraph"></svg>
+            <div class="graph-controls">
+              <button class="graph-btn" id="graphZoomInBtn"><i data-lucide="zoom-in" style="width:12px;height:12px;"></i> Zoom In</button>
+              <button class="graph-btn" id="graphZoomOutBtn"><i data-lucide="zoom-out" style="width:12px;height:12px;"></i> Zoom Out</button>
+              <button class="graph-btn" id="graphResetBtn"><i data-lucide="rotate-ccw" style="width:12px;height:12px;"></i> Reset</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Details Sidebar Panel -->
+          <div class="details-panel" id="graphDetails">
+            <div class="details-placeholder" id="detailsPlaceholder">
+              <i data-lucide="info"></i>
+              <h4>Concept Details</h4>
+              <p>Click on any node in the concept map to inspect its definitions, relations, and core takeaways.</p>
+            </div>
+            
+            <div class="details-content" id="detailsContent">
+              <div class="details-title-section">
+                <span class="details-node-group" id="nodeGroupTag">Category</span>
+                <h3 class="details-node-name" id="nodeName">Concept Name</h3>
+              </div>
+              <p class="details-definition" id="nodeDefinition">Definition goes here.</p>
+              
+              <div class="details-bullet-box">
+                <div class="details-bullet-title">Key Architectural Takeaways</div>
+                <ul class="details-bullets" id="nodeTakeaways">
+                  <li>Takeaway details...</li>
+                </ul>
+              </div>
+
+              <a href="#" target="_blank" class="card-action-btn" id="nodeDocLink" style="margin-top:auto;">
+                <i data-lucide="file-text"></i> Open Source Document
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- VIEW 4: KEY TAKEAWAYS & SEARCHABLE GLOSSARY -->
+      <section class="content-view" id="view-takeaways-glossary">
+        
+        <!-- Key Pointer Highlights (5 parts, 6 context, 3 reviews, etc.) -->
+        <h3 style="font-family:var(--font-display); font-weight:800; font-size:1.4rem; margin-bottom:1rem; border-left:4px solid #6366f1; padding-left:0.75rem;">💡 Key Structural Highlights</h3>
+        <div class="highlights-grid" id="highlightsGrid">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Searchable Glossary -->
+        <h3 style="font-family:var(--font-display); font-weight:800; font-size:1.4rem; margin-bottom:1rem; border-left:4px solid #a855f7; padding-left:0.75rem;">📖 Course Glossary</h3>
+        <div class="glossary-table-wrapper">
+          <div class="glossary-filter-bar">
+            <div class="glossary-filter-pills" id="glossaryFilters">
+              <!-- Populated dynamically -->
+            </div>
+            <input type="text" placeholder="Filter terms..." class="search-box" id="glossarySearch" style="width:240px; background:#f1f5f9;">
+          </div>
+          <table class="glossary-table">
+            <thead>
+              <tr>
+                <th style="width: 220px;">Key Term</th>
+                <th>Definition & Architectural Details</th>
+                <th style="width: 200px;">Reference Source</th>
+              </tr>
+            </thead>
+            <tbody id="glossaryBody">
+              <!-- Glossary elements generated dynamically in JS -->
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- VIEW 5: ALL RESOURCES (GRID SEARCHABLE) -->
       <section class="content-view" id="view-all-resources">
         
-        <div class="resource-tabs-wrapper">
-          
-          <!-- Whitepapers Category -->
-          <div class="resource-category-section search-target-block" data-type="whitepaper">
-            <h3 class="resource-category-title">📄 Whitepapers</h3>
-            <div class="resource-list">
-              <div class="resource-item-card" data-search-term="sdlc vibe coding unit 1 whitepaper">
-                <div class="resource-item-icon"><i data-lucide="file"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">The New SDLC with Vibe Coding</div>
-                  <div class="resource-item-meta">Unit 1 • Core Theory</div>
-                  <a href="https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="agent tools interoperability mcp protocol unit 2 whitepaper">
-                <div class="resource-item-icon"><i data-lucide="file"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Agent Tools & Interoperability</div>
-                  <div class="resource-item-meta">Unit 2 • Systems Communication</div>
-                  <a href="https://www.kaggle.com/whitepaper-agent-tools-and-interoperability" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="agent skills prompt directory context rot unit 3 whitepaper">
-                <div class="resource-item-icon"><i data-lucide="file"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Agent Skills</div>
-                  <div class="resource-item-meta">Unit 3 • Modular Prompts</div>
-                  <a href="https://www.kaggle.com/whitepaper-agent-skills" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="agent security evaluation trust trajectory unit 4 whitepaper">
-                <div class="resource-item-icon"><i data-lucide="file"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Vibe Coding Agent Security and Evaluation</div>
-                  <div class="resource-item-meta">Unit 4 • Vulnerabilities & Testing</div>
-                  <a href="https://www.kaggle.com/whitepaper-vibe-coding-agent-security-and-evaluation" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="spec driven production development age vibe coding sdd unit 5 whitepaper">
-                <div class="resource-item-icon"><i data-lucide="file"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Spec-Driven Production Grade Development in the Age of Vibe Coding</div>
-                  <div class="resource-item-meta">Unit 5 • Enterprise Pipelines</div>
-                  <a href="https://www.kaggle.com/whitepaper-spec-driven-production-grade-development-in-the-age-of-vibe-coding" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="learn guide archive whitepaper updated 2025 course">
-                <div class="resource-item-icon"><i data-lucide="bookmark"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Kaggle Learn Guide Archive (Nov 2025)</div>
-                  <div class="resource-item-meta">Course Hub Reference</div>
-                  <a href="https://www.kaggle.com/learn-guide/5-day-agents" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Podcasts Category -->
-          <div class="resource-category-section search-target-block" data-type="podcast">
-            <h3 class="resource-category-title">🎙️ YouTube Podcasts</h3>
-            <div class="resource-list">
-              <div class="resource-item-card" data-search-term="podcast intro agents vibe coding unit 1 video">
-                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Unit 1 Podcast Summary</div>
-                  <div class="resource-item-meta">Duration: ~20 mins</div>
-                  <button class="resource-item-link play-video-trigger" data-video-id="cbzmr7vt4XA" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="podcast tools mcp interoperability unit 2 video">
-                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Unit 2 Podcast Summary</div>
-                  <div class="resource-item-meta">Duration: ~22 mins</div>
-                  <button class="resource-item-link play-video-trigger" data-video-id="GjjKXqxFTOY" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="podcast agent skills structures unit 3 video">
-                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Unit 3 Podcast Summary</div>
-                  <div class="resource-item-meta">Duration: ~24 mins</div>
-                  <button class="resource-item-link play-video-trigger" data-video-id="uYURYHhpmKc" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="podcast security testing evaluation unit 4 video">
-                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Unit 4 Podcast Summary</div>
-                  <div class="resource-item-meta">Duration: ~21 mins</div>
-                  <button class="resource-item-link play-video-trigger" data-video-id="Ddz1b8CYPvg" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="podcast spec driven sdd production scaling unit 5 video">
-                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Unit 5 Podcast Summary</div>
-                  <div class="resource-item-meta">Duration: ~25 mins</div>
-                  <button class="resource-item-link play-video-trigger" data-video-id="VSRdL4wlbLY" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Codelabs Category -->
-          <div class="resource-category-section search-target-block" data-type="codelab">
-            <h3 class="resource-category-title">💻 Hands-on Codelabs</h3>
-            <div class="resource-list">
-              <div class="resource-item-card" data-search-term="codelab antigravity 2.0 ide unit 1 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Getting Started with Antigravity 2.0 & IDE</div>
-                  <div class="resource-item-meta">Unit 1 • Setup & Workflows</div>
-                  <a href="https://codelabs.developers.google.com/getting-started-google-antigravity#0" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab web application cloud run ai studio unit 1 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Build Web App & Deploy to Cloud Run</div>
-                  <div class="resource-item-meta">Unit 1 • Hosting and Testing</div>
-                  <a href="https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab cli commands antigravity terminal unit 2 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Antigravity CLI Hands-on</div>
-                  <div class="resource-item-meta">Unit 2 • Terminal Tools</div>
-                  <a href="https://codelabs.developers.google.com/antigravity-cli-hands-on#0" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab mcp server developer knowledge unit 2 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Explore Google Developer Knowledge MCP Server</div>
-                  <div class="resource-item-meta">Unit 2 • Protocols & Docs</div>
-                  <a href="https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab skills modular configurations unit 3 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Skills in Antigravity</div>
-                  <div class="resource-item-meta">Unit 3 • Modular Systems</div>
-                  <a href="https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab adk agents lifecycle unit 3 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Build Agents with CLI & ADK</div>
-                  <div class="resource-item-meta">Unit 3 • Agent Development Kit</div>
-                  <a href="https://codelabs.developers.google.com/agents-cli-adk-lifecycle" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab expense approval agent human loop unit 4 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Build Expense Agent (Human-in-the-Loop)</div>
-                  <div class="resource-item-meta">Unit 4 • Approvals & Evaluations</div>
-                  <a href="https://codelabs.developers.google.com/vibecode-ambient-expense-agent" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab secure code threat safety scans unit 4 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Write Secure Code & Safety Checks</div>
-                  <div class="resource-item-meta">Unit 4 • Red Teaming</div>
-                  <a href="https://codelabs.developers.google.com/secure-agentic-coding" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab cloud scaling enterprise google cloud runtime unit 5 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Host AI Agents on Google Cloud</div>
-                  <div class="resource-item-meta">Unit 5 • Scaling and Events</div>
-                  <a href="https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="codelab front end client connection unit 5 lab">
-                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Build Web UI and Connect to Cloud Agent</div>
-                  <div class="resource-item-meta">Unit 5 • Complete Assembly</div>
-                  <a href="https://codelabs.developers.google.com/vibecode-frontend-with-antigravity" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tools and Downloads Category -->
-          <div class="resource-category-section search-target-block" data-type="tools">
-            <h3 class="resource-category-title">🛠️ Tools & Downloads</h3>
-            <div class="resource-list">
-              <div class="resource-item-card" data-search-term="antigravity suite 2.0 product installer">
-                <div class="resource-item-icon" style="color:#3b82f6;"><i data-lucide="download"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Antigravity 2.0 Core Runtime</div>
-                  <div class="resource-item-meta">Required Engine Download</div>
-                  <a href="https://antigravity.google/product/antigravity-2" target="_blank" class="resource-item-link">Go to Download <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="antigravity ide desktop code editor">
-                <div class="resource-item-icon" style="color:#3b82f6;"><i data-lucide="download"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Antigravity IDE App</div>
-                  <div class="resource-item-meta">Structured Agent Workspace</div>
-                  <a href="https://antigravity.google/product/antigravity-ide" target="_blank" class="resource-item-link">Go to Download <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="antigravity cli command line terminal tools">
-                <div class="resource-item-icon" style="color:#3b82f6;"><i data-lucide="download"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Antigravity CLI Tool</div>
-                  <div class="resource-item-meta">Shell Executables Integration</div>
-                  <a href="https://antigravity.google/product/antigravity-cli" target="_blank" class="resource-item-link">Go to Download <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="kaggle account settings phone verification confirmation">
-                <div class="resource-item-icon" style="color:#eab308;"><i data-lucide="link-2"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Kaggle Profile Settings</div>
-                  <div class="resource-item-meta">Verify Kaggle Account via SMS</div>
-                  <a href="https://kaggle.com/discord/confirmation" target="_blank" class="resource-item-link">Go to Setup <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-              <div class="resource-item-card" data-search-term="google ai studio api key registration regions">
-                <div class="resource-item-icon" style="color:#eab308;"><i data-lucide="key"></i></div>
-                <div class="resource-item-details">
-                  <div class="resource-item-name">Google AI Studio Keys</div>
-                  <div class="resource-item-meta">Create Gemini API secret credentials</div>
-                  <a href="https://aistudio.google.com/app/apikey" target="_blank" class="resource-item-link">Go to Setup <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div class="resource-tabs-wrapper" id="resourcesGrid">
+          <!-- Populated dynamically -->
         </div>
 
       </section>
@@ -1869,12 +1566,1395 @@
   </div>
 
   <script>
+    // Central database containing consolidated course assets
+    const COURSE_DATA = {
+  "title": "Google & Kaggle AI Agents Course Hub",
+  "overview": "Welcome to the consolidated AI Agents Course Hub. This interactive dashboard combines the complete curriculum from the foundational course (<strong>Dec 2025 Foundation</strong>) and the advanced vibe coding updates (<strong>Jun 2026 Advanced</strong>). Here, you will study how agents compress traditional software cycles, utilize open standards like Model Context Protocol (MCP) and Agent-to-Agent (A2A), optimize tokens using modular Skills directories, implement ephemeral sandboxes and evaluations, and scale fleets of governed agents with Spec-Driven Development (SDD) on Google Cloud.",
+  "stats": [
+    {
+      "val": "5 Core Units",
+      "label": "Thematic Curriculum",
+      "color": "var(--primary-grad)",
+      "icon": "book-open"
+    },
+    {
+      "val": "10 Papers",
+      "label": "Foundations & Rewrites",
+      "color": "var(--accent-grad)",
+      "icon": "file-text"
+    },
+    {
+      "val": "19 Labs",
+      "label": "Kaggle & Local Codelabs",
+      "color": "var(--success-grad)",
+      "icon": "terminal"
+    },
+    {
+      "val": "20 YouTube Shows",
+      "label": "Podcasts & Livestreams",
+      "color": "var(--gold-grad)",
+      "icon": "youtube"
+    }
+  ],
+  "setup": {
+    "prereqs": [
+      {
+        "edition": "Dec 2025",
+        "title": "Kaggle Phone Verification",
+        "desc": "Required to enable notebook environments for Dec 2025 assignments.",
+        "url": "https://www.kaggle.com/settings"
+      },
+      {
+        "edition": "Dec 2025",
+        "title": "Google AI Studio API Key",
+        "desc": "Generate a developer API key to connect models inside the ADK.",
+        "url": "https://aistudio.google.com/app/apikey"
+      },
+      {
+        "edition": "Jun 2026",
+        "title": "Antigravity SDK / CLI / IDE",
+        "desc": "Download and set up the local developer suite.",
+        "url": "https://antigravity.google/product/antigravity-2"
+      }
+    ],
+    "links": [
+      {
+        "edition": "Dec 2025",
+        "title": "NotebookLM Study Guide",
+        "desc": "Upload the whitepapers to create an interactive study guide.",
+        "url": "https://support.google.com/notebooklm/answer/15731776"
+      },
+      {
+        "edition": "Dec 2025",
+        "title": "Codelabs Troubleshooting FAQ",
+        "desc": "Review solutions for common notebook error logs.",
+        "url": "https://www.kaggle.com/code/kaggle5daysofai/day-0-troubleshooting-and-faqs"
+      },
+      {
+        "edition": "Jun 2026",
+        "title": "Kaggle Discussion Forum",
+        "desc": "Ask questions and share tips with other learners.",
+        "url": "https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google/discussion?sort=hotness"
+      },
+      {
+        "edition": "Jun 2026",
+        "title": "Course Feedback Form",
+        "desc": "Share your experience with the development team.",
+        "url": "https://forms.gle/UhHMABjXHAz25n848"
+      }
+    ]
+  },
+  "syllabus": [
+    {
+      "num": "1",
+      "title": "Intro & Vibe Coding",
+      "headerTitle": "Unit 1: Introduction to Agents & Vibe Coding",
+      "intro": "Explore the shift from traditional chatbots to autonomous agents. Learn how agentic architectures compress traditional software development cycles (SDLC), and study how vibe coding workflows allow natural language to act as the primary programming interface.",
+      "bullets": [
+        "<strong>Foundational Taxonomy:</strong> Map the spectrum of agentic capabilities, operational models, and constrained policies.",
+        "<strong>Vibe Coding Workflows:</strong> Transition from manual syntax typing to intent-driven programming with Antigravity 2.0.",
+        "<strong>Cloud Deployment:</strong> Deploy code directly from Google AI Studio to Cloud Run endpoints."
+      ],
+      "tasks": [
+        {
+          "id": "25-u1-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u1-whitepaper",
+          "text": "Dec 2025: Read 'Intro to Agents' Whitepaper"
+        },
+        {
+          "id": "25-u1-lab1",
+          "text": "Dec 2025: Complete Codelab (Prompt to Action)"
+        },
+        {
+          "id": "25-u1-lab2",
+          "text": "Dec 2025: Complete Codelab (Agent Architectures)"
+        },
+        {
+          "id": "25-u1-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u1-podcast",
+          "text": "Jun 2026: Listen to Vibe Coding Podcast"
+        },
+        {
+          "id": "26-u1-whitepaper",
+          "text": "Jun 2026: Read 'The New SDLC' Whitepaper"
+        },
+        {
+          "id": "26-u1-lab1",
+          "text": "Jun 2026: Complete Antigravity Setup Lab"
+        },
+        {
+          "id": "26-u1-lab2",
+          "text": "Jun 2026: Complete Cloud Run Deploy Lab"
+        },
+        {
+          "id": "26-u1-live",
+          "text": "Jun 2026: Watch Vibe Coding Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Introduction to Agents Podcast",
+          "videoId": "zTxvGzpfF-g",
+          "desc": "Foundational podcast introducing AI agent capabilities, taxonomy, and Agent Ops."
+        },
+        "pdf": {
+          "title": "Introduction to Agents Whitepaper",
+          "link": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
+          "desc": "Detailed breakdown of agent taxonomies, security controls, and operational patterns."
+        },
+        "labs": [
+          {
+            "title": "Lab 1a: Prompt to Action",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-1a-from-prompt-to-action"
+          },
+          {
+            "title": "Lab 1b: Agent Architectures",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-1b-agent-architectures"
+          }
+        ],
+        "livestream": {
+          "title": "Day 1 Q&A Livestream Panel",
+          "videoId": "ZaUcqznlhv8",
+          "desc": "Codelab review and insights on taxonomy of agent capabilities. Panelists: Alan Blount, Mike Clark, Michael Gerstenhaber, Antonio Gulli, Kristopher Overholt, Hangfei Lin."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Intro & Vibe Coding Podcast",
+          "videoId": "cbzmr7vt4XA",
+          "desc": "Discussion on Vibe Coding pipelines, setup configurations, and compressing the traditional SDLC."
+        },
+        "pdf": {
+          "title": "The New SDLC with Vibe Coding",
+          "link": "2026/FILES/Day_1_v3.pdf",
+          "desc": "Read about the intent-driven builder workflow, factory model, and structural code guidelines."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Antigravity IDE Setup",
+            "url": "https://codelabs.developers.google.com/getting-started-google-antigravity#0"
+          },
+          {
+            "title": "Lab 2: Cloud Run Deployment",
+            "url": "https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 1 Vibe Coding Livestream",
+          "videoId": "7iic3Zj427M",
+          "desc": "Deep dive walkthrough of Vibe Coding setups, Gherkin specifications, and workspace deployment options."
+        }
+      }
+    },
+    {
+      "num": "2",
+      "title": "Tools & MCP",
+      "headerTitle": "Unit 2: Agent Tools & Model Context Protocol (MCP)",
+      "intro": "Connect models to databases and APIs safely using unified communication standards. Explore function declaration best practices and understand how Model Context Protocol (MCP) standardizes integrations without custom wrappers.",
+      "bullets": [
+        "<strong>Tools design:</strong> Write highly descriptive schemas that allow LLMs to determine arguments reliably.",
+        "<strong>Model Context Protocol:</strong> Connect model runtimes to SQLite databases and local filesystems via stdio host servers.",
+        "<strong>Long-Running Operations:</strong> Design approval checkpoints where agents pause execution until cleared by a human."
+      ],
+      "tasks": [
+        {
+          "id": "25-u2-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u2-whitepaper",
+          "text": "Dec 2025: Read 'Agent Tools & MCP' Whitepaper"
+        },
+        {
+          "id": "25-u2-lab1",
+          "text": "Dec 2025: Complete Codelab (Agent Tools)"
+        },
+        {
+          "id": "25-u2-lab2",
+          "text": "Dec 2025: Complete Codelab (MCP & Gated Tools)"
+        },
+        {
+          "id": "25-u2-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u2-podcast",
+          "text": "Jun 2026: Listen to Tools & MCP Podcast"
+        },
+        {
+          "id": "26-u2-whitepaper",
+          "text": "Jun 2026: Read 'Tools & Interoperability' Whitepaper"
+        },
+        {
+          "id": "26-u2-lab1",
+          "text": "Jun 2026: Complete Antigravity CLI Lab"
+        },
+        {
+          "id": "26-u2-lab2",
+          "text": "Jun 2026: Complete Knowledge MCP Server Lab"
+        },
+        {
+          "id": "26-u2-live",
+          "text": "Jun 2026: Watch Tools & MCP Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Agent Tools & MCP Podcast",
+          "videoId": "Cr4NA6rxHAM",
+          "desc": "Exploring custom tool calls, API interactions, and early implementations of the Model Context Protocol."
+        },
+        "pdf": {
+          "title": "Agent Tools & Interoperability with MCP",
+          "link": "2025/FILES/2025_Day_2_Rewrite_v1_AgentTools.pdf",
+          "desc": "Detailed analysis of MCP client-server topology, stdio transports, and secure gateways."
+        },
+        "labs": [
+          {
+            "title": "Lab 2a: Agent Tools",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-2a-agent-tools"
+          },
+          {
+            "title": "Lab 2b: Tools Best Practices",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-2b-agent-tools-best-practices"
+          }
+        ],
+        "livestream": {
+          "title": "Day 2 Q&A Livestream Panel",
+          "videoId": "8Gk1BE3uYek",
+          "desc": "Discussion on tool declarations and long-running operations. Panelists: Edward Grefenstette, Mike Styer, Oriol Vinyals, Alex Wissner-Gross, Laxmi Harikumar."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Tools & Interoperability Podcast",
+          "videoId": "GjjKXqxFTOY",
+          "desc": "Diving into Agent-to-Agent links, Universal Commerce, and Generative User Interfaces (A2UI)."
+        },
+        "pdf": {
+          "title": "Agent Tools & Interoperability",
+          "link": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+          "desc": "Review MCP standard servers, Generative UI, machine payments (AP2), and commerce protocols."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Antigravity CLI Setup",
+            "url": "https://codelabs.developers.google.com/antigravity-cli-hands-on#0"
+          },
+          {
+            "title": "Lab 2: Developer Knowledge MCP",
+            "url": "https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 2 Tools & Interoperability Livestream",
+          "videoId": "PGI_S59EoRA",
+          "desc": "Technical walkthrough of MCP host topologies, inter-agent workflows, and Generative UI widgets."
+        }
+      }
+    },
+    {
+      "num": "3",
+      "title": "Memory & Skills",
+      "headerTitle": "Unit 3: Context Engineering, Sessions, Memory & Skills",
+      "intro": "Optimize token budgets and context windows. Master dynamic context assembly using short-term conversation sessions, persistent vector memory banks, and modular Skills directories to load files only when needed.",
+      "bullets": [
+        "<strong>Short-term Sessions:</strong> Contain conversation logs in isolated stateful structures to preserve immediate history.",
+        "<strong>Persistent Memory:</strong> Implement external database storage to recall facts across disconnected runs.",
+        "<strong>Agent Skills:</strong> Package code guidelines and prompt instructions in modular directories to prevent token blowup."
+      ],
+      "tasks": [
+        {
+          "id": "25-u3-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u3-whitepaper",
+          "text": "Dec 2025: Read 'Sessions & Memory' Whitepaper"
+        },
+        {
+          "id": "25-u3-lab1",
+          "text": "Dec 2025: Complete Codelab (Agent Sessions)"
+        },
+        {
+          "id": "25-u3-lab2",
+          "text": "Dec 2025: Complete Codelab (Agent Memory)"
+        },
+        {
+          "id": "25-u3-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u3-podcast",
+          "text": "Jun 2026: Listen to Agent Skills Podcast"
+        },
+        {
+          "id": "26-u3-whitepaper",
+          "text": "Jun 2026: Read 'Agent Skills' Whitepaper"
+        },
+        {
+          "id": "26-u3-lab1",
+          "text": "Jun 2026: Complete Antigravity Skills Lab"
+        },
+        {
+          "id": "26-u3-lab2",
+          "text": "Jun 2026: Complete Agents CLI & ADK Lab"
+        },
+        {
+          "id": "26-u3-live",
+          "text": "Jun 2026: Watch Agent Skills Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Sessions & Memory Podcast",
+          "videoId": "FMcExVE15a4",
+          "desc": "Understanding state management, dynamic context assembly, and short-term vs long-term storage."
+        },
+        "pdf": {
+          "title": "Context Engineering: Sessions & Memory",
+          "link": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+          "desc": "Techniques for token engineering, session container state management, and memory stores."
+        },
+        "labs": [
+          {
+            "title": "Lab 3a: Agent Sessions",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-3a-agent-sessions"
+          },
+          {
+            "title": "Lab 3b: Agent Memory",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-3b-agent-memory"
+          }
+        ],
+        "livestream": {
+          "title": "Day 3 Q&A Livestream Panel",
+          "videoId": "8o-GXj8A3nE",
+          "desc": "Discussion on context limits, RAG integration, and long-term memory. Panelists: Steven Johnson, Kimberly Milam, Julia Wiesinger, Jay Alammar, Kristopher Overholt."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Agent Skills Podcast",
+          "videoId": "uYURYHhpmKc",
+          "desc": "How dynamic loading of prompt checklists prevents attention dilution and keeps agents lightweight."
+        },
+        "pdf": {
+          "title": "Agent Skills",
+          "link": "2026/FILES/Agent Skills_Day_3.pdf",
+          "desc": "Modular directories structured with SKILL.md rules, ADK skill scripts, and progressive disclosure patterns."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Skills in Antigravity",
+            "url": "https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4"
+          },
+          {
+            "title": "Lab 2: Agents CLI & ADK",
+            "url": "https://codelabs.developers.google.com/agents-cli-adk-lifecycle"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 3 Agent Skills Livestream",
+          "videoId": "1T2mxYZkqL0",
+          "desc": "Walkthrough of packaging custom scripts, targeting specific tasks, and deploying modular agent skills."
+        }
+      }
+    },
+    {
+      "num": "4",
+      "title": "Quality & Security",
+      "headerTitle": "Unit 4: Agent Quality, Observability, Security & Evaluation",
+      "intro": "Assure reliability in non-deterministic systems. Implement three-pillar observability (Logs, Traces, Metrics), automate evaluations with LLM-as-a-Judge, and establish Effective Trust boundaries using sandboxing and threat testing.",
+      "bullets": [
+        "<strong>Observability:</strong> Trace execution trajectories, construct timeline logs, and measure token metrics via OpenTelemetry.",
+        "<strong>Automated Evaluation:</strong> Grade agent tool paths and response qualities using labeled datasets.",
+        "<strong>Effective Trust:</strong> Enforce zero-trust security constraints, sandboxed environments, and package lock validations."
+      ],
+      "tasks": [
+        {
+          "id": "25-u4-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u4-whitepaper",
+          "text": "Dec 2025: Read 'Agent Quality' Whitepaper"
+        },
+        {
+          "id": "25-u4-lab1",
+          "text": "Dec 2025: Complete Codelab (Observability)"
+        },
+        {
+          "id": "25-u4-lab2",
+          "text": "Dec 2025: Complete Codelab (Evaluation)"
+        },
+        {
+          "id": "25-u4-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u4-podcast",
+          "text": "Jun 2026: Listen to Security & Evaluation Podcast"
+        },
+        {
+          "id": "26-u4-whitepaper",
+          "text": "Jun 2026: Read 'Security & Evaluation' Whitepaper"
+        },
+        {
+          "id": "26-u4-lab1",
+          "text": "Jun 2026: Complete Human-in-the-Loop Lab"
+        },
+        {
+          "id": "26-u4-lab2",
+          "text": "Jun 2026: Complete Security Testing Lab"
+        },
+        {
+          "id": "26-u4-live",
+          "text": "Jun 2026: Watch Security & Evaluation Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Agent Quality & Evaluation Podcast",
+          "videoId": "LFQRy-Ci-lk",
+          "desc": "Understanding automated testing, logs vs traces vs metrics, and benchmark evaluation runs."
+        },
+        "pdf": {
+          "title": "Agent Quality & Evaluation",
+          "link": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+          "desc": "Holistic evaluation strategies, OpenTelemetry pipelines, and building loop feedback flywheels."
+        },
+        "labs": [
+          {
+            "title": "Lab 4a: Agent Observability",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-4a-agent-observability"
+          },
+          {
+            "title": "Lab 4b: Agent Evaluation",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-4b-agent-evaluation"
+          }
+        ],
+        "livestream": {
+          "title": "Day 4 Q&A Livestream Panel",
+          "videoId": "JW1Yybfxyr4",
+          "desc": "Insights on debugging non-deterministic agent loops and LLM judging. Panelists: Wafae Bakkali, Turan Bulmus, Sian Gooding, Jiwei Liu, Sita Lakshmi Sangameswaran."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Security & Evaluation Podcast",
+          "videoId": "Ddz1b8CYPvg",
+          "desc": "Deep dive on sandboxing untrusted code, slopsquatting defenses, and ambient human review gating."
+        },
+        "pdf": {
+          "title": "Vibe Coding Agent Security and Evaluation",
+          "link": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
+          "desc": "Analysis of continuous verification, the Red/Blue/Green security triad, and sandboxed runtimes."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Expense Agent with HITL",
+            "url": "https://codelabs.developers.google.com/vibecode-ambient-expense-agent"
+          },
+          {
+            "title": "Lab 2: Secure AI Coding",
+            "url": "https://codelabs.developers.google.com/secure-agentic-coding"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 4 Security & Evaluation Livestream",
+          "videoId": "suWoYLD7uGY",
+          "desc": "Walkthrough of package scanners, setting permission walls, and setting up telemetry monitors."
+        }
+      }
+    },
+    {
+      "num": "5",
+      "title": "Production & Scale",
+      "headerTitle": "Unit 5: Production deployments, Agent fleets, A2A & Spec-Driven Development",
+      "intro": "Graduate prototypes to managed cloud clusters. Explore Agent-to-Agent (A2A) microservices, deploy runtimes to Google Cloud, and adopt Spec-Driven Development (SDD) to treat individual codebases as completely disposable.",
+      "bullets": [
+        "<strong>Agent-to-Agent (A2A):</strong> Connect specialized agents across secure networks, bypassing monolithic architectures.",
+        "<strong>Spec-Driven Development:</strong> Treat BDD Gherkin files as the absolute source of truth, generating code dynamically.",
+        "<strong>Production Scaling:</strong> Deploy to Vertex AI Agent Engine or Cloud Run with Policy Server governance."
+      ],
+      "tasks": [
+        {
+          "id": "25-u5-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u5-whitepaper",
+          "text": "Dec 2025: Read 'Prototype to Production' Whitepaper"
+        },
+        {
+          "id": "25-u5-lab1",
+          "text": "Dec 2025: Complete Codelab (Agent2Agent)"
+        },
+        {
+          "id": "25-u5-lab2",
+          "text": "Dec 2025: Complete Codelab (Cloud Deployment)"
+        },
+        {
+          "id": "25-u5-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u5-podcast",
+          "text": "Jun 2026: Listen to Spec-Driven SDD Podcast"
+        },
+        {
+          "id": "26-u5-whitepaper",
+          "text": "Jun 2026: Read 'Spec-Driven SDD' Whitepaper"
+        },
+        {
+          "id": "26-u5-lab1",
+          "text": "Jun 2026: Review Cloud Scaling Lab"
+        },
+        {
+          "id": "26-u5-lab2",
+          "text": "Jun 2026: Review Frontend App Codelab"
+        },
+        {
+          "id": "26-u5-live",
+          "text": "Jun 2026: Watch Spec-Driven Development Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Prototype to Production Podcast",
+          "videoId": "8Wyt9l7ge-g",
+          "desc": "Taking local agent code into enterprise clusters, versioning agents, and Vertex AI deployments."
+        },
+        "pdf": {
+          "title": "Prototype to Production Whitepaper",
+          "link": "2025/FILES/2025_Day_5_Rewrite_v1_Prototype.pdf",
+          "desc": "A blueprint for hosting, scaling, and managing autonomous agent workflows in the cloud."
+        },
+        "labs": [
+          {
+            "title": "Lab 5a: A2A Communication",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-5a-agent2agent-communication"
+          },
+          {
+            "title": "Lab 5b: Agent Cloud Deployment",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-5b-agent-deployment"
+          }
+        ],
+        "livestream": {
+          "title": "Day 5 Q&A Livestream Panel",
+          "videoId": "4XjPh5or0ws",
+          "desc": "Closing discussion on deployment architectures, scaling, and A2A. Panelists: Will Grannis, Sokratis Kartakis, Elia Secchi, Saurabh Tiwary, Laxmi Harikumar."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Spec-Driven Development Podcast",
+          "videoId": "VSRdL4wlbLY",
+          "desc": "Exploring spec-driven workflows, BDD specifications, and deploying governed agent fleets."
+        },
+        "pdf": {
+          "title": "Spec-Driven Production Grade Development",
+          "link": "2026/FILES/Day_5_v3.pdf",
+          "desc": "Treating code as disposable, zero-trust deployment pipelines, Policy Servers, and ContextResolvers."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Google Cloud Agent Scale",
+            "url": "https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud"
+          },
+          {
+            "title": "Lab 2: UI Front-End Integration",
+            "url": "https://codelabs.developers.google.com/vibecode-frontend-with-antigravity"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 5 Spec-Driven Development Livestream",
+          "videoId": "Y3HfV4IroCU",
+          "desc": "Walkthrough of zero-trust deployment, writing behavior specs, and managing Policy Server constraints."
+        }
+      }
+    }
+  ],
+  "highlights": [
+    {
+      "title": "5 Core Parts of an Agent",
+      "icon": "cpu",
+      "items": [
+        "1. <strong>The Model:</strong> LLM reasoning core.",
+        "2. <strong>Tools:</strong> APIs, function executors.",
+        "3. <strong>Memory:</strong> Short-term sessions & long-term facts.",
+        "4. <strong>Orchestration:</strong> Loops driving agent actions.",
+        "5. <strong>Deployment:</strong> hosting & cloud scales."
+      ]
+    },
+    {
+      "title": "6 Key Types of Context",
+      "icon": "database",
+      "items": [
+        "1. <strong>Instructions:</strong> Core goals & boundaries.",
+        "2. <strong>Knowledge:</strong> Domain data, retrieved documents.",
+        "3. <strong>Memory:</strong> Local session history logs.",
+        "4. <strong>Examples:</strong> Few-shot templates of output formatting.",
+        "5. <strong>Tools:</strong> Precise JSON schemas of callable APIs.",
+        "6. <strong>Guardrails:</strong> Hard rules & validation checks."
+      ]
+    },
+    {
+      "title": "3 Tiers of Code Review",
+      "icon": "git-pull-request",
+      "items": [
+        "<strong>Tier 1 - Managed:</strong> Standard off-the-shelf SaaS reviewers (e.g. Gemini Code Assist on GitHub).",
+        "<strong>Tier 2 - Hybrid:</strong> Git Actions executing coding CLI agents locally (e.g. Antigravity CLI).",
+        "<strong>Tier 3 - Custom:</strong> Specialized ADK multi-agent pipelines hosted on managed runtimes."
+      ]
+    },
+    {
+      "title": "3 Policy Gating Steps",
+      "icon": "shield-check",
+      "items": [
+        "1. <strong>Structural Check:</strong> Fast, binary environment YAML checks (e.g., block tool role access).",
+        "2. <strong>Semantic Check:</strong> Secondary LLM evaluating argument intent (safeguarding unmasked PII).",
+        "3. <strong>Execution:</strong> Run the tool, or fail/trigger self-correction dynamically."
+      ]
+    },
+    {
+      "title": "3 Durable SDD Principles",
+      "icon": "compass",
+      "items": [
+        "1. <strong>Structure scales, vibes don't:</strong> Verification, strict design specs, and test sets are mandatory.",
+        "2. <strong>AI amplifies code culture:</strong> Good engineering teams build harnesses; bad teams generate technical debt.",
+        "3. <strong>The human role is evolving:</strong> Transition from syntax developers to context architects."
+      ]
+    },
+    {
+      "title": "3 Graph Retrieval Modes",
+      "icon": "activity",
+      "items": [
+        "1. <strong>Graph Traversal (GQL):</strong> Query structures (find every function that transitively calls target API).",
+        "2. <strong>Vector Search (ANN):</strong> Semantic query lookup.",
+        "3. <strong>Full-Text Search:</strong> Exact identifier matches."
+      ]
+    },
+    {
+      "title": "3 Observability Pillars",
+      "icon": "activity",
+      "items": [
+        "1. <strong>Logs (The Diary):</strong> Detailed debug execution history.",
+        "2. <strong>Traces (The Narrative):</strong> Visual call graphs and step sequences.",
+        "3. <strong>Metrics (The Health Report):</strong> Cost, latency, and tokens usage."
+      ]
+    },
+    {
+      "title": "2 Types of Memory",
+      "icon": "database",
+      "items": [
+        "<strong>Short-term (Sessions):</strong> Context contained in a single conversation history.",
+        "<strong>Long-term (Memory Banks):</strong> Persistent facts recalled across different chat sessions."
+      ]
+    },
+    {
+      "title": "2 Integration Protocols",
+      "icon": "git-pull-request",
+      "items": [
+        "<strong>Model Context Protocol (MCP):</strong> For agent-to-tool connections.",
+        "<strong>Agent-to-Agent (A2A):</strong> For agent-to-agent remote delegation."
+      ]
+    },
+    {
+      "title": "2 Evaluation Pillars",
+      "icon": "shield-check",
+      "items": [
+        "<strong>Output Evaluation:</strong> Compares output against a correct baseline.",
+        "<strong>Trajectory Evaluation:</strong> Scans the sequence of tools called and reasoning paths."
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Agentic Architecture",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "A design pattern focusing on autonomous loop execution (perceive, plan, act, observe) rather than single-turn LLM chat prompts."
+    },
+    {
+      "term": "Agent Ops",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "Operations frameworks and disciplines required to monitor, version control, and govern agent logic in production."
+    },
+    {
+      "term": "ADK Framework",
+      "cat": "context",
+      "edition": "Dec 2025 Foundation",
+      "definition": "Agent Development Kit (ADK) - Google's toolkit for structuring agents, defining tools, and managing session loops."
+    },
+    {
+      "term": "Long-Running Operations",
+      "cat": "protocols",
+      "edition": "Dec 2025 Foundation",
+      "definition": "Gated functions enabling agents to pause executing tool tasks while awaiting manual human checkpoint clearance."
+    },
+    {
+      "term": "Context Engineering",
+      "cat": "context",
+      "edition": "Dec 2025 Foundation",
+      "definition": "The practice of dynamically assembling high-signal context information inside the model's active window."
+    },
+    {
+      "term": "Agent Quality",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "The metrics and evaluation frameworks used to score agent success rates, hallucination logs, and output validity."
+    },
+    {
+      "term": "LLM-as-a-Judge",
+      "cat": "security",
+      "edition": "Dec 2025 Foundation",
+      "definition": "An evaluation paradigm where a secondary, specialized model scores agent trajectories against pre-labeled rubrics."
+    },
+    {
+      "term": "Vertex AI Agent Engine",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "A managed hosting platform on Google Cloud designed to deploy, run, and scale ADK agents."
+    },
+    {
+      "term": "Vibe Coding",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A programming paradigm where developers express requirements in natural language and guide code-writing models to generate the implementation, acting as context architects."
+    },
+    {
+      "term": "Agentic Engineering",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A structured, disciplined methodology surrounding AI outputs with tests, sandboxes, evaluations, and policy restrictions to ensure reliability."
+    },
+    {
+      "term": "The Harness",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "The complete scaffolding wrapped around raw AI models: includes system prompts, external tools, local policies, sandboxes, sub-agents, and observability scripts."
+    },
+    {
+      "term": "Agent-to-User Interface (A2UI)",
+      "cat": "protocols",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A framework-agnostic standard ('Generative Display Window') that lets agents compositionally arrange pre-approved UI parts (cards, sliders) for safe user interactions."
+    },
+    {
+      "term": "Agent Payments Protocol (AP2)",
+      "cat": "protocols",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A protocol laying the groundwork for secure, machine-to-machine financial payments governed by human-approved spending mandates."
+    },
+    {
+      "term": "Universal Commerce Protocol (UCP)",
+      "cat": "protocols",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A programmatic commerce layer standardizing checkout, shopping cart validation, and merchant catalogs for autonomous buyer agents."
+    },
+    {
+      "term": "Agent Skills",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "Modular bundles of files and instructions structured around a central SKILL.md document. Dynamically loaded on-demand depending on task matching to prevent token overloading."
+    },
+    {
+      "term": "Context Rot",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "The degradation in reasoning ability and increase in errors when an agent's context window is overloaded with noisy or irrelevant data."
+    },
+    {
+      "term": "Progressive Disclosure",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "An optimization tactic loading full code instructions or documentation fragments only when the active task requires them."
+    },
+    {
+      "term": "Slopsquatting",
+      "cat": "security",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A security vulnerability where attackers publish malicious packages using names hallucinated by coding agents, tricking systems into importing infected libraries."
+    },
+    {
+      "term": "Effective Trust",
+      "cat": "security",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A zero-trust security architecture enforcing continuous verification, sandboxed subprocess runtimes, and trajectory check gates."
+    },
+    {
+      "term": "Spec-Driven Development (SDD)",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A development process where behavior-driven Gherkin specifications are treated as the project's source of truth, rendering individual codebases disposable."
+    },
+    {
+      "term": "Policy Server",
+      "cat": "security",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A hybrid security filter intercepting tool calls. Enforces deterministic Structural Gating (YAML roles checks) and Semantic Gating (LLM PII check)."
+    },
+    {
+      "term": "ContextResolver",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A regex utility replacing double-bracketed placeholders in templates with environment values, sanitizing inputs."
+    },
+    {
+      "term": "Model Context Protocol (MCP)",
+      "cat": "protocols",
+      "edition": "Unified Core Protocol",
+      "definition": "An open standard protocol ('the USB-C for AI tools') that instantly connects AI models directly to SQLite/Postgres databases, filesystems, and remote APIs."
+    },
+    {
+      "term": "Agent-to-Agent (A2A)",
+      "cat": "protocols",
+      "edition": "Unified Core Protocol",
+      "definition": "A standardized communication protocol ('Factory Radio') enabling distributed specialized agents to communicate, negotiate, and delegate tasks to each other."
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "Agentic Architecture",
+        "group": "sdlc",
+        "size": 26,
+        "def": "A design pattern focusing on autonomous loop execution (perceive, plan, act, observe) rather than single-turn LLM chat prompts.",
+        "takeaways": [
+          "Replaces simple chatbots",
+          "Decides next action step-by-step",
+          "Uses tools autonomously"
+        ],
+        "docLink": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Agent Ops",
+        "group": "sdlc",
+        "size": 24,
+        "def": "Operations frameworks and disciplines required to monitor, version control, and govern agent logic in production.",
+        "takeaways": [
+          "Enforces predictable outputs",
+          "Audits decision paths",
+          "Manages token spend rates"
+        ],
+        "docLink": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Long-Running Operations",
+        "group": "protocols",
+        "size": 22,
+        "def": "Gated functions enabling agents to pause executing tool tasks while awaiting manual human checkpoint clearance.",
+        "takeaways": [
+          "Allows manual review gate",
+          "Saves execution state safely",
+          "Failsafe for critical actions"
+        ],
+        "docLink": "2025/FILES/2025_Day_2_Rewrite_v1_AgentTools.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Context Engineering",
+        "group": "context",
+        "size": 24,
+        "def": "The practice of dynamically assembling high-signal context information inside the model's active window.",
+        "takeaways": [
+          "Optimizes context size",
+          "Prevents model distraction",
+          "Saves token costs"
+        ],
+        "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Sessions",
+        "group": "context",
+        "size": 20,
+        "def": "A container managing the current conversational state and active logs of a single user chat.",
+        "takeaways": [
+          "Keeps immediate chat history",
+          "Short-term working state",
+          "Isolates conversation scopes"
+        ],
+        "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Memory Banks",
+        "group": "context",
+        "size": 20,
+        "def": "Long-term vector databases holding rules, configurations, and user facts across different session chats.",
+        "takeaways": [
+          "Recalls details across runs",
+          "Avoids starting from a blank slate",
+          "Improves personalization"
+        ],
+        "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Agent Quality",
+        "group": "sdlc",
+        "size": 24,
+        "def": "The metrics and evaluation frameworks used to score agent success rates, hallucination logs, and output validity.",
+        "takeaways": [
+          "Identifies behavioral drift",
+          "Requires benchmark datasets",
+          "Uses LLM-as-a-Judge scoring"
+        ],
+        "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Observability",
+        "group": "security",
+        "size": 24,
+        "def": "The trace metrics, debugger log lines, and execution paths providing complete visibility into agent decisions.",
+        "takeaways": [
+          "Pillars: Logs, Traces, Metrics",
+          "OpenTelemetry tracing standard",
+          "Essential for auditing errors"
+        ],
+        "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "LLM-as-a-Judge",
+        "group": "security",
+        "size": 20,
+        "def": "An evaluation paradigm where a secondary, specialized model scores agent trajectories against pre-labeled rubrics.",
+        "takeaways": [
+          "Automated grading workflow",
+          "Evaluates multi-turn logic",
+          "Scores tool-call trajectories"
+        ],
+        "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Vertex AI Agent Engine",
+        "group": "sdlc",
+        "size": 22,
+        "def": "A managed hosting platform on Google Cloud designed to deploy, run, and scale ADK agents.",
+        "takeaways": [
+          "Enterprise cloud hosting",
+          "Integrates Vertex AI governance",
+          "Observes live agent fleets"
+        ],
+        "docLink": "2025/FILES/2025_Day_5_Rewrite_v1_Prototype.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Vibe Coding",
+        "group": "sdlc",
+        "size": 28,
+        "def": "A programming paradigm where developers express requirements in natural language and guide code-writing models to generate the implementation, acting as context architects.",
+        "takeaways": [
+          "Transition from syntax to intent",
+          "Code is disposable; specifications are the target",
+          "Subject to the 80% problem"
+        ],
+        "docLink": "2026/FILES/Day_1_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agentic Engineering",
+        "group": "sdlc",
+        "size": 28,
+        "def": "A disciplined engineering practice utilizing strict constraints, tests, sandboxes, and verification loops surrounding LLM outputs.",
+        "takeaways": [
+          "Structure scales, vibes don't",
+          "Requires upfront CapEx, but drops operational OpEx",
+          "Relies heavily on Harness configurations"
+        ],
+        "docLink": "2026/FILES/Day_1_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "The Harness",
+        "group": "context",
+        "size": 24,
+        "def": "The entire scaffolding wrapped around a raw reasoning model that enables it to perform complex, safe, and observable tasks.",
+        "takeaways": [
+          "Formula: Agent = Model + Harness",
+          "Includes: sandboxes, tools, prompt rules, observability hooks",
+          "Scaffold represents 90% of the engineering work"
+        ],
+        "docLink": "2026/FILES/Day_1_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agent-to-UI",
+        "group": "protocols",
+        "size": 22,
+        "def": "A secure protocol (A2UI) allowing agents to return structured, dynamic user interfaces composed of pre-approved layout components.",
+        "takeaways": [
+          "Generative UI: Composes interfaces on demand safely",
+          "Agent specifies UI intent",
+          "Client renders UI components natively (LEGO blocks)"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agent Payments Protocol",
+        "group": "protocols",
+        "size": 22,
+        "def": "An open payment protocol (AP2) providing standard transactions and cryptographically signed rules between agents and merchants.",
+        "takeaways": [
+          "Sets secure wallets and credit limits",
+          "Mandates govern spending ranges (no hidden fees)",
+          "Supports HTTP 402 microtransactions"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Universal Commerce",
+        "group": "protocols",
+        "size": 22,
+        "def": "A standard protocol (UCP) translating catalogs, carts, orders, and checkouts machine-readably for autonomous agents.",
+        "takeaways": [
+          "Bypasses scraping of customer storefronts",
+          "Enables agents to interact directly with merchant inventories",
+          "Acts as the pipeline for programmatic supply chain purchases"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agent Skills",
+        "group": "context",
+        "size": 24,
+        "def": "Portable directories organized around a SKILL.md file containing specialized prompt workflows and scripts.",
+        "takeaways": [
+          "Dynamic context packages loaded only on demand",
+          "Reduces system prompts and context bloat",
+          "Prevents context rot and attention dilution"
+        ],
+        "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Progressive Disclosure",
+        "group": "context",
+        "size": 20,
+        "def": "An optimization tactic loading full code instructions or documentation fragments only when the active task requires them.",
+        "takeaways": [
+          "Initial state has only minimal metadata",
+          "Saves token costs and prevents model distraction",
+          "Core mechanism of Google ADK and Agent Skills"
+        ],
+        "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Context Rot",
+        "group": "context",
+        "size": 20,
+        "def": "The decline of LLM reasoning performance and accuracy when the context window is stuffed with noise or generic files.",
+        "takeaways": [
+          "Caused by dumping complete repositories into prompts",
+          "Can lead to severe hallucinations or tool mistakes",
+          "Resolved by dynamic routing and RAG for tools"
+        ],
+        "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Effective Trust",
+        "group": "security",
+        "size": 24,
+        "def": "A security posture establishing continuous verification of agent execution, rather than relying on one-time authentication check gates.",
+        "takeaways": [
+          "7-pillar zero-trust security framework",
+          "Enforces sandboxed runtimes and trajectory reviews",
+          "Defends against rogue behavior or compromise"
+        ],
+        "docLink": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Slopsquatting",
+        "group": "security",
+        "size": 20,
+        "def": "A risk vector where attackers publish malicious packages using names hallucinated by coding agents, waiting to be imported.",
+        "takeaways": [
+          "Prevented by strict package locks",
+          "Requires automated safety threat scans in build pipelines",
+          "Demands sandbox barriers during local code testing"
+        ],
+        "docLink": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Spec-Driven Development",
+        "group": "sdlc",
+        "size": 26,
+        "def": "A workflow (SDD) treating behavior-driven Gherkin scenarios as the source of truth, meaning implementation code is disposable.",
+        "takeaways": [
+          "Scenarios write Given / When / Then specifications",
+          "Code can be regenerated completely in JavaScript or Python",
+          "Shifts developers from coding to review and design"
+        ],
+        "docLink": "2026/FILES/Day_5_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Policy Server",
+        "group": "security",
+        "size": 24,
+        "def": "A hybrid governance server intercepting tool calls to enforce Structural Gating (YAML roles) and Semantic Gating (LLM check).",
+        "takeaways": [
+          "Structural layer: Checks permissions deterministically in YAML",
+          "Semantic layer: Secondary LLM reviews arguments for secret leaks",
+          "Separate execution logic from governance safety"
+        ],
+        "docLink": "2026/FILES/Day_5_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "ContextResolver",
+        "group": "context",
+        "size": 20,
+        "def": "A regex utility replacing double-bracketed placeholders in templates with environment values, sanitizing inputs.",
+        "takeaways": [
+          "Pattern: replacing [[VARIABLE]] values at runtime",
+          "Avoids hardcoding keys or emails in codebase specs",
+          "Keeps reasoning window sanitized"
+        ],
+        "docLink": "2026/FILES/Day_5_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Model Context Protocol",
+        "group": "protocols",
+        "size": 26,
+        "def": "An open standard connecting models to APIs and databases natively without custom REST wrappers.",
+        "takeaways": [
+          "Standardizes integration points",
+          "Eliminates bespoke API code",
+          "Simplifies tool discovery"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Unified Core Protocol"
+      },
+      {
+        "id": "Agent-to-Agent",
+        "group": "protocols",
+        "size": 24,
+        "def": "A standard communication protocol enabling remote, domain-specific specialist agents to coordinate and share conversational state.",
+        "takeaways": [
+          "Facilitates cross-agent delegation",
+          "Avoids monolithic agent traps",
+          "A2A universal communication layer"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Unified Core Protocol"
+      }
+    ],
+    "links": [
+      {
+        "source": "Agentic Architecture",
+        "target": "Agent Ops",
+        "label": "requires"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Context Engineering",
+        "label": "uses"
+      },
+      {
+        "source": "Context Engineering",
+        "target": "Sessions",
+        "label": "manages"
+      },
+      {
+        "source": "Context Engineering",
+        "target": "Memory Banks",
+        "label": "includes"
+      },
+      {
+        "source": "Sessions",
+        "target": "Model Context Protocol",
+        "label": "connects to"
+      },
+      {
+        "source": "Model Context Protocol",
+        "target": "Long-Running Operations",
+        "label": "allows"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Agent Quality",
+        "label": "evaluated by"
+      },
+      {
+        "source": "Agent Quality",
+        "target": "Observability",
+        "label": "needs"
+      },
+      {
+        "source": "Observability",
+        "target": "LLM-as-a-Judge",
+        "label": "drives"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Agent-to-Agent",
+        "label": "delegates via"
+      },
+      {
+        "source": "Agent-to-Agent",
+        "target": "Vertex AI Agent Engine",
+        "label": "hosted on"
+      },
+      {
+        "source": "Vibe Coding",
+        "target": "Agentic Engineering",
+        "label": "evolves to"
+      },
+      {
+        "source": "Agentic Engineering",
+        "target": "The Harness",
+        "label": "requires"
+      },
+      {
+        "source": "The Harness",
+        "target": "Model Context Protocol",
+        "label": "includes"
+      },
+      {
+        "source": "The Harness",
+        "target": "Agent Skills",
+        "label": "includes"
+      },
+      {
+        "source": "Model Context Protocol",
+        "target": "Agent-to-Agent",
+        "label": "coexists with"
+      },
+      {
+        "source": "Agent-to-Agent",
+        "target": "Agent-to-UI",
+        "label": "extends to"
+      },
+      {
+        "source": "Agent-to-Agent",
+        "target": "Agent Payments Protocol",
+        "label": "enables"
+      },
+      {
+        "source": "Agent Payments Protocol",
+        "target": "Universal Commerce",
+        "label": "secures"
+      },
+      {
+        "source": "Agent Skills",
+        "target": "Progressive Disclosure",
+        "label": "implements"
+      },
+      {
+        "source": "Progressive Disclosure",
+        "target": "Context Rot",
+        "label": "prevents"
+      },
+      {
+        "source": "The Harness",
+        "target": "Effective Trust",
+        "label": "enforces"
+      },
+      {
+        "source": "Effective Trust",
+        "target": "Slopsquatting",
+        "label": "defends against"
+      },
+      {
+        "source": "Agentic Engineering",
+        "target": "Spec-Driven Development",
+        "label": "implements"
+      },
+      {
+        "source": "Spec-Driven Development",
+        "target": "Policy Server",
+        "label": "requires"
+      },
+      {
+        "source": "Policy Server",
+        "target": "ContextResolver",
+        "label": "incorporates"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Vibe Coding",
+        "label": "matures to"
+      },
+      {
+        "source": "Agent Ops",
+        "target": "Spec-Driven Development",
+        "label": "standardized by"
+      },
+      {
+        "source": "Observability",
+        "target": "Effective Trust",
+        "label": "enables telemetry for"
+      }
+    ]
+  }
+};
+
+    // Centralized Google Drive links configuration.
+    // Replace these placeholder links with the actual Google Drive shareable URLs for each file.
+    const PDF_DRIVE_LINKS = {
+      // 2025 Cohort Papers
+      "2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY1_DRIVE_ID/view?usp=sharing",
+      "2025_Day_2_Rewrite_v1_AgentTools.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY2_DRIVE_ID/view?usp=sharing",
+      "2025_Day_3_Rewrite_v1_ContextEngineering.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY3_DRIVE_ID/view?usp=sharing",
+      "2025_Day_4_Rewrite_v1_AgentQuality.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY4_DRIVE_ID/view?usp=sharing",
+      "2025_Day_5_Rewrite_v1_Prototype.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY5_DRIVE_ID/view?usp=sharing",
+
+      // 2026 Cohort Papers
+      "Day_1_v3.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY1_DRIVE_ID/view?usp=sharing",
+      "Agent Tools & Interoperability_Day_2.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY2_DRIVE_ID/view?usp=sharing",
+      "Agent Skills_Day_3.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY3_DRIVE_ID/view?usp=sharing",
+      "Vibe Coding Agent Security and Evaluation_Day_4.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY4_DRIVE_ID/view?usp=sharing",
+      "Day_5_v3.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY5_DRIVE_ID/view?usp=sharing"
+    };
+
+    // Helper to resolve local PDF path to Google Drive link if available
+    function resolvePdfLink(localPath) {
+      if (!localPath) return "#";
+      const filename = localPath.split('/').pop();
+      if (PDF_DRIVE_LINKS[filename] && !PDF_DRIVE_LINKS[filename].includes("YOUR_")) {
+        return PDF_DRIVE_LINKS[filename];
+      }
+      return localPath; // Fallback to local file path
+    }
+
     // State management & LocalStorage hooks
     const state = {
-      theme: 'light',
       completedItems: JSON.parse(localStorage.getItem('course-progress') || '{}'),
       activeTab: 'dashboard',
-      activeDay: '1'
+      activeUnit: '1'
     };
 
     // DOM Elements
@@ -1887,12 +2967,7 @@
     const viewTitle = document.getElementById('viewTitle');
     const viewSubtitle = document.getElementById('viewSubtitle');
 
-    // Sub-day tabs (Day 1-5 subtabs)
-    const dayTabs = document.querySelectorAll('.day-subtab');
-    const dayPanes = document.querySelectorAll('.day-content-panel');
-
-    // Checkboxes progress tracker
-    const progressCheckboxes = document.querySelectorAll('.tracker-cb');
+    // Toast Notification widget
     const toastBox = document.getElementById('toastBox');
     const toastMsg = document.getElementById('toastMsg');
 
@@ -1900,7 +2975,6 @@
     const videoModal = document.getElementById('videoModal');
     const videoPlayer = document.getElementById('videoPlayer');
     const closeVideoBtn = document.getElementById('closeVideoBtn');
-    const videoTriggers = document.querySelectorAll('.play-video-trigger');
 
     // 1. Initial State Sync
     function init() {
@@ -1910,46 +2984,491 @@
       // Setup icons
       lucide.createIcons();
 
-      // Check previously saved items
-      progressCheckboxes.forEach(cb => {
-        const id = cb.getAttribute('data-id');
-        if (state.completedItems[id]) {
-          cb.checked = true;
-        }
-        cb.addEventListener('change', handleProgressChange);
-      });
-
-      // Wire navigation
-      navItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const tabName = item.getAttribute('data-tab');
-          switchTab(tabName);
-        });
-      });
-
-      // Wire Day syllabus subtabs
-      dayTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const dayNum = tab.getAttribute('data-day');
-          switchDay(dayNum);
-        });
-      });
-
-      // Wire search box filter
+      // Bind global event listeners
       globalSearch.addEventListener('input', handleSearch);
-
-      // Wire video triggers
-      videoTriggers.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const videoId = btn.getAttribute('data-video-id');
-          openVideo(videoId);
-        });
-      });
-
       closeVideoBtn.addEventListener('click', closeVideo);
       videoModal.addEventListener('click', (e) => {
         if (e.target === videoModal) closeVideo();
       });
+      document.getElementById('glossarySearch').addEventListener('input', filterGlossary);
+
+      // Wire tab links
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          switchTab(item.getAttribute('data-tab'));
+        });
+      });
+
+      // Render Views
+      renderViews();
+    }
+
+    // Global Renderer based on unified datasets
+    function renderViews() {
+      const data = COURSE_DATA;
+
+      // Update Overview Banner
+      document.getElementById('heroTitle').innerText = data.title;
+      document.getElementById('heroText').innerHTML = data.overview;
+
+
+
+      // Update Syllabus subtabs (units)
+      const subtabs = document.getElementById('syllabusSubtabs');
+      subtabs.innerHTML = '';
+      data.syllabus.forEach((unit, index) => {
+        const btn = document.createElement('button');
+        btn.className = `day-subtab ${index === 0 ? 'active' : ''}`;
+        btn.setAttribute('data-unit', unit.num);
+        btn.innerText = unit.title;
+        btn.addEventListener('click', () => {
+          subtabs.querySelectorAll('.day-subtab').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          switchSyllabusUnit(unit.num);
+        });
+        subtabs.appendChild(btn);
+      });
+
+      // Update Syllabus unit view pane content
+      switchSyllabusUnit('1');
+
+      // Update Highlights grid card details
+      const highlightsGrid = document.getElementById('highlightsGrid');
+      highlightsGrid.innerHTML = '';
+      data.highlights.forEach(hl => {
+        const card = document.createElement('div');
+        card.className = 'highlight-card';
+        
+        let listItems = '';
+        hl.items.forEach(item => {
+          listItems += `<li>${item}</li>`;
+        });
+
+        card.innerHTML = `
+          <div class="highlight-card-header">
+            <i data-lucide="award"></i>
+            <h4>${hl.title}</h4>
+          </div>
+          <ul class="highlight-card-list">
+            ${listItems}
+          </ul>
+        `;
+        highlightsGrid.appendChild(card);
+      });
+
+      // Update Glossary Filter Pills
+      const pillsContainer = document.getElementById('glossaryFilters');
+      pillsContainer.innerHTML = '';
+      
+      const pillsConfig = [
+        { label: 'All Terms', filter: 'all' },
+        { label: 'SDLC & Paradigms', filter: 'sdlc' },
+        { label: 'Protocols', filter: 'protocols' },
+        { label: 'Context & Memory', filter: 'context' },
+        { label: 'Security & Evals', filter: 'security' }
+      ];
+
+      pillsConfig.forEach((pill, index) => {
+        const btn = document.createElement('button');
+        btn.className = `glossary-pill ${index === 0 ? 'active' : ''}`;
+        btn.setAttribute('data-filter', pill.filter);
+        btn.innerText = pill.label;
+        btn.addEventListener('click', () => {
+          pillsContainer.querySelectorAll('.glossary-pill').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          renderGlossary(pill.filter);
+        });
+        pillsContainer.appendChild(btn);
+      });
+
+      // Redraw Glossary list
+      renderGlossary('all');
+
+      // Update All Resources view tab list grid
+      const resourcesGrid = document.getElementById('resourcesGrid');
+      resourcesGrid.innerHTML = '';
+
+      // Whitepapers
+      const papersSection = document.createElement('div');
+      papersSection.className = 'resource-category-section search-target-block';
+      papersSection.setAttribute('data-type', 'whitepaper');
+      papersSection.innerHTML = `<h3 class="resource-category-title">📄 Whitepapers</h3>`;
+      
+      const papersList = document.createElement('div');
+      papersList.className = 'resource-list';
+      
+      data.syllabus.forEach(unit => {
+        // Foundation
+        const fPaper = unit.foundation.pdf;
+        const fCard = document.createElement('div');
+        fCard.className = 'resource-item-card';
+        fCard.setAttribute('data-search-term', `${fPaper.title.toLowerCase()} unit ${unit.num} whitepaper dec 2025 foundation`);
+        fCard.innerHTML = `
+          <div class="resource-item-icon" style="color:#6366f1;"><i data-lucide="file"></i></div>
+          <div class="resource-item-details">
+            <div class="resource-item-name">${fPaper.title}</div>
+            <div class="resource-item-meta">Unit ${unit.num} • Dec 2025 Foundation</div>
+            <a href="${resolvePdfLink(fPaper.link)}" target="_blank" class="resource-item-link">Open PDF <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+          </div>
+        `;
+        papersList.appendChild(fCard);
+
+        // Advanced
+        const aPaper = unit.advanced.pdf;
+        const aCard = document.createElement('div');
+        aCard.className = 'resource-item-card';
+        aCard.setAttribute('data-search-term', `${aPaper.title.toLowerCase()} unit ${unit.num} whitepaper jun 2026 advanced`);
+        aCard.innerHTML = `
+          <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="file-text"></i></div>
+          <div class="resource-item-details">
+            <div class="resource-item-name">${aPaper.title}</div>
+            <div class="resource-item-meta">Unit ${unit.num} • Jun 2026 Advanced</div>
+            <a href="${resolvePdfLink(aPaper.link)}" target="_blank" class="resource-item-link">Open PDF <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+          </div>
+        `;
+        papersList.appendChild(aCard);
+      });
+      papersSection.appendChild(papersList);
+      resourcesGrid.appendChild(papersSection);
+
+      // Podcasts
+      const podcastsSection = document.createElement('div');
+      podcastsSection.className = 'resource-category-section search-target-block';
+      podcastsSection.setAttribute('data-type', 'podcast');
+      podcastsSection.innerHTML = `<h3 class="resource-category-title">🎙️ Summary Podcasts</h3>`;
+      
+      const podcastsList = document.createElement('div');
+      podcastsList.className = 'resource-list';
+
+      data.syllabus.forEach(unit => {
+        // Foundation podcast
+        const fPod = unit.foundation.podcast;
+        const fCard = document.createElement('div');
+        fCard.className = 'resource-item-card';
+        fCard.setAttribute('data-search-term', `${fPod.title.toLowerCase()} unit ${unit.num} podcast dec 2025 foundation`);
+        fCard.innerHTML = `
+          <div class="resource-item-icon" style="color:#6366f1;"><i data-lucide="youtube"></i></div>
+          <div class="resource-item-details">
+            <div class="resource-item-name">${fPod.title}</div>
+            <div class="resource-item-meta">Unit ${unit.num} • Dec 2025 Foundation</div>
+            <button class="resource-item-link play-video-trigger" data-video-id="${fPod.videoId}" style="background:none;border:none;cursor:pointer;font-family:inherit;color:#6366f1;padding:0;">Listen Now <i data-lucide="play" style="width:10px;height:10px;"></i></button>
+          </div>
+        `;
+        fCard.querySelector('.play-video-trigger').addEventListener('click', () => openVideo(fPod.videoId));
+        podcastsList.appendChild(fCard);
+
+        // Advanced podcast
+        const aPod = unit.advanced.podcast;
+        const aCard = document.createElement('div');
+        aCard.className = 'resource-item-card';
+        aCard.setAttribute('data-search-term', `${aPod.title.toLowerCase()} unit ${unit.num} podcast jun 2026 advanced`);
+        aCard.innerHTML = `
+          <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
+          <div class="resource-item-details">
+            <div class="resource-item-name">${aPod.title}</div>
+            <div class="resource-item-meta">Unit ${unit.num} • Jun 2026 Advanced</div>
+            <button class="resource-item-link play-video-trigger" data-video-id="${aPod.videoId}" style="background:none;border:none;cursor:pointer;font-family:inherit;color:#a855f7;padding:0;">Listen Now <i data-lucide="play" style="width:10px;height:10px;"></i></button>
+          </div>
+        `;
+        aCard.querySelector('.play-video-trigger').addEventListener('click', () => openVideo(aPod.videoId));
+        podcastsList.appendChild(aCard);
+      });
+      podcastsSection.appendChild(podcastsList);
+      resourcesGrid.appendChild(podcastsSection);
+
+      // Livestreams
+      const liveSection = document.createElement('div');
+      liveSection.className = 'resource-category-section search-target-block';
+      liveSection.setAttribute('data-type', 'livestream');
+      liveSection.innerHTML = `<h3 class="resource-category-title">📺 Q&A YouTube Livestreams</h3>`;
+      
+      const liveList = document.createElement('div');
+      liveList.className = 'resource-list';
+
+      data.syllabus.forEach(unit => {
+        // Foundation livestream
+        const fLive = unit.foundation.livestream;
+        const fCard = document.createElement('div');
+        fCard.className = 'resource-item-card';
+        fCard.setAttribute('data-search-term', `${fLive.title.toLowerCase()} unit ${unit.num} livestream dec 2025 foundation`);
+        fCard.innerHTML = `
+          <div class="resource-item-icon" style="color:#ef4444;"><i data-lucide="video"></i></div>
+          <div class="resource-item-details">
+            <div class="resource-item-name">${fLive.title}</div>
+            <div class="resource-item-meta">Unit ${unit.num} • Dec 2025 Foundation</div>
+            <button class="resource-item-link play-video-trigger" data-video-id="${fLive.videoId}" style="background:none;border:none;cursor:pointer;font-family:inherit;color:#ef4444;padding:0;">Watch Panel <i data-lucide="external-link" style="width:10px;height:10px;"></i></button>
+          </div>
+        `;
+        fCard.querySelector('.play-video-trigger').addEventListener('click', () => openVideo(fLive.videoId));
+        liveList.appendChild(fCard);
+
+        // Advanced livestream
+        const aLive = unit.advanced.livestream;
+        const aCard = document.createElement('div');
+        aCard.className = 'resource-item-card';
+        aCard.setAttribute('data-search-term', `${aLive.title.toLowerCase()} unit ${unit.num} livestream jun 2026 advanced`);
+        aCard.innerHTML = `
+          <div class="resource-item-icon" style="color:#ef4444;"><i data-lucide="video"></i></div>
+          <div class="resource-item-details">
+            <div class="resource-item-name">${aLive.title}</div>
+            <div class="resource-item-meta">Unit ${unit.num} • Jun 2026 Advanced</div>
+            <button class="resource-item-link play-video-trigger" data-video-id="${aLive.videoId}" style="background:none;border:none;cursor:pointer;font-family:inherit;color:#ef4444;padding:0;">Watch Panel <i data-lucide="external-link" style="width:10px;height:10px;"></i></button>
+          </div>
+        `;
+        aCard.querySelector('.play-video-trigger').addEventListener('click', () => openVideo(aLive.videoId));
+        liveList.appendChild(aCard);
+      });
+      liveSection.appendChild(liveList);
+      resourcesGrid.appendChild(liveSection);
+
+      // Codelabs
+      const labsSection = document.createElement('div');
+      labsSection.className = 'resource-category-section search-target-block';
+      labsSection.setAttribute('data-type', 'codelab');
+      labsSection.innerHTML = `<h3 class="resource-category-title">💻 Hands-on Codelabs</h3>`;
+      
+      const labsList = document.createElement('div');
+      labsList.className = 'resource-list';
+
+      data.syllabus.forEach(unit => {
+        // Foundation labs
+        unit.foundation.labs.forEach((lab, idx) => {
+          const card = document.createElement('div');
+          card.className = 'resource-item-card';
+          card.setAttribute('data-search-term', `${lab.title.toLowerCase()} unit ${unit.num} codelab dec 2025 foundation`);
+          card.innerHTML = `
+            <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+            <div class="resource-item-details">
+              <div class="resource-item-name">${lab.title}</div>
+              <div class="resource-item-meta">Unit ${unit.num} • Dec 2025 Foundation • Lab ${idx + 1}</div>
+              <a href="${lab.url}" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+            </div>
+          `;
+          labsList.appendChild(card);
+        });
+
+        // Advanced labs
+        unit.advanced.labs.forEach((lab, idx) => {
+          const card = document.createElement('div');
+          card.className = 'resource-item-card';
+          card.setAttribute('data-search-term', `${lab.title.toLowerCase()} unit ${unit.num} codelab jun 2026 advanced`);
+          card.innerHTML = `
+            <div class="resource-item-icon" style="color:#059669;"><i data-lucide="code-2"></i></div>
+            <div class="resource-item-details">
+              <div class="resource-item-name">${lab.title}</div>
+              <div class="resource-item-meta">Unit ${unit.num} • Jun 2026 Advanced • Lab ${idx + 1}</div>
+              <a href="${lab.url}" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+            </div>
+          `;
+          labsList.appendChild(card);
+        });
+      });
+      labsSection.appendChild(labsList);
+      resourcesGrid.appendChild(labsSection);
+
+      // Refresh icons & title heights
+      lucide.createIcons();
+      switchTab(state.activeTab);
+    }
+
+    // Switch Syllabus unit layout
+    function switchSyllabusUnit(unitNum) {
+      state.activeUnit = unitNum;
+      const data = COURSE_DATA.syllabus.find(d => d.num === unitNum);
+      if (!data) return;
+
+      // Update objectives
+      const objectivesBox = document.getElementById('syllabusObjectives');
+      let bulletsList = '';
+      data.bullets.forEach(b => {
+        bulletsList += `
+          <li>
+            <i data-lucide="check-circle-2"></i>
+            <span>${b}</span>
+          </li>
+        `;
+      });
+
+      objectivesBox.innerHTML = `
+        <h3><i data-lucide="graduation-cap"></i> ${data.headerTitle}</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.25rem;">${data.intro}</p>
+        <ul class="learning-objectives-list">
+          ${bulletsList}
+        </ul>
+      `;
+
+      // Update checklist tasks
+      const checklistBox = document.getElementById('syllabusChecklist');
+      checklistBox.innerHTML = '';
+      
+      const fTasks = data.tasks.filter(t => t.id.startsWith('25-'));
+      const aTasks = data.tasks.filter(t => t.id.startsWith('26-'));
+
+      function createChecklistItem(t) {
+        const item = document.createElement('label');
+        item.className = 'checklist-item';
+        const isChecked = state.completedItems[t.id] ? 'checked' : '';
+        item.innerHTML = `
+          <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="${t.id}" ${isChecked}>
+          <span class="checklist-text">${t.text}</span>
+        `;
+        item.querySelector('.tracker-cb').addEventListener('change', handleProgressChange);
+        return item;
+      }
+
+      if (fTasks.length > 0) {
+        const header = document.createElement('div');
+        header.style = "font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#6366f1; letter-spacing:0.5px; margin-bottom:0.5rem; border-bottom:1px solid rgba(99, 102, 241, 0.2); padding-bottom:2px;";
+        header.innerText = "Dec 2025 Foundations Tasks";
+        checklistBox.appendChild(header);
+        
+        fTasks.forEach(t => {
+          checklistBox.appendChild(createChecklistItem(t));
+        });
+      }
+
+      if (aTasks.length > 0) {
+        const header = document.createElement('div');
+        header.style = "font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#a855f7; letter-spacing:0.5px; margin-top:1rem; margin-bottom:0.5rem; border-bottom:1px solid rgba(168, 85, 247, 0.2); padding-bottom:2px;";
+        header.innerText = "Jun 2026 Advanced Tasks";
+        checklistBox.appendChild(header);
+        
+        aTasks.forEach(t => {
+          checklistBox.appendChild(createChecklistItem(t));
+        });
+      }
+
+      // Update daily resource cards (Render both tracks)
+      const resourcesBox = document.getElementById('syllabusResources');
+      resourcesBox.innerHTML = `
+        <div class="edition-header" style="display:flex; align-items:center; gap:0.5rem; margin: 1.5rem 0 1rem 0; color:#6366f1; font-weight:800; font-size:1.2rem; font-family:var(--font-display);">
+          <i data-lucide="award" style="width:20px;height:20px;"></i> Dec 2025 Foundation Track
+        </div>
+        <div class="daily-grid" id="foundationGrid" style="margin-bottom:2rem;"></div>
+
+        <div class="edition-header" style="display:flex; align-items:center; gap:0.5rem; margin: 2rem 0 1rem 0; color:#a855f7; font-weight:800; font-size:1.2rem; font-family:var(--font-display);">
+          <i data-lucide="zap" style="width:20px;height:20px;"></i> Jun 2026 Advanced Track (Vibe Coding Stack)
+        </div>
+        <div class="daily-grid" id="advancedGrid" style="margin-bottom:1rem;"></div>
+      `;
+
+      const foundationGrid = document.getElementById('foundationGrid');
+      const advancedGrid = document.getElementById('advancedGrid');
+
+      // Populate Foundation track cards
+      renderTrackCards(data.foundation, foundationGrid);
+      // Populate Advanced track cards
+      renderTrackCards(data.advanced, advancedGrid);
+
+      lucide.createIcons();
+    }
+
+    // Helper to generate resources cards for a given track (foundation or advanced)
+    function renderTrackCards(track, container) {
+      // 1. Podcast Card
+      const podCard = document.createElement('div');
+      podCard.className = 'glass-card daily-section-card';
+      podCard.innerHTML = `
+        <div>
+          <div class="card-header-icon">
+            <span class="card-tag podcast">Podcast Summary</span>
+            <i data-lucide="headphones" style="color: #a855f7;"></i>
+          </div>
+          <h3 class="card-title">${track.podcast.title}</h3>
+          <p class="card-desc">${track.podcast.desc}</p>
+          <div class="media-player-preview">
+            <button class="media-play-btn play-video-trigger" data-video-id="${track.podcast.videoId}">
+              <i data-lucide="play"></i>
+            </button>
+            <div class="media-track-info">
+              <div class="media-track-title">Listen on YouTube</div>
+              <div class="media-track-meta">Duration: ~20 mins</div>
+            </div>
+          </div>
+        </div>
+        <button class="card-action-btn play-video-trigger" data-video-id="${track.podcast.videoId}">
+          <i data-lucide="youtube"></i> Play Podcast
+        </button>
+      `;
+      podCard.querySelectorAll('.play-video-trigger').forEach(btn => {
+        btn.addEventListener('click', () => openVideo(track.podcast.videoId));
+      });
+      container.appendChild(podCard);
+
+      // 2. Whitepaper Card
+      const paperCard = document.createElement('div');
+      paperCard.className = 'glass-card daily-section-card';
+      paperCard.innerHTML = `
+        <div>
+          <div class="card-header-icon">
+            <span class="card-tag whitepaper">Core Whitepaper</span>
+            <i data-lucide="file-text" style="color: #3b82f6;"></i>
+          </div>
+          <h3 class="card-title">${track.pdf.title}</h3>
+          <p class="card-desc">${track.pdf.desc}</p>
+        </div>
+        <a href="${resolvePdfLink(track.pdf.link)}" target="_blank" class="card-action-btn">
+          <i data-lucide="file-down"></i> Open PDF Document
+        </a>
+      `;
+      container.appendChild(paperCard);
+
+      // 3. Codelabs Card
+      const labsCard = document.createElement('div');
+      labsCard.className = 'glass-card daily-section-card';
+      
+      let buttonsHtml = '';
+      track.labs.forEach((lab, idx) => {
+        buttonsHtml += `
+          <a href="${lab.url}" target="_blank" class="card-action-btn ${idx > 0 ? 'secondary' : ''}">
+            <i data-lucide="link"></i> ${lab.title}
+          </a>
+        `;
+      });
+      labsCard.innerHTML = `
+        <div>
+          <div class="card-header-icon">
+            <span class="card-tag codelab">Codelabs</span>
+            <i data-lucide="code-2" style="color: #10b981;"></i>
+          </div>
+          <h3 class="card-title">Practice Notebooks</h3>
+          <p class="card-desc">Execute hands-on exercises in notebook environments to implement developer steps.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.5rem;">
+          ${buttonsHtml}
+        </div>
+      `;
+      container.appendChild(labsCard);
+
+      // 4. Livestream Card
+      const liveCard = document.createElement('div');
+      liveCard.className = 'glass-card daily-section-card';
+      liveCard.innerHTML = `
+        <div>
+          <div class="card-header-icon">
+            <span class="card-tag livestream" style="background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15);">Q&A Livestream</span>
+            <i data-lucide="video" style="color: #ef4444;"></i>
+          </div>
+          <h3 class="card-title">${track.livestream.title}</h3>
+          <p class="card-desc">${track.livestream.desc}</p>
+          <div class="media-player-preview">
+            <button class="media-play-btn play-video-trigger" data-video-id="${track.livestream.videoId}" style="background: var(--red-grad); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);">
+              <i data-lucide="play"></i>
+            </button>
+            <div class="media-track-info">
+              <div class="media-track-title">Watch Review Session</div>
+              <div class="media-track-meta">YouTube livestream recording</div>
+            </div>
+          </div>
+        </div>
+        <button class="card-action-btn play-video-trigger" data-video-id="${track.livestream.videoId}" style="background: var(--red-grad);">
+          <i data-lucide="youtube"></i> Watch Livestream
+        </button>
+      `;
+      liveCard.querySelectorAll('.play-video-trigger').forEach(btn => {
+        btn.addEventListener('click', () => openVideo(track.livestream.videoId));
+      });
+      container.appendChild(liveCard);
     }
 
     // 2. Navigation Actions
@@ -1982,6 +3501,14 @@
           title: 'Syllabus by Topic',
           sub: 'Access the podcasts, read whitepapers, and build step-by-step developer codelabs.'
         },
+        'knowledge-graph': {
+          title: 'Interactive Knowledge Graph',
+          sub: 'Hover to trace connections, and click nodes to view key takeaways and source whitepapers.'
+        },
+        'takeaways-glossary': {
+          title: 'Highlights & Term Glossary',
+          sub: 'Quick list cheat-sheets and a searchable glossary catalog summarizing the core papers.'
+        },
         'all-resources': {
           title: 'All Resource Directory',
           sub: 'Search and inspect all downloadable items, links, tools, and readings in one view.'
@@ -1992,38 +3519,20 @@
         viewTitle.innerText = headers[tabName].title;
         viewSubtitle.innerText = headers[tabName].sub;
       }
-    }
 
-    function switchDay(dayNum) {
-      dayTabs.forEach(tab => {
-        if (tab.getAttribute('data-day') === dayNum) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
-        }
-      });
-
-      dayPanes.forEach((pane, idx) => {
-        if (idx + 1 === parseInt(dayNum)) {
-          pane.style.display = 'block';
-        } else {
-          pane.style.display = 'none';
-        }
-      });
-
-      state.activeDay = dayNum;
+      if (tabName === 'knowledge-graph') {
+        initGraph();
+      }
     }
 
     // 3. Search / Filtering Functionality
     function handleSearch(e) {
       const query = e.target.value.toLowerCase().trim();
 
-      // If user starts typing, auto-switch to "all-resources" tab to show results clearly
       if (query.length > 0 && state.activeTab !== 'all-resources') {
         switchTab('all-resources');
       }
 
-      // Filter in All Resources cards
       const resourceCards = document.querySelectorAll('.resource-item-card');
       resourceCards.forEach(card => {
         const text = card.getAttribute('data-search-term') || '';
@@ -2037,7 +3546,6 @@
         }
       });
 
-      // Hide category headings if they have no visible child elements
       const categories = document.querySelectorAll('.resource-category-section');
       categories.forEach(cat => {
         const visibleCards = cat.querySelectorAll('.resource-item-card[style="display: flex;"]');
@@ -2045,6 +3553,99 @@
           cat.style.display = 'none';
         } else {
           cat.style.display = 'block';
+        }
+      });
+    }
+    // 4. Glossary Rendering and Filtering
+    function renderGlossary(filterCategory) {
+      const data = COURSE_DATA;
+      const tbody = document.getElementById('glossaryBody');
+      tbody.innerHTML = '';
+      
+      const filtered = filterCategory === 'all' 
+        ? data.glossary 
+        : data.glossary.filter(d => d.cat === filterCategory);
+
+      const categoryBadges = {
+        sdlc: { bg: '#e0e7ff', color: '#4f46e5', label: 'SDLC & Paradigms' },
+        protocols: { bg: '#e0f2fe', color: '#0369a1', label: 'Protocols' },
+        context: { bg: '#dcfce7', color: '#15803d', label: 'Context & Memory' },
+        security: { bg: '#fee2e2', color: '#b91c1c', label: 'Security & Evals' }
+      };
+
+      // Helper to map term to document link
+      const getDocLink = (term, edition) => {
+        const lowerTerm = term.toLowerCase();
+        if (lowerTerm.includes("agent-to-user")) return "2026/FILES/Agent Tools & Interoperability_Day_2.pdf";
+        if (lowerTerm.includes("payments")) return "2026/FILES/Agent Tools & Interoperability_Day_2.pdf";
+        if (lowerTerm.includes("universal commerce")) return "2026/FILES/Agent Tools & Interoperability_Day_2.pdf";
+        if (lowerTerm.includes("model context")) return "2026/FILES/Agent Tools & Interoperability_Day_2.pdf";
+        if (lowerTerm.includes("agent-to-agent")) return "2026/FILES/Agent Tools & Interoperability_Day_2.pdf";
+        if (lowerTerm.includes("spec-driven")) return "2026/FILES/Day_5_v3.pdf";
+        if (lowerTerm.includes("adk framework")) return "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf";
+        
+        const node = data.graph.nodes.find(n => {
+          const nId = n.id.toLowerCase();
+          return lowerTerm.includes(nId) || nId.includes(lowerTerm);
+        });
+        if (node) return node.docLink;
+        
+        if (edition.includes("2025")) return "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf";
+        return "2026/FILES/Day_1_v3.pdf";
+      };
+
+      filtered.forEach(item => {
+        const badge = categoryBadges[item.cat];
+        const tr = document.createElement('tr');
+        tr.setAttribute('data-term-name', item.term.toLowerCase());
+        tr.setAttribute('data-term-definition', item.definition.toLowerCase());
+        tr.setAttribute('data-term-edition', item.edition.toLowerCase());
+        
+        let editionTagStyle = "font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; margin-left: 0.5rem; display:inline-block;";
+        let editionTagColor = item.edition.includes('2025') 
+          ? "background: rgba(99, 102, 241, 0.08); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.15);" 
+          : item.edition.includes('2026') 
+            ? "background: rgba(168, 85, 247, 0.08); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.15);"
+            : "background: rgba(16, 185, 129, 0.08); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.15);";
+
+        const localDocLink = getDocLink(item.term, item.edition);
+        const resolvedDocLink = resolvePdfLink(localDocLink);
+        const docFilename = localDocLink.split('/').pop() || "Document.pdf";
+
+        tr.innerHTML = `
+          <td>
+            <span class="glossary-term-badge">${item.term}</span>
+            <div style="display:flex; gap:0.25rem; margin-top:0.35rem; flex-wrap:wrap;">
+              <span class="glossary-cat-tag" style="background:${badge.bg}; color:${badge.color}; font-size: 0.7rem; font-weight:600; padding: 0.1rem 0.35rem; border-radius:4px;">${badge.label}</span>
+              <span style="${editionTagStyle} ${editionTagColor}">${item.edition}</span>
+            </div>
+          </td>
+          <td style="font-size:0.92rem; line-height:1.5; color: var(--text-main);">${item.definition}</td>
+          <td>
+            <a href="${resolvedDocLink}" target="_blank" style="display:inline-flex; align-items:center; gap:0.35rem; color:#6366f1; text-decoration:none; font-size:0.8rem; font-weight:600; background:rgba(99,102,241,0.05); padding:0.4rem 0.75rem; border-radius:6px; border:1px solid rgba(99,102,241,0.1);" title="Open original whitepaper for ${item.term}">
+              <i data-lucide="file-text" style="width:14px; height:14px;"></i>
+              <span style="max-width:130px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${docFilename}</span>
+            </a>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      
+      // Refresh icons for new document icons
+      lucide.createIcons();
+    }
+
+    function filterGlossary(e) {
+      const query = e.target.value.toLowerCase().trim();
+      const rows = document.querySelectorAll('#glossaryBody tr');
+      rows.forEach(row => {
+        const term = row.getAttribute('data-term-name');
+        const def = row.getAttribute('data-term-definition');
+        const ed = row.getAttribute('data-term-edition');
+        if (term.includes(query) || def.includes(query) || ed.includes(query)) {
+          row.style.display = 'table-row';
+        } else {
+          row.style.display = 'none';
         }
       });
     }
@@ -2087,6 +3688,181 @@
         toastBox.classList.remove('show');
       }, 2500);
     }
+
+    // 8. D3 KNOWLEDGE GRAPH ENGINE
+    let graphInitialized = false;
+    function initGraph() {
+      if (graphInitialized) return;
+      graphInitialized = true;
+
+      const svg = d3.select("#conceptGraph");
+      const container = svg.node().getBoundingClientRect();
+      const width = container.width || 600;
+      const height = container.height || 500;
+
+      // Clear previous elements
+      svg.selectAll("*").remove();
+
+      // Get current course graph data
+      const data = COURSE_DATA.graph;
+      
+      // Clone nodes and links
+      const nodes = data.nodes.map(n => ({...n}));
+      const links = data.links.map(l => ({...l}));
+
+      // Groups colors
+      const groupColors = {
+        sdlc: "#8b5cf6", // Purple
+        protocols: "#06b6d4", // Cyan
+        context: "#10b981", // Green
+        security: "#ef4444" // Red
+      };
+
+      // Zoom support
+      const mainGroup = svg.append("g");
+      const zoom = d3.zoom()
+        .scaleExtent([0.3, 2.5])
+        .on("zoom", (e) => {
+          mainGroup.attr("transform", e.transform);
+        });
+      svg.call(zoom);
+
+      // Links drawing
+      const link = mainGroup.selectAll(".link")
+        .data(links)
+        .enter().append("line")
+        .attr("class", "link");
+
+      // Nodes drawing
+      const node = mainGroup.selectAll(".node")
+        .data(nodes)
+        .enter().append("circle")
+        .attr("class", "node")
+        .attr("r", d => d.size)
+        .attr("fill", d => groupColors[d.group])
+        .on("click", (event, d) => {
+          showNodeDetails(d);
+          highlightConnectedNodes(d);
+        });
+
+      // Labels drawing
+      const label = mainGroup.selectAll(".node-label")
+        .data(nodes)
+        .enter().append("text")
+        .attr("class", "node-label")
+        .attr("dy", d => d.size + 11)
+        .text(d => d.id);
+
+      // Simulation setup
+      const simulation = d3.forceSimulation(nodes)
+        .force("link", d3.forceLink(links).id(d => d.id).distance(140))
+        .force("charge", d3.forceManyBody().strength(-300))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(d => d.size + 25));
+
+      simulation.on("tick", () => {
+        link
+          .attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y);
+
+        node
+          .attr("cx", d => d.x)
+          .attr("cy", d => d.y);
+
+        label
+          .attr("x", d => d.x)
+          .attr("y", d => d.y);
+      });
+
+      // Drag support
+      node.call(d3.drag()
+        .on("start", (event, d) => {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+        })
+        .on("drag", (event, d) => {
+          d.fx = event.x;
+          d.fy = event.y;
+        })
+        .on("end", (event, d) => {
+          if (!event.active) simulation.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+        })
+      );
+
+      // Graph controls
+      document.getElementById('graphZoomInBtn').onclick = () => svg.transition().call(zoom.scaleBy, 1.3);
+      document.getElementById('graphZoomOutBtn').onclick = () => svg.transition().call(zoom.scaleBy, 0.7);
+      document.getElementById('graphResetBtn').onclick = () => {
+        svg.transition().call(zoom.transform, d3.zoomIdentity);
+        node.style("opacity", 1);
+        link.style("opacity", 0.65);
+        document.getElementById('graphDetails').querySelector('#detailsPlaceholder').style.display = 'flex';
+        document.getElementById('graphDetails').querySelector('#detailsContent').classList.remove('active');
+      };
+
+      // Node highlights logic
+      function highlightConnectedNodes(selectedNode) {
+        const connectedNodeIds = new Set([selectedNode.id]);
+        
+        links.forEach(l => {
+          if (l.source.id === selectedNode.id) connectedNodeIds.add(l.target.id);
+          if (l.target.id === selectedNode.id) connectedNodeIds.add(l.source.id);
+        });
+
+        node.style("opacity", n => connectedNodeIds.has(n.id) ? 1 : 0.25);
+        link.style("opacity", l => (l.source.id === selectedNode.id || l.target.id === selectedNode.id) ? 1 : 0.1);
+      }
+    }
+
+    // Detail Panel update
+    function showNodeDetails(nodeData) {
+      document.getElementById('detailsPlaceholder').style.display = 'none';
+      const content = document.getElementById('detailsContent');
+      content.classList.add('active');
+
+      const catLabels = {
+        sdlc: 'SDLC & Paradigms',
+        protocols: 'Interoperability Protocols',
+        context: 'Context Engineering',
+        security: 'Security & Verification'
+      };
+
+      document.getElementById('nodeName').innerText = nodeData.id;
+      document.getElementById('nodeGroupTag').innerHTML = `
+        <span>${catLabels[nodeData.group] || nodeData.group}</span>
+        <span style="margin-left: 0.5rem; padding: 0.1rem 0.4rem; border-radius: 4px; background: rgba(99,102,241,0.08); color:#6366f1; font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(99,102,241,0.15);">${nodeData.edition}</span>
+      `;
+      document.getElementById('nodeDefinition').innerText = nodeData.def;
+      
+      const takeawaysList = document.getElementById('nodeTakeaways');
+      takeawaysList.innerHTML = '';
+      nodeData.takeaways.forEach(t => {
+        const li = document.createElement('li');
+        li.innerText = t;
+        takeawaysList.appendChild(li);
+      });
+
+      const docLink = document.getElementById('nodeDocLink');
+      docLink.href = resolvePdfLink(nodeData.docLink);
+    }
+
+
+    // Bind events
+    globalSearch.addEventListener('input', handleSearch);
+    document.getElementById('glossarySearch').addEventListener('input', filterGlossary);
+    closeVideoBtn.addEventListener('click', closeVideo);
+
+    // Wire tab links
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        switchTab(item.getAttribute('data-tab'));
+      });
+    });
 
     window.onload = init;
   </script>
