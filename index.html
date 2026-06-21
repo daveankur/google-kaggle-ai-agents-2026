@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agents Course Hub | Google & Kaggle</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* CSS Custom Properties / Design Tokens (Light Mode Only) */
+    :root {
+      /* Core Gradients & Colors */
+      --primary-grad: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+      --accent-grad: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+      --success-grad: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --gold-grad: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+
+      /* Clean Light Theme Colors */
+      --bg-base: #f4f6fa;
+      --bg-surface: rgba(255, 255, 255, 0.85);
+      --bg-card: rgba(248, 250, 252, 0.95);
+      --bg-sidebar: rgba(255, 255, 255, 0.95);
+      --border-color: rgba(15, 23, 42, 0.08);
+      --border-highlight: rgba(99, 102, 241, 0.35);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-inverse: #f8fafc;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.05);
+      --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.06);
+      --glow-primary: rgba(168, 85, 247, 0.12);
+
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-highlight);
+    }
+
+    /* Layout structure */
+    .app-container {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      transition: var(--transition-smooth);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .brand-logo {
+      background: var(--primary-grad);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 15px var(--glow-primary);
+    }
+
+    .brand-info h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .brand-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Navigation Links */
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-grow: 1;
+    }
+
+    .nav-item button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .nav-item button:hover {
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-item.active button {
+      color: white;
+      background: var(--primary-grad);
+      font-weight: 600;
+      box-shadow: 0 4px 15px var(--glow-primary);
+    }
+
+    .nav-item.active button i, 
+    .nav-item.active button svg {
+      color: white;
+    }
+
+    /* Bottom utilities in sidebar */
+    .sidebar-footer {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      margin-left: 280px;
+      flex-grow: 1;
+      min-height: 100vh;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      transition: var(--transition-smooth);
+    }
+
+    /* Header styling */
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .header-title h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .header-title p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Global Search Box */
+    .search-box-wrapper {
+      position: relative;
+      width: 320px;
+    }
+
+    .search-box {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px var(--glow-primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px);
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-highlight);
+    }
+
+    /* Dashboard Layout */
+    .dash-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .dash-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      transition: var(--transition-smooth);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-highlight);
+    }
+
+    .stat-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+    }
+
+    .stat-lbl {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Custom styles for Hero Card */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-banner-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(90deg, #0f172a, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-banner-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .course-badge-highlight {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 1.25rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      width: fit-content;
+    }
+
+    .badge-gif-container {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .badge-gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge-details h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .badge-details p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Content Views */
+    .content-view {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .content-view.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Subtabs Layout (Focus on Topic) */
+    .day-subtabs {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem;
+      border-radius: 12px;
+      flex-wrap: wrap;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+
+    .day-subtab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .day-subtab:hover {
+      color: var(--text-main);
+    }
+
+    .day-subtab.active {
+      background: #ffffff;
+      color: #a855f7;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Daily View Cards */
+    .daily-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .daily-section-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .card-header-icon {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .card-tag.podcast { background: rgba(168, 85, 247, 0.08); color: #8b5cf6; border: 1px solid rgba(168, 85, 247, 0.15); }
+    .card-tag.whitepaper { background: rgba(59, 130, 246, 0.08); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.15); }
+    .card-tag.codelab { background: rgba(16, 185, 129, 0.08); color: #059669; border: 1px solid rgba(16, 185, 129, 0.15); }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    /* Interactive Audio / Video Preview widgets */
+    .media-player-preview {
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 10px;
+      padding: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .media-play-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px var(--glow-primary);
+      transition: var(--transition-smooth);
+    }
+
+    .media-play-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .media-track-info {
+      flex-grow: 1;
+    }
+
+    .media-track-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .media-track-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Action buttons in cards */
+    .card-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--primary-grad);
+      color: white;
+      text-decoration: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-smooth);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .card-action-btn:hover {
+      box-shadow: 0 4px 12px var(--glow-primary);
+      transform: translateY(-1px);
+    }
+
+    .card-action-btn.secondary {
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .card-action-btn.secondary:hover {
+      background: rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Daily overview section */
+    .day-overview-panel {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .learning-objectives h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .learning-objectives-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .learning-objectives-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .learning-objectives-list li svg {
+      color: #10b981;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    /* Checklist Widget */
+    .checklist-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .checklist-header {
+      font-family: var(--font-display);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #a855f7;
+    }
+
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checklist-checkbox {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .checklist-checkbox:checked {
+      background: var(--primary-grad);
+      border-color: transparent;
+    }
+
+    .checklist-checkbox:checked::after {
+      content: '✓';
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .checklist-text {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      transition: var(--transition-smooth);
+    }
+
+    .checklist-checkbox:checked + .checklist-text {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* General Resources Lists */
+    .resource-tabs-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .resource-category-section {
+      margin-bottom: 1rem;
+    }
+
+    .resource-category-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-left: 4px solid #a855f7;
+      padding-left: 0.75rem;
+    }
+
+    .resource-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1rem;
+    }
+
+    .resource-item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .resource-item-card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-1px);
+    }
+
+    .resource-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a855f7;
+      flex-shrink: 0;
+    }
+
+    .resource-item-details {
+      flex-grow: 1;
+    }
+
+    .resource-item-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .resource-item-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .resource-item-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #6366f1;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .resource-item-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Video Lightbox Modal */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-modal.active {
+      display: flex;
+    }
+
+    .video-modal-container {
+      width: 90%;
+      max-width: 800px;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+    }
+
+    .video-modal-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+    }
+
+    .video-modal-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--success-grad);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 10000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 80px;
+        padding: 1rem 0.5rem;
+      }
+      .brand-info, .nav-item-text, .sidebar-footer-text {
+        display: none;
+      }
+      .sidebar-footer {
+        justify-content: center;
+      }
+      .main-content {
+        margin-left: 80px;
+        padding: 1.5rem;
+      }
+      .brand {
+        justify-content: center;
+        padding-bottom: 1.5rem;
+      }
+      .nav-item button {
+        justify-content: center;
+        padding: 0.75rem;
+      }
+      .day-overview-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+      .search-box-wrapper {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i data-lucide="bot"></i>
+        </div>
+        <div class="brand-info">
+          <h2>AI Agents Hub</h2>
+          <p>Google & Kaggle Course</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-list">
+        <li class="nav-item active" data-tab="dashboard">
+          <button>
+            <i data-lucide="layout-dashboard"></i>
+            <span class="nav-item-text">Overview</span>
+          </button>
+        </li>
+        <li class="nav-item" data-tab="daily-syllabus">
+          <button>
+            <i data-lucide="calendar"></i>
+            <span class="nav-item-text">Course Syllabus</span>
+          </button>
+        </li>
+        <li class="nav-item" data-tab="all-resources">
+          <button>
+            <i data-lucide="folder-git-2"></i>
+            <span class="nav-item-text">All Resources</span>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <span class="sidebar-footer-text" style="font-size: 0.75rem; color: var(--text-muted); font-weight:500;">Archive Edition</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="main-content">
+      
+      <!-- Top header bar -->
+      <header class="main-header">
+        <div class="header-title">
+          <h1 id="viewTitle">Course Overview</h1>
+          <p id="viewSubtitle">Welcome! Explore the self-paced materials and build structured AI agents.</p>
+        </div>
+        <div class="header-actions">
+          <div class="search-box-wrapper">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" placeholder="Search resources, whitepapers, topics..." class="search-box" id="globalSearch">
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: OVERVIEW -->
+      <section class="content-view active" id="view-dashboard">
+        
+        <div class="dash-hero-grid">
+          
+          <!-- Hero Card -->
+          <div class="glass-card hero-banner">
+            <div class="hero-banner-content">
+              <h2>5-Day AI Agents Course Hub</h2>
+              <p style="margin-top: 1rem; margin-bottom: 1rem; font-weight: 500;">
+                This course dives deep into building autonomous AI agents, transitioning from standard chatbot interfaces to intent-driven 'Vibe Coding' where natural language acts as the primary programming interface. Throughout the curriculum, you will explore how the Model Context Protocol (MCP) standardizes data integrations, learn to design portable 'Agent Skills' for context optimization, establish continuous trust through sandboxing and security evaluation, and scale your systems using Spec-Driven Development (SDD) to deploy governed agent fleets on Google Cloud.
+              </p>
+              <p>This self-paced dashboard contains consolidated links to all whitepapers, podcasts, and codelabs. Check items off inside each topic block as you complete them to track your learning journey.</p>
+            </div>
+            
+            <div class="course-badge-highlight">
+              <div class="badge-gif-container">
+                <img src="https://storage.googleapis.com/kaggle-media/Images/badge%20and%20certificate%20for%20AI%20Agents%20Intensive%203.gif" alt="Kaggle Badge" onerror="this.src='https://img.icons8.com/color/100/diploma.png';">
+              </div>
+              <div class="badge-details">
+                <h4>Kaggle Credentials & badges</h4>
+                <p>Refer to course documentation to review certificate badges earned by event participants.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Dashboard Statistics -->
+        <div class="dash-stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-box" style="background: var(--primary-grad);">
+              <i data-lucide="book-open"></i>
+            </div>
+            <div>
+              <div class="stat-val">5 Topics</div>
+              <div class="stat-lbl">Core Curriculum</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-box" style="background: var(--accent-grad);">
+              <i data-lucide="terminal"></i>
+            </div>
+            <div>
+              <div class="stat-val">10 Labs</div>
+              <div class="stat-lbl">Hands-on Codelabs</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-box" style="background: var(--success-grad);">
+              <i data-lucide="headphones"></i>
+            </div>
+            <div>
+              <div class="stat-val">5 Episodes</div>
+              <div class="stat-lbl">Summary Podcasts</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-box" style="background: var(--gold-grad);">
+              <i data-lucide="package-open"></i>
+            </div>
+            <div>
+              <div class="stat-val">2.0 Runtime</div>
+              <div class="stat-lbl">Antigravity SDK</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- VIEW 2: SYLLABUS BY TOPIC -->
+      <section class="content-view" id="view-daily-syllabus">
+        
+        <!-- Topic-based Selector Tabs -->
+        <div class="day-subtabs">
+          <button class="day-subtab active" data-day="1">1. Intro & Vibe Coding</button>
+          <button class="day-subtab" data-day="2">2. Tools & MCP</button>
+          <button class="day-subtab" data-day="3">3. Agent Skills</button>
+          <button class="day-subtab" data-day="4">4. Security & Evaluation</button>
+          <button class="day-subtab" data-day="5">5. Production & Scaling</button>
+        </div>
+
+        <!-- TOPIC 1: INTRO & VIBE CODING -->
+        <div class="day-content-panel" id="day-pane-1">
+          <div class="day-overview-panel">
+            
+            <div class="glass-card">
+              <div class="learning-objectives">
+                <h3><i data-lucide="graduation-cap"></i> Unit 1: Introduction to Agents & Vibe Coding</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Explore the shift from manual syntax typing to natural language intention writing, and how developers design constraint boundaries.</p>
+                <ul class="learning-objectives-list">
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>The Factory Model:</strong> Learn how agents compress traditional software development cycles (SDLC).</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Antigravity Suite:</strong> Setup your environment and vibe-code with Antigravity 2.0 and IDE.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Cloud Deployment:</strong> Deploy code directly to Cloud Run endpoints from Google AI Studio.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Tasks Checklists (Independent Checkbox state) -->
+            <div class="checklist-wrapper">
+              <div class="checklist-header">
+                <i data-lucide="check-square"></i> Study Progress
+              </div>
+              <div class="checklist-items">
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-podcast">
+                  <span class="checklist-text">Listen to Unit 1 Podcast</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-whitepaper">
+                  <span class="checklist-text">Read "The New SDLC" Whitepaper</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-lab1">
+                  <span class="checklist-text">Complete Antigravity Setup Lab</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day1-lab2">
+                  <span class="checklist-text">Complete Cloud Run Deploy Lab</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Cards for Topic 1 Resources -->
+          <div class="daily-grid" style="margin-top: 1.5rem;">
+            
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag podcast">Podcast</span>
+                  <i data-lucide="headphones" style="color: #a855f7;"></i>
+                </div>
+                <h3 class="card-title">Unit 1 Podcast</h3>
+                <p class="card-desc">An overview conversation introducing Vibe Coding workflows, shifting software development paradigms, and course configurations.</p>
+                <div class="media-player-preview">
+                  <button class="media-play-btn play-video-trigger" data-video-id="cbzmr7vt4XA">
+                    <i data-lucide="play"></i>
+                  </button>
+                  <div class="media-track-info">
+                    <div class="media-track-title">Listen on YouTube</div>
+                    <div class="media-track-meta">Duration: ~20 mins</div>
+                  </div>
+                </div>
+              </div>
+              <button class="card-action-btn play-video-trigger" data-video-id="cbzmr7vt4XA">
+                <i data-lucide="youtube"></i> Play Podcast
+              </button>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag whitepaper">Whitepaper</span>
+                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
+                </div>
+                <h3 class="card-title">The New SDLC with Vibe Coding</h3>
+                <p class="card-desc">Deep dive into SDLC compression, the intent-driven builder workflow, and structural harnesses for guiding code models safely.</p>
+              </div>
+              <a href="https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding" target="_blank" class="card-action-btn">
+                <i data-lucide="external-link"></i> Read Whitepaper
+              </a>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag codelab">Codelab</span>
+                  <i data-lucide="code-2" style="color: #10b981;"></i>
+                </div>
+                <h3 class="card-title">Labs: Getting Started & Deploying</h3>
+                <p class="card-desc">Set up your workspace inside the Antigravity IDE, then deploy a web application to Cloud Run from Google AI Studio.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <a href="https://codelabs.developers.google.com/getting-started-google-antigravity#0" target="_blank" class="card-action-btn">
+                  <i data-lucide="link"></i> Lab 1: Antigravity IDE
+                </a>
+                <a href="https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0" target="_blank" class="card-action-btn secondary">
+                  <i data-lucide="link"></i> Lab 2: Cloud Run Deploy
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOPIC 2: TOOLS & MCP -->
+        <div class="day-content-panel" id="day-pane-2" style="display:none;">
+          <div class="day-overview-panel">
+            
+            <div class="glass-card">
+              <div class="learning-objectives">
+                <h3><i data-lucide="graduation-cap"></i> Unit 2: Agent Tools & Interoperability</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Standardize the AI tools ecosystem. Connect models to data sources using unified protocols without complex custom code.</p>
+                <ul class="learning-objectives-list">
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Model Context Protocol (MCP):</strong> Expose clean APIs and data schemas directly to LLMs.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Inter-Agent Links:</strong> Master Agent-to-Agent collaboration and Generative UI (A2UI).</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>AP2 & Universal Commerce:</strong> Learn machine-to-machine payment concepts.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="checklist-wrapper">
+              <div class="checklist-header">
+                <i data-lucide="check-square"></i> Study Progress
+              </div>
+              <div class="checklist-items">
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-podcast">
+                  <span class="checklist-text">Listen to Unit 2 Podcast</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-whitepaper">
+                  <span class="checklist-text">Read "Tools & Interoperability" Whitepaper</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-lab1">
+                  <span class="checklist-text">Complete Antigravity CLI Lab</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day2-lab2">
+                  <span class="checklist-text">Explore Knowledge MCP Server Lab</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="daily-grid" style="margin-top: 1.5rem;">
+            
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag podcast">Podcast</span>
+                  <i data-lucide="headphones" style="color: #a855f7;"></i>
+                </div>
+                <h3 class="card-title">Unit 2 Podcast</h3>
+                <p class="card-desc">An engaging discussion on standardizing interfaces (MCP) so agents plug-and-play with documentation and tools.</p>
+                <div class="media-player-preview">
+                  <button class="media-play-btn play-video-trigger" data-video-id="GjjKXqxFTOY">
+                    <i data-lucide="play"></i>
+                  </button>
+                  <div class="media-track-info">
+                    <div class="media-track-title">Listen on YouTube</div>
+                    <div class="media-track-meta">Duration: ~22 mins</div>
+                  </div>
+                </div>
+              </div>
+              <button class="card-action-btn play-video-trigger" data-video-id="GjjKXqxFTOY">
+                <i data-lucide="youtube"></i> Play Podcast
+              </button>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag whitepaper">Whitepaper</span>
+                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
+                </div>
+                <h3 class="card-title">Agent Tools & Interoperability</h3>
+                <p class="card-desc">Read about system interfaces: Model Context Protocol (MCP), Agent-to-Agent (A2A), Generative UI (A2UI), and Agent Payments (AP2).</p>
+              </div>
+              <a href="https://www.kaggle.com/whitepaper-agent-tools-and-interoperability" target="_blank" class="card-action-btn">
+                <i data-lucide="external-link"></i> Read Whitepaper
+              </a>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag codelab">Codelab</span>
+                  <i data-lucide="code-2" style="color: #10b981;"></i>
+                </div>
+                <h3 class="card-title">Labs: CLI & MCP Servers</h3>
+                <p class="card-desc">Control environments via Antigravity CLI and integrate the Google Developer Knowledge MCP server to fetch developer documentation.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <a href="https://codelabs.developers.google.com/antigravity-cli-hands-on#0" target="_blank" class="card-action-btn">
+                  <i data-lucide="link"></i> Lab 1: Antigravity CLI
+                </a>
+                <a href="https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity" target="_blank" class="card-action-btn secondary">
+                  <i data-lucide="link"></i> Lab 2: Knowledge MCP
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOPIC 3: AGENT SKILLS -->
+        <div class="day-content-panel" id="day-pane-3" style="display:none;">
+          <div class="day-overview-panel">
+            
+            <div class="glass-card">
+              <div class="learning-objectives">
+                <h3><i data-lucide="graduation-cap"></i> Unit 3: Agent Skills</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Implement portable bundles of instructions. Load tools and checklists dynamically to keep models lightweight and optimize tokens.</p>
+                <ul class="learning-objectives-list">
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Skills Framework:</strong> Master directory configurations organized around SKILL.md.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Prevent Context Rot:</strong> Implement progressive disclosure to load execution guidelines on demand.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>ADK Development:</strong> Build custom skill scripts leveraging the Agent Development Kit (ADK).</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="checklist-wrapper">
+              <div class="checklist-header">
+                <i data-lucide="check-square"></i> Study Progress
+              </div>
+              <div class="checklist-items">
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-podcast">
+                  <span class="checklist-text">Listen to Unit 3 Podcast</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-whitepaper">
+                  <span class="checklist-text">Read "Agent Skills" Whitepaper</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-lab1">
+                  <span class="checklist-text">Complete Antigravity Skills Lab</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day3-lab2">
+                  <span class="checklist-text">Complete Agents CLI & ADK Lab</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="daily-grid" style="margin-top: 1.5rem;">
+            
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag podcast">Podcast</span>
+                  <i data-lucide="headphones" style="color: #a855f7;"></i>
+                </div>
+                <h3 class="card-title">Unit 3 Podcast</h3>
+                <p class="card-desc">Explaining the details of "Agent Skills" and how loading execution guides dynamically prevents overwhelming system prompts.</p>
+                <div class="media-player-preview">
+                  <button class="media-play-btn play-video-trigger" data-video-id="uYURYHhpmKc">
+                    <i data-lucide="play"></i>
+                  </button>
+                  <div class="media-track-info">
+                    <div class="media-track-title">Listen on YouTube</div>
+                    <div class="media-track-meta">Duration: ~24 mins</div>
+                  </div>
+                </div>
+              </div>
+              <button class="card-action-btn play-video-trigger" data-video-id="uYURYHhpmKc">
+                <i data-lucide="youtube"></i> Play Podcast
+              </button>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag whitepaper">Whitepaper</span>
+                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
+                </div>
+                <h3 class="card-title">Agent Skills</h3>
+                <p class="card-desc">Read about modular skill structuring, context-optimization tactics, and setting specialized boundaries for independent roles.</p>
+              </div>
+              <a href="https://www.kaggle.com/whitepaper-agent-skills" target="_blank" class="card-action-btn">
+                <i data-lucide="external-link"></i> Read Whitepaper
+              </a>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag codelab">Codelab</span>
+                  <i data-lucide="code-2" style="color: #10b981;"></i>
+                </div>
+                <h3 class="card-title">Labs: Custom Skills & ADK</h3>
+                <p class="card-desc">Build portable skill scripts, manage parameters, and use Agents CLI to orchestrate tasks using natural language prompts.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <a href="https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4" target="_blank" class="card-action-btn">
+                  <i data-lucide="link"></i> Lab 1: Skills Intro
+                </a>
+                <a href="https://codelabs.developers.google.com/agents-cli-adk-lifecycle" target="_blank" class="card-action-btn secondary">
+                  <i data-lucide="link"></i> Lab 2: ADK Lifecycle
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOPIC 4: SECURITY & EVALUATION -->
+        <div class="day-content-panel" id="day-pane-4" style="display:none;">
+          <div class="day-overview-panel">
+            
+            <div class="glass-card">
+              <div class="learning-objectives">
+                <h3><i data-lucide="graduation-cap"></i> Unit 4: Agent Security & Evaluation</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Mitigate non-deterministic bugs. Develop secure setups using sandboxing, threat testing, and safety evaluations.</p>
+                <ul class="learning-objectives-list">
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Effective Trust:</strong> Enforce strict verification bounds, sandboxes, and threat scans.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Slopsquatting Defenses:</strong> Safeguard dependency scopes from hallucinated code package names.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Human-in-the-Loop (HITL):</strong> Establish explicit human review approval stages for actions.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="checklist-wrapper">
+              <div class="checklist-header">
+                <i data-lucide="check-square"></i> Study Progress
+              </div>
+              <div class="checklist-items">
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-podcast">
+                  <span class="checklist-text">Listen to Unit 4 Podcast</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-whitepaper">
+                  <span class="checklist-text">Read "Security & Evaluation" Whitepaper</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-lab1">
+                  <span class="checklist-text">Complete Human-in-the-Loop Lab</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day4-lab2">
+                  <span class="checklist-text">Complete Security Testing Lab</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="daily-grid" style="margin-top: 1.5rem;">
+            
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag podcast">Podcast</span>
+                  <i data-lucide="headphones" style="color: #a855f7;"></i>
+                </div>
+                <h3 class="card-title">Unit 4 Podcast</h3>
+                <p class="card-desc">Discussing the continuous validation of agent actions, detecting slopsquatting dependencies, and sandboxing.</p>
+                <div class="media-player-preview">
+                  <button class="media-play-btn play-video-trigger" data-video-id="Ddz1b8CYPvg">
+                    <i data-lucide="play"></i>
+                  </button>
+                  <div class="media-track-info">
+                    <div class="media-track-title">Listen on YouTube</div>
+                    <div class="media-track-meta">Duration: ~21 mins</div>
+                  </div>
+                </div>
+              </div>
+              <button class="card-action-btn play-video-trigger" data-video-id="Ddz1b8CYPvg">
+                <i data-lucide="youtube"></i> Play Podcast
+              </button>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag whitepaper">Whitepaper</span>
+                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
+                </div>
+                <h3 class="card-title">Vibe Coding Security</h3>
+                <p class="card-desc">Read about continuous verification, the Red/Blue/Green security framework, and telemetry checks using OpenTelemetry.</p>
+              </div>
+              <a href="https://www.kaggle.com/whitepaper-vibe-coding-agent-security-and-evaluation" target="_blank" class="card-action-btn">
+                <i data-lucide="external-link"></i> Read Whitepaper
+              </a>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag codelab">Codelab</span>
+                  <i data-lucide="code-2" style="color: #10b981;"></i>
+                </div>
+                <h3 class="card-title">Labs: Secure Code & Triages</h3>
+                <p class="card-desc">Construct an expense assistant with manual human overrides, and write test suites scanning for insecure prompts.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <a href="https://codelabs.developers.google.com/vibecode-ambient-expense-agent" target="_blank" class="card-action-btn">
+                  <i data-lucide="link"></i> Lab 1: Expense Agent
+                </a>
+                <a href="https://codelabs.developers.google.com/secure-agentic-coding" target="_blank" class="card-action-btn secondary">
+                  <i data-lucide="link"></i> Lab 2: Secure Coding
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TOPIC 5: PRODUCTION & SCALING -->
+        <div class="day-content-panel" id="day-pane-5" style="display:none;">
+          <div class="day-overview-panel">
+            
+            <div class="glass-card">
+              <div class="learning-objectives">
+                <h3><i data-lucide="graduation-cap"></i> Unit 5: Spec-Driven Development</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Shift to Spec-Driven Development (SDD). Graduate local prototypes into governed, observable production-ready fleets.</p>
+                <ul class="learning-objectives-list">
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Code as Disposable:</strong> Treat Gherkin behavior specifications as the ultimate source of truth.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Cloud Architecture:</strong> Deploy scalable agent runtimes directly to Google Cloud.</span>
+                  </li>
+                  <li>
+                    <i data-lucide="check-circle-2"></i>
+                    <span><strong>Front-End Integrations:</strong> Connect web UIs with cloud-hosted AI agents via event triggers.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="checklist-wrapper">
+              <div class="checklist-header">
+                <i data-lucide="check-square"></i> Study Progress
+              </div>
+              <div class="checklist-items">
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-podcast">
+                  <span class="checklist-text">Listen to Unit 5 Podcast</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-whitepaper">
+                  <span class="checklist-text">Read "Spec-Driven SDD" Whitepaper</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-lab1">
+                  <span class="checklist-text">Review Google Cloud Scale Lab</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox tracker-cb" data-id="day5-lab2">
+                  <span class="checklist-text">Review Frontend App Codelab</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="daily-grid" style="margin-top: 1.5rem;">
+            
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag podcast">Podcast</span>
+                  <i data-lucide="headphones" style="color: #a855f7;"></i>
+                </div>
+                <h3 class="card-title">Unit 5 Podcast</h3>
+                <p class="card-desc">Reviewing production lifecycle stages, cloud scaling, and the transition of prototypes into robust, spec-guarded fleets.</p>
+                <div class="media-player-preview">
+                  <button class="media-play-btn play-video-trigger" data-video-id="VSRdL4wlbLY">
+                    <i data-lucide="play"></i>
+                  </button>
+                  <div class="media-track-info">
+                    <div class="media-track-title">Listen on YouTube</div>
+                    <div class="media-track-meta">Duration: ~25 mins</div>
+                  </div>
+                </div>
+              </div>
+              <button class="card-action-btn play-video-trigger" data-video-id="VSRdL4wlbLY">
+                <i data-lucide="youtube"></i> Play Podcast
+              </button>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag whitepaper">Whitepaper</span>
+                  <i data-lucide="file-text" style="color: #3b82f6;"></i>
+                </div>
+                <h3 class="card-title">Spec-Driven Development</h3>
+                <p class="card-desc">Deep dive into SDD, treating code as disposable, zero-trust deployment pipelines, and hybrid Policy Servers.</p>
+              </div>
+              <a href="https://www.kaggle.com/whitepaper-spec-driven-production-grade-development-in-the-age-of-vibe-coding" target="_blank" class="card-action-btn">
+                <i data-lucide="external-link"></i> Read Whitepaper
+              </a>
+            </div>
+
+            <div class="glass-card daily-section-card">
+              <div>
+                <div class="card-header-icon">
+                  <span class="card-tag codelab">Codelab</span>
+                  <i data-lucide="code-2" style="color: #10b981;"></i>
+                </div>
+                <h3 class="card-title">Labs: Scaling & Hosting</h3>
+                <p class="card-desc">Review host deployments on Google Cloud Run and wire asynchronous event streams into frontend templates.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <a href="https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud" target="_blank" class="card-action-btn">
+                  <i data-lucide="link"></i> Lab 1: Cloud Scale
+                </a>
+                <a href="https://codelabs.developers.google.com/vibecode-frontend-with-antigravity" target="_blank" class="card-action-btn secondary">
+                  <i data-lucide="link"></i> Lab 2: UI Frontend
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- VIEW 3: ALL RESOURCES (GRID SEARCHABLE) -->
+      <section class="content-view" id="view-all-resources">
+        
+        <div class="resource-tabs-wrapper">
+          
+          <!-- Whitepapers Category -->
+          <div class="resource-category-section search-target-block" data-type="whitepaper">
+            <h3 class="resource-category-title">📄 Whitepapers</h3>
+            <div class="resource-list">
+              <div class="resource-item-card" data-search-term="sdlc vibe coding unit 1 whitepaper">
+                <div class="resource-item-icon"><i data-lucide="file"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">The New SDLC with Vibe Coding</div>
+                  <div class="resource-item-meta">Unit 1 • Core Theory</div>
+                  <a href="https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="agent tools interoperability mcp protocol unit 2 whitepaper">
+                <div class="resource-item-icon"><i data-lucide="file"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Agent Tools & Interoperability</div>
+                  <div class="resource-item-meta">Unit 2 • Systems Communication</div>
+                  <a href="https://www.kaggle.com/whitepaper-agent-tools-and-interoperability" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="agent skills prompt directory context rot unit 3 whitepaper">
+                <div class="resource-item-icon"><i data-lucide="file"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Agent Skills</div>
+                  <div class="resource-item-meta">Unit 3 • Modular Prompts</div>
+                  <a href="https://www.kaggle.com/whitepaper-agent-skills" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="agent security evaluation trust trajectory unit 4 whitepaper">
+                <div class="resource-item-icon"><i data-lucide="file"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Vibe Coding Agent Security and Evaluation</div>
+                  <div class="resource-item-meta">Unit 4 • Vulnerabilities & Testing</div>
+                  <a href="https://www.kaggle.com/whitepaper-vibe-coding-agent-security-and-evaluation" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="spec driven production development age vibe coding sdd unit 5 whitepaper">
+                <div class="resource-item-icon"><i data-lucide="file"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Spec-Driven Production Grade Development in the Age of Vibe Coding</div>
+                  <div class="resource-item-meta">Unit 5 • Enterprise Pipelines</div>
+                  <a href="https://www.kaggle.com/whitepaper-spec-driven-production-grade-development-in-the-age-of-vibe-coding" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="learn guide archive whitepaper updated 2025 course">
+                <div class="resource-item-icon"><i data-lucide="bookmark"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Kaggle Learn Guide Archive (Nov 2025)</div>
+                  <div class="resource-item-meta">Course Hub Reference</div>
+                  <a href="https://www.kaggle.com/learn-guide/5-day-agents" target="_blank" class="resource-item-link">Open Link <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Podcasts Category -->
+          <div class="resource-category-section search-target-block" data-type="podcast">
+            <h3 class="resource-category-title">🎙️ YouTube Podcasts</h3>
+            <div class="resource-list">
+              <div class="resource-item-card" data-search-term="podcast intro agents vibe coding unit 1 video">
+                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Unit 1 Podcast Summary</div>
+                  <div class="resource-item-meta">Duration: ~20 mins</div>
+                  <button class="resource-item-link play-video-trigger" data-video-id="cbzmr7vt4XA" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="podcast tools mcp interoperability unit 2 video">
+                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Unit 2 Podcast Summary</div>
+                  <div class="resource-item-meta">Duration: ~22 mins</div>
+                  <button class="resource-item-link play-video-trigger" data-video-id="GjjKXqxFTOY" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="podcast agent skills structures unit 3 video">
+                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Unit 3 Podcast Summary</div>
+                  <div class="resource-item-meta">Duration: ~24 mins</div>
+                  <button class="resource-item-link play-video-trigger" data-video-id="uYURYHhpmKc" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="podcast security testing evaluation unit 4 video">
+                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Unit 4 Podcast Summary</div>
+                  <div class="resource-item-meta">Duration: ~21 mins</div>
+                  <button class="resource-item-link play-video-trigger" data-video-id="Ddz1b8CYPvg" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="podcast spec driven sdd production scaling unit 5 video">
+                <div class="resource-item-icon" style="color:#a855f7;"><i data-lucide="youtube"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Unit 5 Podcast Summary</div>
+                  <div class="resource-item-meta">Duration: ~25 mins</div>
+                  <button class="resource-item-link play-video-trigger" data-video-id="VSRdL4wlbLY" style="background:none;border:none;cursor:pointer;font-family:inherit;">Listen Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Codelabs Category -->
+          <div class="resource-category-section search-target-block" data-type="codelab">
+            <h3 class="resource-category-title">💻 Hands-on Codelabs</h3>
+            <div class="resource-list">
+              <div class="resource-item-card" data-search-term="codelab antigravity 2.0 ide unit 1 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Getting Started with Antigravity 2.0 & IDE</div>
+                  <div class="resource-item-meta">Unit 1 • Setup & Workflows</div>
+                  <a href="https://codelabs.developers.google.com/getting-started-google-antigravity#0" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab web application cloud run ai studio unit 1 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Build Web App & Deploy to Cloud Run</div>
+                  <div class="resource-item-meta">Unit 1 • Hosting and Testing</div>
+                  <a href="https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab cli commands antigravity terminal unit 2 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Antigravity CLI Hands-on</div>
+                  <div class="resource-item-meta">Unit 2 • Terminal Tools</div>
+                  <a href="https://codelabs.developers.google.com/antigravity-cli-hands-on#0" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab mcp server developer knowledge unit 2 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Explore Google Developer Knowledge MCP Server</div>
+                  <div class="resource-item-meta">Unit 2 • Protocols & Docs</div>
+                  <a href="https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab skills modular configurations unit 3 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Skills in Antigravity</div>
+                  <div class="resource-item-meta">Unit 3 • Modular Systems</div>
+                  <a href="https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab adk agents lifecycle unit 3 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Build Agents with CLI & ADK</div>
+                  <div class="resource-item-meta">Unit 3 • Agent Development Kit</div>
+                  <a href="https://codelabs.developers.google.com/agents-cli-adk-lifecycle" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab expense approval agent human loop unit 4 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Build Expense Agent (Human-in-the-Loop)</div>
+                  <div class="resource-item-meta">Unit 4 • Approvals & Evaluations</div>
+                  <a href="https://codelabs.developers.google.com/vibecode-ambient-expense-agent" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab secure code threat safety scans unit 4 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Write Secure Code & Safety Checks</div>
+                  <div class="resource-item-meta">Unit 4 • Red Teaming</div>
+                  <a href="https://codelabs.developers.google.com/secure-agentic-coding" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab cloud scaling enterprise google cloud runtime unit 5 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Host AI Agents on Google Cloud</div>
+                  <div class="resource-item-meta">Unit 5 • Scaling and Events</div>
+                  <a href="https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="codelab front end client connection unit 5 lab">
+                <div class="resource-item-icon" style="color:#10b981;"><i data-lucide="code-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Build Web UI and Connect to Cloud Agent</div>
+                  <div class="resource-item-meta">Unit 5 • Complete Assembly</div>
+                  <a href="https://codelabs.developers.google.com/vibecode-frontend-with-antigravity" target="_blank" class="resource-item-link">Open Codelab <i data-lucide="external-link" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools and Downloads Category -->
+          <div class="resource-category-section search-target-block" data-type="tools">
+            <h3 class="resource-category-title">🛠️ Tools & Downloads</h3>
+            <div class="resource-list">
+              <div class="resource-item-card" data-search-term="antigravity suite 2.0 product installer">
+                <div class="resource-item-icon" style="color:#3b82f6;"><i data-lucide="download"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Antigravity 2.0 Core Runtime</div>
+                  <div class="resource-item-meta">Required Engine Download</div>
+                  <a href="https://antigravity.google/product/antigravity-2" target="_blank" class="resource-item-link">Go to Download <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="antigravity ide desktop code editor">
+                <div class="resource-item-icon" style="color:#3b82f6;"><i data-lucide="download"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Antigravity IDE App</div>
+                  <div class="resource-item-meta">Structured Agent Workspace</div>
+                  <a href="https://antigravity.google/product/antigravity-ide" target="_blank" class="resource-item-link">Go to Download <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="antigravity cli command line terminal tools">
+                <div class="resource-item-icon" style="color:#3b82f6;"><i data-lucide="download"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Antigravity CLI Tool</div>
+                  <div class="resource-item-meta">Shell Executables Integration</div>
+                  <a href="https://antigravity.google/product/antigravity-cli" target="_blank" class="resource-item-link">Go to Download <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="kaggle account settings phone verification confirmation">
+                <div class="resource-item-icon" style="color:#eab308;"><i data-lucide="link-2"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Kaggle Profile Settings</div>
+                  <div class="resource-item-meta">Verify Kaggle Account via SMS</div>
+                  <a href="https://kaggle.com/discord/confirmation" target="_blank" class="resource-item-link">Go to Setup <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+              <div class="resource-item-card" data-search-term="google ai studio api key registration regions">
+                <div class="resource-item-icon" style="color:#eab308;"><i data-lucide="key"></i></div>
+                <div class="resource-item-details">
+                  <div class="resource-item-name">Google AI Studio Keys</div>
+                  <div class="resource-item-meta">Create Gemini API secret credentials</div>
+                  <a href="https://aistudio.google.com/app/apikey" target="_blank" class="resource-item-link">Go to Setup <i data-lucide="chevron-right" style="width:12px;height:12px;"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Video Lightbox Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-container">
+      <button class="video-modal-close" id="closeVideoBtn">
+        <i data-lucide="x"></i> Close
+      </button>
+      <iframe class="video-modal-iframe" id="videoPlayer" src="" allowfullscreen allow="autoplay"></iframe>
+    </div>
+  </div>
+
+  <!-- Toast Notification widget -->
+  <div class="toast" id="toastBox">
+    <i data-lucide="check-circle-2"></i>
+    <span id="toastMsg">Progress saved successfully!</span>
+  </div>
+
+  <script>
+    // State management & LocalStorage hooks
+    const state = {
+      theme: 'light',
+      completedItems: JSON.parse(localStorage.getItem('course-progress') || '{}'),
+      activeTab: 'dashboard',
+      activeDay: '1'
+    };
+
+    // DOM Elements
+    const body = document.documentElement;
+    const globalSearch = document.getElementById('globalSearch');
+    
+    // Tab Navigation Triggering
+    const navItems = document.querySelectorAll('.sidebar .nav-list .nav-item');
+    const contentViews = document.querySelectorAll('.content-view');
+    const viewTitle = document.getElementById('viewTitle');
+    const viewSubtitle = document.getElementById('viewSubtitle');
+
+    // Sub-day tabs (Day 1-5 subtabs)
+    const dayTabs = document.querySelectorAll('.day-subtab');
+    const dayPanes = document.querySelectorAll('.day-content-panel');
+
+    // Checkboxes progress tracker
+    const progressCheckboxes = document.querySelectorAll('.tracker-cb');
+    const toastBox = document.getElementById('toastBox');
+    const toastMsg = document.getElementById('toastMsg');
+
+    // Video modal triggers
+    const videoModal = document.getElementById('videoModal');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const closeVideoBtn = document.getElementById('closeVideoBtn');
+    const videoTriggers = document.querySelectorAll('.play-video-trigger');
+
+    // 1. Initial State Sync
+    function init() {
+      // Force light theme
+      body.setAttribute('data-theme', 'light');
+
+      // Setup icons
+      lucide.createIcons();
+
+      // Check previously saved items
+      progressCheckboxes.forEach(cb => {
+        const id = cb.getAttribute('data-id');
+        if (state.completedItems[id]) {
+          cb.checked = true;
+        }
+        cb.addEventListener('change', handleProgressChange);
+      });
+
+      // Wire navigation
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const tabName = item.getAttribute('data-tab');
+          switchTab(tabName);
+        });
+      });
+
+      // Wire Day syllabus subtabs
+      dayTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const dayNum = tab.getAttribute('data-day');
+          switchDay(dayNum);
+        });
+      });
+
+      // Wire search box filter
+      globalSearch.addEventListener('input', handleSearch);
+
+      // Wire video triggers
+      videoTriggers.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const videoId = btn.getAttribute('data-video-id');
+          openVideo(videoId);
+        });
+      });
+
+      closeVideoBtn.addEventListener('click', closeVideo);
+      videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) closeVideo();
+      });
+    }
+
+    // 2. Navigation Actions
+    function switchTab(tabName) {
+      navItems.forEach(item => {
+        if (item.getAttribute('data-tab') === tabName) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      contentViews.forEach(view => {
+        if (view.id === `view-${tabName}`) {
+          view.classList.add('active');
+        } else {
+          view.classList.remove('active');
+        }
+      });
+
+      state.activeTab = tabName;
+
+      // Update titles
+      const headers = {
+        'dashboard': {
+          title: 'Course Overview',
+          sub: 'Welcome! Explore the self-paced materials and build structured AI agents.'
+        },
+        'daily-syllabus': {
+          title: 'Syllabus by Topic',
+          sub: 'Access the podcasts, read whitepapers, and build step-by-step developer codelabs.'
+        },
+        'all-resources': {
+          title: 'All Resource Directory',
+          sub: 'Search and inspect all downloadable items, links, tools, and readings in one view.'
+        }
+      };
+
+      if (headers[tabName]) {
+        viewTitle.innerText = headers[tabName].title;
+        viewSubtitle.innerText = headers[tabName].sub;
+      }
+    }
+
+    function switchDay(dayNum) {
+      dayTabs.forEach(tab => {
+        if (tab.getAttribute('data-day') === dayNum) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      dayPanes.forEach((pane, idx) => {
+        if (idx + 1 === parseInt(dayNum)) {
+          pane.style.display = 'block';
+        } else {
+          pane.style.display = 'none';
+        }
+      });
+
+      state.activeDay = dayNum;
+    }
+
+    // 3. Search / Filtering Functionality
+    function handleSearch(e) {
+      const query = e.target.value.toLowerCase().trim();
+
+      // If user starts typing, auto-switch to "all-resources" tab to show results clearly
+      if (query.length > 0 && state.activeTab !== 'all-resources') {
+        switchTab('all-resources');
+      }
+
+      // Filter in All Resources cards
+      const resourceCards = document.querySelectorAll('.resource-item-card');
+      resourceCards.forEach(card => {
+        const text = card.getAttribute('data-search-term') || '';
+        const name = card.querySelector('.resource-item-name').innerText.toLowerCase();
+        const meta = card.querySelector('.resource-item-meta').innerText.toLowerCase();
+        
+        if (text.includes(query) || name.includes(query) || meta.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Hide category headings if they have no visible child elements
+      const categories = document.querySelectorAll('.resource-category-section');
+      categories.forEach(cat => {
+        const visibleCards = cat.querySelectorAll('.resource-item-card[style="display: flex;"]');
+        if (visibleCards.length === 0 && query.length > 0) {
+          cat.style.display = 'none';
+        } else {
+          cat.style.display = 'block';
+        }
+      });
+    }
+
+    // 5. Progress Checkbox handler (Independent with localStorage memory, no calculations)
+    function handleProgressChange(e) {
+      const id = e.target.getAttribute('data-id');
+      const isChecked = e.target.checked;
+
+      if (isChecked) {
+        state.completedItems[id] = true;
+      } else {
+        delete state.completedItems[id];
+      }
+
+      // Save to localStorage
+      localStorage.setItem('course-progress', JSON.stringify(state.completedItems));
+      showToast(isChecked ? "Marked as completed!" : "Marked as incomplete.");
+    }
+
+    // 6. Video Player Actions
+    function openVideo(videoId) {
+      videoPlayer.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+      videoModal.classList.add('active');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('active');
+      videoPlayer.src = '';
+    }
+
+    // 7. Toast Alerts
+    let toastTimeout;
+    function showToast(msg) {
+      toastMsg.innerText = msg;
+      toastBox.classList.add('show');
+      
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toastBox.classList.remove('show');
+      }, 2500);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
