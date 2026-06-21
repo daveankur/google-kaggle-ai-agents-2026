@@ -7,19 +7,15 @@ This repository consolidates the learning materials, whitepapers, podcasts, and 
 ### 🔗 Live Demo
 Explore the interactive dashboard live at:
 👉 **[https://daveankur.github.io/google-kaggle-ai-agents-2026/index.html](https://daveankur.github.io/google-kaggle-ai-agents-2026/index.html)**
-
 ---
 
 ## Repository Structure
 
-The materials are organized into cohort directories:
-*   **`2025/FILES/`**: Contains the PDF whitepapers, summary notes, and guides for the Dec 2025 foundational track.
-*   **`2026/FILES/`**: Contains the PDF whitepapers and study files for the Jun 2026 advanced vibe coding track.
-*   **`scratch/`**: Contains the modular source files (`unified_data.json`, `unified_functions.js`, and `compile_dashboard.py`) to easily modify or compile the dashboard database.
-*   **`index.html`**: The fully compiled, interactive single-page dashboard.
+To keep the repository lightweight and clean, all course whitepapers and PDFs are hosted on Google Drive rather than checking raw binaries into Git.
+*   **`scratch/`**: Contains the modular database source files (`unified_data.json`, `unified_functions.js`, and `compile_dashboard.py`) to easily modify or re-compile the dashboard database.
+*   **`index.html`**: The fully compiled, interactive single-page course hub.
 
 ---
-
 ## Interactive Dashboard Sections
 
 The live hub contains 5 key interactive views:
