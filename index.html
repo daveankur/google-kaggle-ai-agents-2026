@@ -2923,31 +2923,30 @@
 };
 
     // Centralized Google Drive links configuration.
-    // Replace these placeholder links with the actual Google Drive shareable URLs for each file.
     const PDF_DRIVE_LINKS = {
       // 2025 Cohort Papers
-      "2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY1_DRIVE_ID/view?usp=sharing",
-      "2025_Day_2_Rewrite_v1_AgentTools.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY2_DRIVE_ID/view?usp=sharing",
-      "2025_Day_3_Rewrite_v1_ContextEngineering.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY3_DRIVE_ID/view?usp=sharing",
-      "2025_Day_4_Rewrite_v1_AgentQuality.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY4_DRIVE_ID/view?usp=sharing",
-      "2025_Day_5_Rewrite_v1_Prototype.pdf": "https://drive.google.com/file/d/YOUR_2025_DAY5_DRIVE_ID/view?usp=sharing",
+      "2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf": "https://drive.google.com/file/d/12YzTZ6bwFVa7KPozBUsb_257JoTG45w_/view",
+      "2025_Day_2_Rewrite_v1_AgentTools.pdf": "https://drive.google.com/file/d/1sYIHw75lncCHgWBOH5yfqrYfeAou7Nh7/view",
+      "2025_Day_3_Rewrite_v1_ContextEngineering.pdf": "https://drive.google.com/file/d/10sni6LV8uQF821-9WKVqVVOubE5QxAuI/view",
+      "2025_Day_4_Rewrite_v1_AgentQuality.pdf": "https://drive.google.com/file/d/10-cdIRZw80Mu9bx1hVBYMiRCr9hXHTiy/view",
+      "2025_Day_5_Rewrite_v1_Prototype.pdf": "https://drive.google.com/file/d/1CG7Z_SHDpAgeevDyCBiXlidfrVMt5kFD/view",
 
       // 2026 Cohort Papers
-      "Day_1_v3.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY1_DRIVE_ID/view?usp=sharing",
-      "Agent Tools & Interoperability_Day_2.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY2_DRIVE_ID/view?usp=sharing",
-      "Agent Skills_Day_3.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY3_DRIVE_ID/view?usp=sharing",
-      "Vibe Coding Agent Security and Evaluation_Day_4.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY4_DRIVE_ID/view?usp=sharing",
-      "Day_5_v3.pdf": "https://drive.google.com/file/d/YOUR_2026_DAY5_DRIVE_ID/view?usp=sharing"
+      "Day_1_v3.pdf": "https://drive.google.com/file/d/1IR7CddF_2FyQo_PdfBNTaEA50EGiVt2r/view",
+      "Agent Tools & Interoperability_Day_2.pdf": "https://drive.google.com/file/d/1_emw2Pj1aecYZe4LKFcL8-zMDeBBRgQF/view",
+      "Agent Skills_Day_3.pdf": "https://drive.google.com/file/d/1Wso-CM4aAvTxFZa5wjBntKM3IVSg7PWW/view",
+      "Vibe Coding Agent Security and Evaluation_Day_4.pdf": "https://drive.google.com/file/d/1kEtWZmFMTGYqe12jMiZPOi9zYcyFXfHF/view",
+      "Day_5_v3.pdf": "https://drive.google.com/file/d/1lCx0Lh06sK6j59nTNc_pYRdnoxgDtJcn/view"
     };
 
-    // Helper to resolve local PDF path to Google Drive link if available
+    // Helper to resolve local PDF path to Google Drive link
     function resolvePdfLink(localPath) {
       if (!localPath) return "#";
       const filename = localPath.split('/').pop();
-      if (PDF_DRIVE_LINKS[filename] && !PDF_DRIVE_LINKS[filename].includes("YOUR_")) {
+      if (PDF_DRIVE_LINKS[filename]) {
         return PDF_DRIVE_LINKS[filename];
       }
-      return localPath; // Fallback to local file path
+      return localPath; // Fallback
     }
 
     // State management & LocalStorage hooks
