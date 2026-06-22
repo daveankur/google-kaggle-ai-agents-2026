@@ -24,3 +24,20 @@ The live hub contains 5 key interactive views:
 3.  **Interactive Knowledge Graph**: An interactive D3.js force-directed graph connecting related concepts across both editions, featuring detail cards and source links on node clicks.
 4.  **Highlights & Glossary**: Key takeaway summaries (e.g., guidelines, rules) and a fully searchable glossary with badges and click-to-open reference links for all core agent terms.
 5.  **All Resources**: A searchable grid of all downloadable items (whitepapers, podcasts, livestreams, codelabs) filtered instantly by search queries.
+
+---
+## Version History
+
+*   **v2.1.0 (2026-06-22)**:
+    *   Integrated Google Tag Manager (`GTM-N4CDMXBJ`) for pageview, outbound link clicks, and event analytics.
+    *   Implemented unique visitor counter widget in the sidebar footer using `localStorage` and `CounterAPI`.
+    *   Optimized `.gitignore` settings to keep the local raw PDFs folder (`kaggle-google/`) untracked.
+*   **v2.0.0 (2026-06-21)**:
+    *   Consolidated the Dec 2025 Foundational Track and Jun 2026 Advanced Track into a single dashboard.
+    *   Refactored the database into a modular JSON store under `scratch/`.
+    *   Redesigned the learning pathway syllabus to display tracks side-by-side.
+    *   Configured the D3.js force-directed graph to scale dynamically.
+    *   Added searchable term glossary with click-to-open reference links.
+    *   Centralized whitepaper files on Google Drive for repository optimization.
+*   **v1.0.0 (2025-12-15)**:
+    *   Initial release containing learning resources for the 5-day AI Agents course.

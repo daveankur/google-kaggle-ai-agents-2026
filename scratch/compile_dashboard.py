@@ -45,31 +45,33 @@ def main():
     with open(html_path, "r", encoding="utf-8") as f:
         html_content = f.read()
         
-    # Locate script tag boundaries
-    # We look for the last script block starting with <script> and ending with </script>
-    start_marker = "  <script>"
-    end_marker = "  </script>"
-    
-    start_idx = html_content.find(start_marker)
+    # Locate script tag boundaries by searching for the COURSE_DATA block
+    target_marker = "const COURSE_DATA = "
+    target_idx = html_content.find(target_marker)
+    if target_idx == -1:
+        print("Error: Could not locate COURSE_DATA definition in index.html")
+        return
+
+    # Find the nearest <script> tag opening before target_idx
+    start_idx = html_content.rfind("<script>", 0, target_idx)
     if start_idx == -1:
-        # Fallback to search for '<script>' without leading spaces
-        start_marker = "<script>"
-        start_idx = html_content.find(start_marker)
+        start_idx = html_content.rfind("  <script>", 0, target_idx)
         
     if start_idx == -1:
-        print("Error: Could not locate <script> tag in index.html")
+        print("Error: Could not locate opening <script> tag for COURSE_DATA in index.html")
         return
         
-    end_idx = html_content.find(end_marker, start_idx)
+    # Find the nearest </script> tag closing after target_idx
+    end_idx = html_content.find("</script>", target_idx)
     if end_idx == -1:
-        end_marker = "</script>"
-        end_idx = html_content.find(end_marker, start_idx)
+        end_idx = html_content.find("  </script>", target_idx)
         
     if end_idx == -1:
-        print("Error: Could not locate </script> tag in index.html")
+        print("Error: Could not locate closing </script> tag for COURSE_DATA in index.html")
         return
         
-    end_idx += len(end_marker)
+    end_marker_len = len("</script>") if html_content[end_idx:end_idx+len("</script>")] == "</script>" else len("  </script>")
+    end_idx += end_marker_len
     
     # Replace block
     updated_html = html_content[:start_idx] + compiled_js + html_content[end_idx:]
