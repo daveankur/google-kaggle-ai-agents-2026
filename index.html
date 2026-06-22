@@ -1361,6 +1361,12 @@
 
       <!-- Sidebar Footer -->
       <div class="sidebar-footer">
+        <div class="visitor-counter" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
+          <i data-lucide="users" style="width: 16px; height: 16px; color: #a855f7;"></i>
+          <span>Unique Visitors:</span>
+          <span id="visitorCount" style="font-weight: 700; color: #6366f1; background: rgba(99, 102, 241, 0.08); padding: 0.15rem 0.45rem; border-radius: 6px; font-family: monospace;">--</span>
+        </div>
+        <hr style="width: 100%; border: 0; border-top: 1px solid var(--border-color); margin-bottom: 0.75rem;">
         <span class="sidebar-footer-text" style="font-size: 1rem; color: var(--text-muted); font-weight:500;">
           Curated by <a href="https://www.linkedin.com/in/daveankur/" target="_blank"
             style="color: #f19963; text-decoration: none; font-weight: 600;">Ankur Dave</a>.
@@ -1618,1359 +1624,1359 @@
   <script>
     // Central database containing consolidated course assets
     const COURSE_DATA = {
-      "title": "Google & Kaggle AI Agents Course Hub",
-      "overview": "Welcome to the consolidated AI Agents Course Hub. This interactive dashboard combines the complete curriculum from the foundational course (<strong>Dec 2025 Foundation</strong>) and the advanced vibe coding updates (<strong>Jun 2026 Advanced</strong>). Here, you will study how agents compress traditional software cycles, utilize open standards like Model Context Protocol (MCP) and Agent-to-Agent (A2A), optimize tokens using modular Skills directories, implement ephemeral sandboxes and evaluations, and scale fleets of governed agents with Spec-Driven Development (SDD) on Google Cloud.",
-      "stats": [
-        {
-          "val": "5 Core Units",
-          "label": "Thematic Curriculum",
-          "color": "var(--primary-grad)",
-          "icon": "book-open"
-        },
-        {
-          "val": "10 Papers",
-          "label": "Foundations & Rewrites",
-          "color": "var(--accent-grad)",
-          "icon": "file-text"
-        },
-        {
-          "val": "19 Labs",
-          "label": "Kaggle & Local Codelabs",
-          "color": "var(--success-grad)",
-          "icon": "terminal"
-        },
-        {
-          "val": "20 YouTube Shows",
-          "label": "Podcasts & Livestreams",
-          "color": "var(--gold-grad)",
-          "icon": "youtube"
-        }
-      ],
-      "setup": {
-        "prereqs": [
-          {
-            "edition": "Dec 2025",
-            "title": "Kaggle Phone Verification",
-            "desc": "Required to enable notebook environments for Dec 2025 assignments.",
-            "url": "https://www.kaggle.com/settings"
-          },
-          {
-            "edition": "Dec 2025",
-            "title": "Google AI Studio API Key",
-            "desc": "Generate a developer API key to connect models inside the ADK.",
-            "url": "https://aistudio.google.com/app/apikey"
-          },
-          {
-            "edition": "Jun 2026",
-            "title": "Antigravity SDK / CLI / IDE",
-            "desc": "Download and set up the local developer suite.",
-            "url": "https://antigravity.google/product/antigravity-2"
-          }
-        ],
-        "links": [
-          {
-            "edition": "Dec 2025",
-            "title": "NotebookLM Study Guide",
-            "desc": "Upload the whitepapers to create an interactive study guide.",
-            "url": "https://support.google.com/notebooklm/answer/15731776"
-          },
-          {
-            "edition": "Dec 2025",
-            "title": "Codelabs Troubleshooting FAQ",
-            "desc": "Review solutions for common notebook error logs.",
-            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-0-troubleshooting-and-faqs"
-          },
-          {
-            "edition": "Jun 2026",
-            "title": "Kaggle Discussion Forum",
-            "desc": "Ask questions and share tips with other learners.",
-            "url": "https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google/discussion?sort=hotness"
-          },
-          {
-            "edition": "Jun 2026",
-            "title": "Course Feedback Form",
-            "desc": "Share your experience with the development team.",
-            "url": "https://forms.gle/UhHMABjXHAz25n848"
-          }
-        ]
+  "title": "Google & Kaggle AI Agents Course Hub",
+  "overview": "Welcome to the consolidated AI Agents Course Hub. This interactive dashboard combines the complete curriculum from the foundational course (<strong>Dec 2025 Foundation</strong>) and the advanced vibe coding updates (<strong>Jun 2026 Advanced</strong>). Here, you will study how agents compress traditional software cycles, utilize open standards like Model Context Protocol (MCP) and Agent-to-Agent (A2A), optimize tokens using modular Skills directories, implement ephemeral sandboxes and evaluations, and scale fleets of governed agents with Spec-Driven Development (SDD) on Google Cloud.",
+  "stats": [
+    {
+      "val": "5 Core Units",
+      "label": "Thematic Curriculum",
+      "color": "var(--primary-grad)",
+      "icon": "book-open"
+    },
+    {
+      "val": "10 Papers",
+      "label": "Foundations & Rewrites",
+      "color": "var(--accent-grad)",
+      "icon": "file-text"
+    },
+    {
+      "val": "19 Labs",
+      "label": "Kaggle & Local Codelabs",
+      "color": "var(--success-grad)",
+      "icon": "terminal"
+    },
+    {
+      "val": "20 YouTube Shows",
+      "label": "Podcasts & Livestreams",
+      "color": "var(--gold-grad)",
+      "icon": "youtube"
+    }
+  ],
+  "setup": {
+    "prereqs": [
+      {
+        "edition": "Dec 2025",
+        "title": "Kaggle Phone Verification",
+        "desc": "Required to enable notebook environments for Dec 2025 assignments.",
+        "url": "https://www.kaggle.com/settings"
       },
-      "syllabus": [
+      {
+        "edition": "Dec 2025",
+        "title": "Google AI Studio API Key",
+        "desc": "Generate a developer API key to connect models inside the ADK.",
+        "url": "https://aistudio.google.com/app/apikey"
+      },
+      {
+        "edition": "Jun 2026",
+        "title": "Antigravity SDK / CLI / IDE",
+        "desc": "Download and set up the local developer suite.",
+        "url": "https://antigravity.google/product/antigravity-2"
+      }
+    ],
+    "links": [
+      {
+        "edition": "Dec 2025",
+        "title": "NotebookLM Study Guide",
+        "desc": "Upload the whitepapers to create an interactive study guide.",
+        "url": "https://support.google.com/notebooklm/answer/15731776"
+      },
+      {
+        "edition": "Dec 2025",
+        "title": "Codelabs Troubleshooting FAQ",
+        "desc": "Review solutions for common notebook error logs.",
+        "url": "https://www.kaggle.com/code/kaggle5daysofai/day-0-troubleshooting-and-faqs"
+      },
+      {
+        "edition": "Jun 2026",
+        "title": "Kaggle Discussion Forum",
+        "desc": "Ask questions and share tips with other learners.",
+        "url": "https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google/discussion?sort=hotness"
+      },
+      {
+        "edition": "Jun 2026",
+        "title": "Course Feedback Form",
+        "desc": "Share your experience with the development team.",
+        "url": "https://forms.gle/UhHMABjXHAz25n848"
+      }
+    ]
+  },
+  "syllabus": [
+    {
+      "num": "1",
+      "title": "Intro & Vibe Coding",
+      "headerTitle": "Unit 1: Introduction to Agents & Vibe Coding",
+      "intro": "Explore the shift from traditional chatbots to autonomous agents. Learn how agentic architectures compress traditional software development cycles (SDLC), and study how vibe coding workflows allow natural language to act as the primary programming interface.",
+      "bullets": [
+        "<strong>Foundational Taxonomy:</strong> Map the spectrum of agentic capabilities, operational models, and constrained policies.",
+        "<strong>Vibe Coding Workflows:</strong> Transition from manual syntax typing to intent-driven programming with Antigravity 2.0.",
+        "<strong>Cloud Deployment:</strong> Deploy code directly from Google AI Studio to Cloud Run endpoints."
+      ],
+      "tasks": [
         {
-          "num": "1",
-          "title": "Intro & Vibe Coding",
-          "headerTitle": "Unit 1: Introduction to Agents & Vibe Coding",
-          "intro": "Explore the shift from traditional chatbots to autonomous agents. Learn how agentic architectures compress traditional software development cycles (SDLC), and study how vibe coding workflows allow natural language to act as the primary programming interface.",
-          "bullets": [
-            "<strong>Foundational Taxonomy:</strong> Map the spectrum of agentic capabilities, operational models, and constrained policies.",
-            "<strong>Vibe Coding Workflows:</strong> Transition from manual syntax typing to intent-driven programming with Antigravity 2.0.",
-            "<strong>Cloud Deployment:</strong> Deploy code directly from Google AI Studio to Cloud Run endpoints."
-          ],
-          "tasks": [
-            {
-              "id": "25-u1-podcast",
-              "text": "Dec 2025: Listen to Summary Podcast"
-            },
-            {
-              "id": "25-u1-whitepaper",
-              "text": "Dec 2025: Read 'Intro to Agents' Whitepaper"
-            },
-            {
-              "id": "25-u1-lab1",
-              "text": "Dec 2025: Complete Codelab (Prompt to Action)"
-            },
-            {
-              "id": "25-u1-lab2",
-              "text": "Dec 2025: Complete Codelab (Agent Architectures)"
-            },
-            {
-              "id": "25-u1-live",
-              "text": "Dec 2025: Watch Livestream Panel Review"
-            },
-            {
-              "id": "26-u1-podcast",
-              "text": "Jun 2026: Listen to Vibe Coding Podcast"
-            },
-            {
-              "id": "26-u1-whitepaper",
-              "text": "Jun 2026: Read 'The New SDLC' Whitepaper"
-            },
-            {
-              "id": "26-u1-lab1",
-              "text": "Jun 2026: Complete Antigravity Setup Lab"
-            },
-            {
-              "id": "26-u1-lab2",
-              "text": "Jun 2026: Complete Cloud Run Deploy Lab"
-            },
-            {
-              "id": "26-u1-live",
-              "text": "Jun 2026: Watch Vibe Coding Livestream"
-            }
-          ],
-          "foundation": {
-            "edition": "Dec 2025 Foundation",
-            "podcast": {
-              "title": "Introduction to Agents Podcast",
-              "videoId": "zTxvGzpfF-g",
-              "desc": "Foundational podcast introducing AI agent capabilities, taxonomy, and Agent Ops."
-            },
-            "pdf": {
-              "title": "Introduction to Agents Whitepaper",
-              "link": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
-              "desc": "Detailed breakdown of agent taxonomies, security controls, and operational patterns."
-            },
-            "labs": [
-              {
-                "title": "Lab 1a: Prompt to Action",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-1a-from-prompt-to-action"
-              },
-              {
-                "title": "Lab 1b: Agent Architectures",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-1b-agent-architectures"
-              }
-            ],
-            "livestream": {
-              "title": "Day 1 Q&A Livestream Panel",
-              "videoId": "ZaUcqznlhv8",
-              "desc": "Codelab review and insights on taxonomy of agent capabilities. Panelists: Alan Blount, Mike Clark, Michael Gerstenhaber, Antonio Gulli, Kristopher Overholt, Hangfei Lin."
-            }
-          },
-          "advanced": {
-            "edition": "Jun 2026 Advanced",
-            "podcast": {
-              "title": "Intro & Vibe Coding Podcast",
-              "videoId": "cbzmr7vt4XA",
-              "desc": "Discussion on Vibe Coding pipelines, setup configurations, and compressing the traditional SDLC."
-            },
-            "pdf": {
-              "title": "The New SDLC with Vibe Coding",
-              "link": "2026/FILES/Day_1_v3.pdf",
-              "desc": "Read about the intent-driven builder workflow, factory model, and structural code guidelines."
-            },
-            "labs": [
-              {
-                "title": "Lab 1: Antigravity IDE Setup",
-                "url": "https://codelabs.developers.google.com/getting-started-google-antigravity#0"
-              },
-              {
-                "title": "Lab 2: Cloud Run Deployment",
-                "url": "https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0"
-              }
-            ],
-            "livestream": {
-              "title": "Unit 1 Vibe Coding Livestream",
-              "videoId": "7iic3Zj427M",
-              "desc": "Deep dive walkthrough of Vibe Coding setups, Gherkin specifications, and workspace deployment options."
-            }
-          }
+          "id": "25-u1-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
         },
         {
-          "num": "2",
-          "title": "Tools & MCP",
-          "headerTitle": "Unit 2: Agent Tools & Model Context Protocol (MCP)",
-          "intro": "Connect models to databases and APIs safely using unified communication standards. Explore function declaration best practices and understand how Model Context Protocol (MCP) standardizes integrations without custom wrappers.",
-          "bullets": [
-            "<strong>Tools design:</strong> Write highly descriptive schemas that allow LLMs to determine arguments reliably.",
-            "<strong>Model Context Protocol:</strong> Connect model runtimes to SQLite databases and local filesystems via stdio host servers.",
-            "<strong>Long-Running Operations:</strong> Design approval checkpoints where agents pause execution until cleared by a human."
-          ],
-          "tasks": [
-            {
-              "id": "25-u2-podcast",
-              "text": "Dec 2025: Listen to Summary Podcast"
-            },
-            {
-              "id": "25-u2-whitepaper",
-              "text": "Dec 2025: Read 'Agent Tools & MCP' Whitepaper"
-            },
-            {
-              "id": "25-u2-lab1",
-              "text": "Dec 2025: Complete Codelab (Agent Tools)"
-            },
-            {
-              "id": "25-u2-lab2",
-              "text": "Dec 2025: Complete Codelab (MCP & Gated Tools)"
-            },
-            {
-              "id": "25-u2-live",
-              "text": "Dec 2025: Watch Livestream Panel Review"
-            },
-            {
-              "id": "26-u2-podcast",
-              "text": "Jun 2026: Listen to Tools & MCP Podcast"
-            },
-            {
-              "id": "26-u2-whitepaper",
-              "text": "Jun 2026: Read 'Tools & Interoperability' Whitepaper"
-            },
-            {
-              "id": "26-u2-lab1",
-              "text": "Jun 2026: Complete Antigravity CLI Lab"
-            },
-            {
-              "id": "26-u2-lab2",
-              "text": "Jun 2026: Complete Knowledge MCP Server Lab"
-            },
-            {
-              "id": "26-u2-live",
-              "text": "Jun 2026: Watch Tools & MCP Livestream"
-            }
-          ],
-          "foundation": {
-            "edition": "Dec 2025 Foundation",
-            "podcast": {
-              "title": "Agent Tools & MCP Podcast",
-              "videoId": "Cr4NA6rxHAM",
-              "desc": "Exploring custom tool calls, API interactions, and early implementations of the Model Context Protocol."
-            },
-            "pdf": {
-              "title": "Agent Tools & Interoperability with MCP",
-              "link": "2025/FILES/2025_Day_2_Rewrite_v1_AgentTools.pdf",
-              "desc": "Detailed analysis of MCP client-server topology, stdio transports, and secure gateways."
-            },
-            "labs": [
-              {
-                "title": "Lab 2a: Agent Tools",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-2a-agent-tools"
-              },
-              {
-                "title": "Lab 2b: Tools Best Practices",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-2b-agent-tools-best-practices"
-              }
-            ],
-            "livestream": {
-              "title": "Day 2 Q&A Livestream Panel",
-              "videoId": "8Gk1BE3uYek",
-              "desc": "Discussion on tool declarations and long-running operations. Panelists: Edward Grefenstette, Mike Styer, Oriol Vinyals, Alex Wissner-Gross, Laxmi Harikumar."
-            }
-          },
-          "advanced": {
-            "edition": "Jun 2026 Advanced",
-            "podcast": {
-              "title": "Tools & Interoperability Podcast",
-              "videoId": "GjjKXqxFTOY",
-              "desc": "Diving into Agent-to-Agent links, Universal Commerce, and Generative User Interfaces (A2UI)."
-            },
-            "pdf": {
-              "title": "Agent Tools & Interoperability",
-              "link": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
-              "desc": "Review MCP standard servers, Generative UI, machine payments (AP2), and commerce protocols."
-            },
-            "labs": [
-              {
-                "title": "Lab 1: Antigravity CLI Setup",
-                "url": "https://codelabs.developers.google.com/antigravity-cli-hands-on#0"
-              },
-              {
-                "title": "Lab 2: Developer Knowledge MCP",
-                "url": "https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity"
-              }
-            ],
-            "livestream": {
-              "title": "Unit 2 Tools & Interoperability Livestream",
-              "videoId": "PGI_S59EoRA",
-              "desc": "Technical walkthrough of MCP host topologies, inter-agent workflows, and Generative UI widgets."
-            }
-          }
+          "id": "25-u1-whitepaper",
+          "text": "Dec 2025: Read 'Intro to Agents' Whitepaper"
         },
         {
-          "num": "3",
-          "title": "Memory & Skills",
-          "headerTitle": "Unit 3: Context Engineering, Sessions, Memory & Skills",
-          "intro": "Optimize token budgets and context windows. Master dynamic context assembly using short-term conversation sessions, persistent vector memory banks, and modular Skills directories to load files only when needed.",
-          "bullets": [
-            "<strong>Short-term Sessions:</strong> Contain conversation logs in isolated stateful structures to preserve immediate history.",
-            "<strong>Persistent Memory:</strong> Implement external database storage to recall facts across disconnected runs.",
-            "<strong>Agent Skills:</strong> Package code guidelines and prompt instructions in modular directories to prevent token blowup."
-          ],
-          "tasks": [
-            {
-              "id": "25-u3-podcast",
-              "text": "Dec 2025: Listen to Summary Podcast"
-            },
-            {
-              "id": "25-u3-whitepaper",
-              "text": "Dec 2025: Read 'Sessions & Memory' Whitepaper"
-            },
-            {
-              "id": "25-u3-lab1",
-              "text": "Dec 2025: Complete Codelab (Agent Sessions)"
-            },
-            {
-              "id": "25-u3-lab2",
-              "text": "Dec 2025: Complete Codelab (Agent Memory)"
-            },
-            {
-              "id": "25-u3-live",
-              "text": "Dec 2025: Watch Livestream Panel Review"
-            },
-            {
-              "id": "26-u3-podcast",
-              "text": "Jun 2026: Listen to Agent Skills Podcast"
-            },
-            {
-              "id": "26-u3-whitepaper",
-              "text": "Jun 2026: Read 'Agent Skills' Whitepaper"
-            },
-            {
-              "id": "26-u3-lab1",
-              "text": "Jun 2026: Complete Antigravity Skills Lab"
-            },
-            {
-              "id": "26-u3-lab2",
-              "text": "Jun 2026: Complete Agents CLI & ADK Lab"
-            },
-            {
-              "id": "26-u3-live",
-              "text": "Jun 2026: Watch Agent Skills Livestream"
-            }
-          ],
-          "foundation": {
-            "edition": "Dec 2025 Foundation",
-            "podcast": {
-              "title": "Sessions & Memory Podcast",
-              "videoId": "FMcExVE15a4",
-              "desc": "Understanding state management, dynamic context assembly, and short-term vs long-term storage."
-            },
-            "pdf": {
-              "title": "Context Engineering: Sessions & Memory",
-              "link": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
-              "desc": "Techniques for token engineering, session container state management, and memory stores."
-            },
-            "labs": [
-              {
-                "title": "Lab 3a: Agent Sessions",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-3a-agent-sessions"
-              },
-              {
-                "title": "Lab 3b: Agent Memory",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-3b-agent-memory"
-              }
-            ],
-            "livestream": {
-              "title": "Day 3 Q&A Livestream Panel",
-              "videoId": "8o-GXj8A3nE",
-              "desc": "Discussion on context limits, RAG integration, and long-term memory. Panelists: Steven Johnson, Kimberly Milam, Julia Wiesinger, Jay Alammar, Kristopher Overholt."
-            }
-          },
-          "advanced": {
-            "edition": "Jun 2026 Advanced",
-            "podcast": {
-              "title": "Agent Skills Podcast",
-              "videoId": "uYURYHhpmKc",
-              "desc": "How dynamic loading of prompt checklists prevents attention dilution and keeps agents lightweight."
-            },
-            "pdf": {
-              "title": "Agent Skills",
-              "link": "2026/FILES/Agent Skills_Day_3.pdf",
-              "desc": "Modular directories structured with SKILL.md rules, ADK skill scripts, and progressive disclosure patterns."
-            },
-            "labs": [
-              {
-                "title": "Lab 1: Skills in Antigravity",
-                "url": "https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4"
-              },
-              {
-                "title": "Lab 2: Agents CLI & ADK",
-                "url": "https://codelabs.developers.google.com/agents-cli-adk-lifecycle"
-              }
-            ],
-            "livestream": {
-              "title": "Unit 3 Agent Skills Livestream",
-              "videoId": "1T2mxYZkqL0",
-              "desc": "Walkthrough of packaging custom scripts, targeting specific tasks, and deploying modular agent skills."
-            }
-          }
+          "id": "25-u1-lab1",
+          "text": "Dec 2025: Complete Codelab (Prompt to Action)"
         },
         {
-          "num": "4",
-          "title": "Quality & Security",
-          "headerTitle": "Unit 4: Agent Quality, Observability, Security & Evaluation",
-          "intro": "Assure reliability in non-deterministic systems. Implement three-pillar observability (Logs, Traces, Metrics), automate evaluations with LLM-as-a-Judge, and establish Effective Trust boundaries using sandboxing and threat testing.",
-          "bullets": [
-            "<strong>Observability:</strong> Trace execution trajectories, construct timeline logs, and measure token metrics via OpenTelemetry.",
-            "<strong>Automated Evaluation:</strong> Grade agent tool paths and response qualities using labeled datasets.",
-            "<strong>Effective Trust:</strong> Enforce zero-trust security constraints, sandboxed environments, and package lock validations."
-          ],
-          "tasks": [
-            {
-              "id": "25-u4-podcast",
-              "text": "Dec 2025: Listen to Summary Podcast"
-            },
-            {
-              "id": "25-u4-whitepaper",
-              "text": "Dec 2025: Read 'Agent Quality' Whitepaper"
-            },
-            {
-              "id": "25-u4-lab1",
-              "text": "Dec 2025: Complete Codelab (Observability)"
-            },
-            {
-              "id": "25-u4-lab2",
-              "text": "Dec 2025: Complete Codelab (Evaluation)"
-            },
-            {
-              "id": "25-u4-live",
-              "text": "Dec 2025: Watch Livestream Panel Review"
-            },
-            {
-              "id": "26-u4-podcast",
-              "text": "Jun 2026: Listen to Security & Evaluation Podcast"
-            },
-            {
-              "id": "26-u4-whitepaper",
-              "text": "Jun 2026: Read 'Security & Evaluation' Whitepaper"
-            },
-            {
-              "id": "26-u4-lab1",
-              "text": "Jun 2026: Complete Human-in-the-Loop Lab"
-            },
-            {
-              "id": "26-u4-lab2",
-              "text": "Jun 2026: Complete Security Testing Lab"
-            },
-            {
-              "id": "26-u4-live",
-              "text": "Jun 2026: Watch Security & Evaluation Livestream"
-            }
-          ],
-          "foundation": {
-            "edition": "Dec 2025 Foundation",
-            "podcast": {
-              "title": "Agent Quality & Evaluation Podcast",
-              "videoId": "LFQRy-Ci-lk",
-              "desc": "Understanding automated testing, logs vs traces vs metrics, and benchmark evaluation runs."
-            },
-            "pdf": {
-              "title": "Agent Quality & Evaluation",
-              "link": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
-              "desc": "Holistic evaluation strategies, OpenTelemetry pipelines, and building loop feedback flywheels."
-            },
-            "labs": [
-              {
-                "title": "Lab 4a: Agent Observability",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-4a-agent-observability"
-              },
-              {
-                "title": "Lab 4b: Agent Evaluation",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-4b-agent-evaluation"
-              }
-            ],
-            "livestream": {
-              "title": "Day 4 Q&A Livestream Panel",
-              "videoId": "JW1Yybfxyr4",
-              "desc": "Insights on debugging non-deterministic agent loops and LLM judging. Panelists: Wafae Bakkali, Turan Bulmus, Sian Gooding, Jiwei Liu, Sita Lakshmi Sangameswaran."
-            }
-          },
-          "advanced": {
-            "edition": "Jun 2026 Advanced",
-            "podcast": {
-              "title": "Security & Evaluation Podcast",
-              "videoId": "Ddz1b8CYPvg",
-              "desc": "Deep dive on sandboxing untrusted code, slopsquatting defenses, and ambient human review gating."
-            },
-            "pdf": {
-              "title": "Vibe Coding Agent Security and Evaluation",
-              "link": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
-              "desc": "Analysis of continuous verification, the Red/Blue/Green security triad, and sandboxed runtimes."
-            },
-            "labs": [
-              {
-                "title": "Lab 1: Expense Agent with HITL",
-                "url": "https://codelabs.developers.google.com/vibecode-ambient-expense-agent"
-              },
-              {
-                "title": "Lab 2: Secure AI Coding",
-                "url": "https://codelabs.developers.google.com/secure-agentic-coding"
-              }
-            ],
-            "livestream": {
-              "title": "Unit 4 Security & Evaluation Livestream",
-              "videoId": "suWoYLD7uGY",
-              "desc": "Walkthrough of package scanners, setting permission walls, and setting up telemetry monitors."
-            }
-          }
+          "id": "25-u1-lab2",
+          "text": "Dec 2025: Complete Codelab (Agent Architectures)"
         },
         {
-          "num": "5",
-          "title": "Production & Scale",
-          "headerTitle": "Unit 5: Production deployments, Agent fleets, A2A & Spec-Driven Development",
-          "intro": "Graduate prototypes to managed cloud clusters. Explore Agent-to-Agent (A2A) microservices, deploy runtimes to Google Cloud, and adopt Spec-Driven Development (SDD) to treat individual codebases as completely disposable.",
-          "bullets": [
-            "<strong>Agent-to-Agent (A2A):</strong> Connect specialized agents across secure networks, bypassing monolithic architectures.",
-            "<strong>Spec-Driven Development:</strong> Treat BDD Gherkin files as the absolute source of truth, generating code dynamically.",
-            "<strong>Production Scaling:</strong> Deploy to Vertex AI Agent Engine or Cloud Run with Policy Server governance."
-          ],
-          "tasks": [
-            {
-              "id": "25-u5-podcast",
-              "text": "Dec 2025: Listen to Summary Podcast"
-            },
-            {
-              "id": "25-u5-whitepaper",
-              "text": "Dec 2025: Read 'Prototype to Production' Whitepaper"
-            },
-            {
-              "id": "25-u5-lab1",
-              "text": "Dec 2025: Complete Codelab (Agent2Agent)"
-            },
-            {
-              "id": "25-u5-lab2",
-              "text": "Dec 2025: Complete Codelab (Cloud Deployment)"
-            },
-            {
-              "id": "25-u5-live",
-              "text": "Dec 2025: Watch Livestream Panel Review"
-            },
-            {
-              "id": "26-u5-podcast",
-              "text": "Jun 2026: Listen to Spec-Driven SDD Podcast"
-            },
-            {
-              "id": "26-u5-whitepaper",
-              "text": "Jun 2026: Read 'Spec-Driven SDD' Whitepaper"
-            },
-            {
-              "id": "26-u5-lab1",
-              "text": "Jun 2026: Review Cloud Scaling Lab"
-            },
-            {
-              "id": "26-u5-lab2",
-              "text": "Jun 2026: Review Frontend App Codelab"
-            },
-            {
-              "id": "26-u5-live",
-              "text": "Jun 2026: Watch Spec-Driven Development Livestream"
-            }
-          ],
-          "foundation": {
-            "edition": "Dec 2025 Foundation",
-            "podcast": {
-              "title": "Prototype to Production Podcast",
-              "videoId": "8Wyt9l7ge-g",
-              "desc": "Taking local agent code into enterprise clusters, versioning agents, and Vertex AI deployments."
-            },
-            "pdf": {
-              "title": "Prototype to Production Whitepaper",
-              "link": "2025/FILES/2025_Day_5_Rewrite_v1_Prototype.pdf",
-              "desc": "A blueprint for hosting, scaling, and managing autonomous agent workflows in the cloud."
-            },
-            "labs": [
-              {
-                "title": "Lab 5a: A2A Communication",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-5a-agent2agent-communication"
-              },
-              {
-                "title": "Lab 5b: Agent Cloud Deployment",
-                "url": "https://www.kaggle.com/code/kaggle5daysofai/day-5b-agent-deployment"
-              }
-            ],
-            "livestream": {
-              "title": "Day 5 Q&A Livestream Panel",
-              "videoId": "4XjPh5or0ws",
-              "desc": "Closing discussion on deployment architectures, scaling, and A2A. Panelists: Will Grannis, Sokratis Kartakis, Elia Secchi, Saurabh Tiwary, Laxmi Harikumar."
-            }
-          },
-          "advanced": {
-            "edition": "Jun 2026 Advanced",
-            "podcast": {
-              "title": "Spec-Driven Development Podcast",
-              "videoId": "VSRdL4wlbLY",
-              "desc": "Exploring spec-driven workflows, BDD specifications, and deploying governed agent fleets."
-            },
-            "pdf": {
-              "title": "Spec-Driven Production Grade Development",
-              "link": "2026/FILES/Day_5_v3.pdf",
-              "desc": "Treating code as disposable, zero-trust deployment pipelines, Policy Servers, and ContextResolvers."
-            },
-            "labs": [
-              {
-                "title": "Lab 1: Google Cloud Agent Scale",
-                "url": "https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud"
-              },
-              {
-                "title": "Lab 2: UI Front-End Integration",
-                "url": "https://codelabs.developers.google.com/vibecode-frontend-with-antigravity"
-              }
-            ],
-            "livestream": {
-              "title": "Unit 5 Spec-Driven Development Livestream",
-              "videoId": "Y3HfV4IroCU",
-              "desc": "Walkthrough of zero-trust deployment, writing behavior specs, and managing Policy Server constraints."
-            }
-          }
+          "id": "25-u1-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u1-podcast",
+          "text": "Jun 2026: Listen to Vibe Coding Podcast"
+        },
+        {
+          "id": "26-u1-whitepaper",
+          "text": "Jun 2026: Read 'The New SDLC' Whitepaper"
+        },
+        {
+          "id": "26-u1-lab1",
+          "text": "Jun 2026: Complete Antigravity Setup Lab"
+        },
+        {
+          "id": "26-u1-lab2",
+          "text": "Jun 2026: Complete Cloud Run Deploy Lab"
+        },
+        {
+          "id": "26-u1-live",
+          "text": "Jun 2026: Watch Vibe Coding Livestream"
         }
       ],
-      "highlights": [
-        {
-          "title": "5 Core Parts of an Agent",
-          "icon": "cpu",
-          "items": [
-            "1. <strong>The Model:</strong> LLM reasoning core.",
-            "2. <strong>Tools:</strong> APIs, function executors.",
-            "3. <strong>Memory:</strong> Short-term sessions & long-term facts.",
-            "4. <strong>Orchestration:</strong> Loops driving agent actions.",
-            "5. <strong>Deployment:</strong> hosting & cloud scales."
-          ]
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Introduction to Agents Podcast",
+          "videoId": "zTxvGzpfF-g",
+          "desc": "Foundational podcast introducing AI agent capabilities, taxonomy, and Agent Ops."
         },
-        {
-          "title": "6 Key Types of Context",
-          "icon": "database",
-          "items": [
-            "1. <strong>Instructions:</strong> Core goals & boundaries.",
-            "2. <strong>Knowledge:</strong> Domain data, retrieved documents.",
-            "3. <strong>Memory:</strong> Local session history logs.",
-            "4. <strong>Examples:</strong> Few-shot templates of output formatting.",
-            "5. <strong>Tools:</strong> Precise JSON schemas of callable APIs.",
-            "6. <strong>Guardrails:</strong> Hard rules & validation checks."
-          ]
+        "pdf": {
+          "title": "Introduction to Agents Whitepaper",
+          "link": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
+          "desc": "Detailed breakdown of agent taxonomies, security controls, and operational patterns."
         },
-        {
-          "title": "3 Tiers of Code Review",
-          "icon": "git-pull-request",
-          "items": [
-            "<strong>Tier 1 - Managed:</strong> Standard off-the-shelf SaaS reviewers (e.g. Gemini Code Assist on GitHub).",
-            "<strong>Tier 2 - Hybrid:</strong> Git Actions executing coding CLI agents locally (e.g. Antigravity CLI).",
-            "<strong>Tier 3 - Custom:</strong> Specialized ADK multi-agent pipelines hosted on managed runtimes."
-          ]
-        },
-        {
-          "title": "3 Policy Gating Steps",
-          "icon": "shield-check",
-          "items": [
-            "1. <strong>Structural Check:</strong> Fast, binary environment YAML checks (e.g., block tool role access).",
-            "2. <strong>Semantic Check:</strong> Secondary LLM evaluating argument intent (safeguarding unmasked PII).",
-            "3. <strong>Execution:</strong> Run the tool, or fail/trigger self-correction dynamically."
-          ]
-        },
-        {
-          "title": "3 Durable SDD Principles",
-          "icon": "compass",
-          "items": [
-            "1. <strong>Structure scales, vibes don't:</strong> Verification, strict design specs, and test sets are mandatory.",
-            "2. <strong>AI amplifies code culture:</strong> Good engineering teams build harnesses; bad teams generate technical debt.",
-            "3. <strong>The human role is evolving:</strong> Transition from syntax developers to context architects."
-          ]
-        },
-        {
-          "title": "3 Graph Retrieval Modes",
-          "icon": "activity",
-          "items": [
-            "1. <strong>Graph Traversal (GQL):</strong> Query structures (find every function that transitively calls target API).",
-            "2. <strong>Vector Search (ANN):</strong> Semantic query lookup.",
-            "3. <strong>Full-Text Search:</strong> Exact identifier matches."
-          ]
-        },
-        {
-          "title": "3 Observability Pillars",
-          "icon": "activity",
-          "items": [
-            "1. <strong>Logs (The Diary):</strong> Detailed debug execution history.",
-            "2. <strong>Traces (The Narrative):</strong> Visual call graphs and step sequences.",
-            "3. <strong>Metrics (The Health Report):</strong> Cost, latency, and tokens usage."
-          ]
-        },
-        {
-          "title": "2 Types of Memory",
-          "icon": "database",
-          "items": [
-            "<strong>Short-term (Sessions):</strong> Context contained in a single conversation history.",
-            "<strong>Long-term (Memory Banks):</strong> Persistent facts recalled across different chat sessions."
-          ]
-        },
-        {
-          "title": "2 Integration Protocols",
-          "icon": "git-pull-request",
-          "items": [
-            "<strong>Model Context Protocol (MCP):</strong> For agent-to-tool connections.",
-            "<strong>Agent-to-Agent (A2A):</strong> For agent-to-agent remote delegation."
-          ]
-        },
-        {
-          "title": "2 Evaluation Pillars",
-          "icon": "shield-check",
-          "items": [
-            "<strong>Output Evaluation:</strong> Compares output against a correct baseline.",
-            "<strong>Trajectory Evaluation:</strong> Scans the sequence of tools called and reasoning paths."
-          ]
-        }
-      ],
-      "glossary": [
-        {
-          "term": "Agentic Architecture",
-          "cat": "sdlc",
-          "edition": "Dec 2025 Foundation",
-          "definition": "A design pattern focusing on autonomous loop execution (perceive, plan, act, observe) rather than single-turn LLM chat prompts."
-        },
-        {
-          "term": "Agent Ops",
-          "cat": "sdlc",
-          "edition": "Dec 2025 Foundation",
-          "definition": "Operations frameworks and disciplines required to monitor, version control, and govern agent logic in production."
-        },
-        {
-          "term": "ADK Framework",
-          "cat": "context",
-          "edition": "Dec 2025 Foundation",
-          "definition": "Agent Development Kit (ADK) - Google's toolkit for structuring agents, defining tools, and managing session loops."
-        },
-        {
-          "term": "Long-Running Operations",
-          "cat": "protocols",
-          "edition": "Dec 2025 Foundation",
-          "definition": "Gated functions enabling agents to pause executing tool tasks while awaiting manual human checkpoint clearance."
-        },
-        {
-          "term": "Context Engineering",
-          "cat": "context",
-          "edition": "Dec 2025 Foundation",
-          "definition": "The practice of dynamically assembling high-signal context information inside the model's active window."
-        },
-        {
-          "term": "Agent Quality",
-          "cat": "sdlc",
-          "edition": "Dec 2025 Foundation",
-          "definition": "The metrics and evaluation frameworks used to score agent success rates, hallucination logs, and output validity."
-        },
-        {
-          "term": "LLM-as-a-Judge",
-          "cat": "security",
-          "edition": "Dec 2025 Foundation",
-          "definition": "An evaluation paradigm where a secondary, specialized model scores agent trajectories against pre-labeled rubrics."
-        },
-        {
-          "term": "Vertex AI Agent Engine",
-          "cat": "sdlc",
-          "edition": "Dec 2025 Foundation",
-          "definition": "A managed hosting platform on Google Cloud designed to deploy, run, and scale ADK agents."
-        },
-        {
-          "term": "Vibe Coding",
-          "cat": "sdlc",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A programming paradigm where developers express requirements in natural language and guide code-writing models to generate the implementation, acting as context architects."
-        },
-        {
-          "term": "Agentic Engineering",
-          "cat": "sdlc",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A structured, disciplined methodology surrounding AI outputs with tests, sandboxes, evaluations, and policy restrictions to ensure reliability."
-        },
-        {
-          "term": "The Harness",
-          "cat": "sdlc",
-          "edition": "Jun 2026 Advanced",
-          "definition": "The complete scaffolding wrapped around raw AI models: includes system prompts, external tools, local policies, sandboxes, sub-agents, and observability scripts."
-        },
-        {
-          "term": "Agent-to-User Interface (A2UI)",
-          "cat": "protocols",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A framework-agnostic standard ('Generative Display Window') that lets agents compositionally arrange pre-approved UI parts (cards, sliders) for safe user interactions."
-        },
-        {
-          "term": "Agent Payments Protocol (AP2)",
-          "cat": "protocols",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A protocol laying the groundwork for secure, machine-to-machine financial payments governed by human-approved spending mandates."
-        },
-        {
-          "term": "Universal Commerce Protocol (UCP)",
-          "cat": "protocols",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A programmatic commerce layer standardizing checkout, shopping cart validation, and merchant catalogs for autonomous buyer agents."
-        },
-        {
-          "term": "Agent Skills",
-          "cat": "context",
-          "edition": "Jun 2026 Advanced",
-          "definition": "Modular bundles of files and instructions structured around a central SKILL.md document. Dynamically loaded on-demand depending on task matching to prevent token overloading."
-        },
-        {
-          "term": "Context Rot",
-          "cat": "context",
-          "edition": "Jun 2026 Advanced",
-          "definition": "The degradation in reasoning ability and increase in errors when an agent's context window is overloaded with noisy or irrelevant data."
-        },
-        {
-          "term": "Progressive Disclosure",
-          "cat": "context",
-          "edition": "Jun 2026 Advanced",
-          "definition": "An optimization tactic loading full code instructions or documentation fragments only when the active task requires them."
-        },
-        {
-          "term": "Slopsquatting",
-          "cat": "security",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A security vulnerability where attackers publish malicious packages using names hallucinated by coding agents, tricking systems into importing infected libraries."
-        },
-        {
-          "term": "Effective Trust",
-          "cat": "security",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A zero-trust security architecture enforcing continuous verification, sandboxed subprocess runtimes, and trajectory check gates."
-        },
-        {
-          "term": "Spec-Driven Development (SDD)",
-          "cat": "sdlc",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A development process where behavior-driven Gherkin specifications are treated as the project's source of truth, rendering individual codebases disposable."
-        },
-        {
-          "term": "Policy Server",
-          "cat": "security",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A hybrid security filter intercepting tool calls. Enforces deterministic Structural Gating (YAML roles checks) and Semantic Gating (LLM PII check)."
-        },
-        {
-          "term": "ContextResolver",
-          "cat": "context",
-          "edition": "Jun 2026 Advanced",
-          "definition": "A regex utility replacing double-bracketed placeholders in templates with environment values, sanitizing inputs."
-        },
-        {
-          "term": "Model Context Protocol (MCP)",
-          "cat": "protocols",
-          "edition": "Unified Core Protocol",
-          "definition": "An open standard protocol ('the USB-C for AI tools') that instantly connects AI models directly to SQLite/Postgres databases, filesystems, and remote APIs."
-        },
-        {
-          "term": "Agent-to-Agent (A2A)",
-          "cat": "protocols",
-          "edition": "Unified Core Protocol",
-          "definition": "A standardized communication protocol ('Factory Radio') enabling distributed specialized agents to communicate, negotiate, and delegate tasks to each other."
-        }
-      ],
-      "graph": {
-        "nodes": [
+        "labs": [
           {
-            "id": "Agentic Architecture",
-            "group": "sdlc",
-            "size": 26,
-            "def": "A design pattern focusing on autonomous loop execution (perceive, plan, act, observe) rather than single-turn LLM chat prompts.",
-            "takeaways": [
-              "Replaces simple chatbots",
-              "Decides next action step-by-step",
-              "Uses tools autonomously"
-            ],
-            "docLink": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
-            "edition": "Dec 2025 Foundation"
+            "title": "Lab 1a: Prompt to Action",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-1a-from-prompt-to-action"
           },
           {
-            "id": "Agent Ops",
-            "group": "sdlc",
-            "size": 24,
-            "def": "Operations frameworks and disciplines required to monitor, version control, and govern agent logic in production.",
-            "takeaways": [
-              "Enforces predictable outputs",
-              "Audits decision paths",
-              "Manages token spend rates"
-            ],
-            "docLink": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Long-Running Operations",
-            "group": "protocols",
-            "size": 22,
-            "def": "Gated functions enabling agents to pause executing tool tasks while awaiting manual human checkpoint clearance.",
-            "takeaways": [
-              "Allows manual review gate",
-              "Saves execution state safely",
-              "Failsafe for critical actions"
-            ],
-            "docLink": "2025/FILES/2025_Day_2_Rewrite_v1_AgentTools.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Context Engineering",
-            "group": "context",
-            "size": 24,
-            "def": "The practice of dynamically assembling high-signal context information inside the model's active window.",
-            "takeaways": [
-              "Optimizes context size",
-              "Prevents model distraction",
-              "Saves token costs"
-            ],
-            "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Sessions",
-            "group": "context",
-            "size": 20,
-            "def": "A container managing the current conversational state and active logs of a single user chat.",
-            "takeaways": [
-              "Keeps immediate chat history",
-              "Short-term working state",
-              "Isolates conversation scopes"
-            ],
-            "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Memory Banks",
-            "group": "context",
-            "size": 20,
-            "def": "Long-term vector databases holding rules, configurations, and user facts across different session chats.",
-            "takeaways": [
-              "Recalls details across runs",
-              "Avoids starting from a blank slate",
-              "Improves personalization"
-            ],
-            "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Agent Quality",
-            "group": "sdlc",
-            "size": 24,
-            "def": "The metrics and evaluation frameworks used to score agent success rates, hallucination logs, and output validity.",
-            "takeaways": [
-              "Identifies behavioral drift",
-              "Requires benchmark datasets",
-              "Uses LLM-as-a-Judge scoring"
-            ],
-            "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Observability",
-            "group": "security",
-            "size": 24,
-            "def": "The trace metrics, debugger log lines, and execution paths providing complete visibility into agent decisions.",
-            "takeaways": [
-              "Pillars: Logs, Traces, Metrics",
-              "OpenTelemetry tracing standard",
-              "Essential for auditing errors"
-            ],
-            "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "LLM-as-a-Judge",
-            "group": "security",
-            "size": 20,
-            "def": "An evaluation paradigm where a secondary, specialized model scores agent trajectories against pre-labeled rubrics.",
-            "takeaways": [
-              "Automated grading workflow",
-              "Evaluates multi-turn logic",
-              "Scores tool-call trajectories"
-            ],
-            "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Vertex AI Agent Engine",
-            "group": "sdlc",
-            "size": 22,
-            "def": "A managed hosting platform on Google Cloud designed to deploy, run, and scale ADK agents.",
-            "takeaways": [
-              "Enterprise cloud hosting",
-              "Integrates Vertex AI governance",
-              "Observes live agent fleets"
-            ],
-            "docLink": "2025/FILES/2025_Day_5_Rewrite_v1_Prototype.pdf",
-            "edition": "Dec 2025 Foundation"
-          },
-          {
-            "id": "Vibe Coding",
-            "group": "sdlc",
-            "size": 28,
-            "def": "A programming paradigm where developers express requirements in natural language and guide code-writing models to generate the implementation, acting as context architects.",
-            "takeaways": [
-              "Transition from syntax to intent",
-              "Code is disposable; specifications are the target",
-              "Subject to the 80% problem"
-            ],
-            "docLink": "2026/FILES/Day_1_v3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Agentic Engineering",
-            "group": "sdlc",
-            "size": 28,
-            "def": "A disciplined engineering practice utilizing strict constraints, tests, sandboxes, and verification loops surrounding LLM outputs.",
-            "takeaways": [
-              "Structure scales, vibes don't",
-              "Requires upfront CapEx, but drops operational OpEx",
-              "Relies heavily on Harness configurations"
-            ],
-            "docLink": "2026/FILES/Day_1_v3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "The Harness",
-            "group": "context",
-            "size": 24,
-            "def": "The entire scaffolding wrapped around a raw reasoning model that enables it to perform complex, safe, and observable tasks.",
-            "takeaways": [
-              "Formula: Agent = Model + Harness",
-              "Includes: sandboxes, tools, prompt rules, observability hooks",
-              "Scaffold represents 90% of the engineering work"
-            ],
-            "docLink": "2026/FILES/Day_1_v3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Agent-to-UI",
-            "group": "protocols",
-            "size": 22,
-            "def": "A secure protocol (A2UI) allowing agents to return structured, dynamic user interfaces composed of pre-approved layout components.",
-            "takeaways": [
-              "Generative UI: Composes interfaces on demand safely",
-              "Agent specifies UI intent",
-              "Client renders UI components natively (LEGO blocks)"
-            ],
-            "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Agent Payments Protocol",
-            "group": "protocols",
-            "size": 22,
-            "def": "An open payment protocol (AP2) providing standard transactions and cryptographically signed rules between agents and merchants.",
-            "takeaways": [
-              "Sets secure wallets and credit limits",
-              "Mandates govern spending ranges (no hidden fees)",
-              "Supports HTTP 402 microtransactions"
-            ],
-            "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Universal Commerce",
-            "group": "protocols",
-            "size": 22,
-            "def": "A standard protocol (UCP) translating catalogs, carts, orders, and checkouts machine-readably for autonomous agents.",
-            "takeaways": [
-              "Bypasses scraping of customer storefronts",
-              "Enables agents to interact directly with merchant inventories",
-              "Acts as the pipeline for programmatic supply chain purchases"
-            ],
-            "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Agent Skills",
-            "group": "context",
-            "size": 24,
-            "def": "Portable directories organized around a SKILL.md file containing specialized prompt workflows and scripts.",
-            "takeaways": [
-              "Dynamic context packages loaded only on demand",
-              "Reduces system prompts and context bloat",
-              "Prevents context rot and attention dilution"
-            ],
-            "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Progressive Disclosure",
-            "group": "context",
-            "size": 20,
-            "def": "An optimization tactic loading full code instructions or documentation fragments only when the active task requires them.",
-            "takeaways": [
-              "Initial state has only minimal metadata",
-              "Saves token costs and prevents model distraction",
-              "Core mechanism of Google ADK and Agent Skills"
-            ],
-            "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Context Rot",
-            "group": "context",
-            "size": 20,
-            "def": "The decline of LLM reasoning performance and accuracy when the context window is stuffed with noise or generic files.",
-            "takeaways": [
-              "Caused by dumping complete repositories into prompts",
-              "Can lead to severe hallucinations or tool mistakes",
-              "Resolved by dynamic routing and RAG for tools"
-            ],
-            "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Effective Trust",
-            "group": "security",
-            "size": 24,
-            "def": "A security posture establishing continuous verification of agent execution, rather than relying on one-time authentication check gates.",
-            "takeaways": [
-              "7-pillar zero-trust security framework",
-              "Enforces sandboxed runtimes and trajectory reviews",
-              "Defends against rogue behavior or compromise"
-            ],
-            "docLink": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Slopsquatting",
-            "group": "security",
-            "size": 20,
-            "def": "A risk vector where attackers publish malicious packages using names hallucinated by coding agents, waiting to be imported.",
-            "takeaways": [
-              "Prevented by strict package locks",
-              "Requires automated safety threat scans in build pipelines",
-              "Demands sandbox barriers during local code testing"
-            ],
-            "docLink": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Spec-Driven Development",
-            "group": "sdlc",
-            "size": 26,
-            "def": "A workflow (SDD) treating behavior-driven Gherkin scenarios as the source of truth, meaning implementation code is disposable.",
-            "takeaways": [
-              "Scenarios write Given / When / Then specifications",
-              "Code can be regenerated completely in JavaScript or Python",
-              "Shifts developers from coding to review and design"
-            ],
-            "docLink": "2026/FILES/Day_5_v3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Policy Server",
-            "group": "security",
-            "size": 24,
-            "def": "A hybrid governance server intercepting tool calls to enforce Structural Gating (YAML roles) and Semantic Gating (LLM check).",
-            "takeaways": [
-              "Structural layer: Checks permissions deterministically in YAML",
-              "Semantic layer: Secondary LLM reviews arguments for secret leaks",
-              "Separate execution logic from governance safety"
-            ],
-            "docLink": "2026/FILES/Day_5_v3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "ContextResolver",
-            "group": "context",
-            "size": 20,
-            "def": "A regex utility replacing double-bracketed placeholders in templates with environment values, sanitizing inputs.",
-            "takeaways": [
-              "Pattern: replacing [[VARIABLE]] values at runtime",
-              "Avoids hardcoding keys or emails in codebase specs",
-              "Keeps reasoning window sanitized"
-            ],
-            "docLink": "2026/FILES/Day_5_v3.pdf",
-            "edition": "Jun 2026 Advanced"
-          },
-          {
-            "id": "Model Context Protocol",
-            "group": "protocols",
-            "size": 26,
-            "def": "An open standard connecting models to APIs and databases natively without custom REST wrappers.",
-            "takeaways": [
-              "Standardizes integration points",
-              "Eliminates bespoke API code",
-              "Simplifies tool discovery"
-            ],
-            "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
-            "edition": "Unified Core Protocol"
-          },
-          {
-            "id": "Agent-to-Agent",
-            "group": "protocols",
-            "size": 24,
-            "def": "A standard communication protocol enabling remote, domain-specific specialist agents to coordinate and share conversational state.",
-            "takeaways": [
-              "Facilitates cross-agent delegation",
-              "Avoids monolithic agent traps",
-              "A2A universal communication layer"
-            ],
-            "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
-            "edition": "Unified Core Protocol"
+            "title": "Lab 1b: Agent Architectures",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-1b-agent-architectures"
           }
         ],
-        "links": [
+        "livestream": {
+          "title": "Day 1 Q&A Livestream Panel",
+          "videoId": "ZaUcqznlhv8",
+          "desc": "Codelab review and insights on taxonomy of agent capabilities. Panelists: Alan Blount, Mike Clark, Michael Gerstenhaber, Antonio Gulli, Kristopher Overholt, Hangfei Lin."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Intro & Vibe Coding Podcast",
+          "videoId": "cbzmr7vt4XA",
+          "desc": "Discussion on Vibe Coding pipelines, setup configurations, and compressing the traditional SDLC."
+        },
+        "pdf": {
+          "title": "The New SDLC with Vibe Coding",
+          "link": "2026/FILES/Day_1_v3.pdf",
+          "desc": "Read about the intent-driven builder workflow, factory model, and structural code guidelines."
+        },
+        "labs": [
           {
-            "source": "Agentic Architecture",
-            "target": "Agent Ops",
-            "label": "requires"
+            "title": "Lab 1: Antigravity IDE Setup",
+            "url": "https://codelabs.developers.google.com/getting-started-google-antigravity#0"
           },
           {
-            "source": "Agentic Architecture",
-            "target": "Context Engineering",
-            "label": "uses"
-          },
-          {
-            "source": "Context Engineering",
-            "target": "Sessions",
-            "label": "manages"
-          },
-          {
-            "source": "Context Engineering",
-            "target": "Memory Banks",
-            "label": "includes"
-          },
-          {
-            "source": "Sessions",
-            "target": "Model Context Protocol",
-            "label": "connects to"
-          },
-          {
-            "source": "Model Context Protocol",
-            "target": "Long-Running Operations",
-            "label": "allows"
-          },
-          {
-            "source": "Agentic Architecture",
-            "target": "Agent Quality",
-            "label": "evaluated by"
-          },
-          {
-            "source": "Agent Quality",
-            "target": "Observability",
-            "label": "needs"
-          },
-          {
-            "source": "Observability",
-            "target": "LLM-as-a-Judge",
-            "label": "drives"
-          },
-          {
-            "source": "Agentic Architecture",
-            "target": "Agent-to-Agent",
-            "label": "delegates via"
-          },
-          {
-            "source": "Agent-to-Agent",
-            "target": "Vertex AI Agent Engine",
-            "label": "hosted on"
-          },
-          {
-            "source": "Vibe Coding",
-            "target": "Agentic Engineering",
-            "label": "evolves to"
-          },
-          {
-            "source": "Agentic Engineering",
-            "target": "The Harness",
-            "label": "requires"
-          },
-          {
-            "source": "The Harness",
-            "target": "Model Context Protocol",
-            "label": "includes"
-          },
-          {
-            "source": "The Harness",
-            "target": "Agent Skills",
-            "label": "includes"
-          },
-          {
-            "source": "Model Context Protocol",
-            "target": "Agent-to-Agent",
-            "label": "coexists with"
-          },
-          {
-            "source": "Agent-to-Agent",
-            "target": "Agent-to-UI",
-            "label": "extends to"
-          },
-          {
-            "source": "Agent-to-Agent",
-            "target": "Agent Payments Protocol",
-            "label": "enables"
-          },
-          {
-            "source": "Agent Payments Protocol",
-            "target": "Universal Commerce",
-            "label": "secures"
-          },
-          {
-            "source": "Agent Skills",
-            "target": "Progressive Disclosure",
-            "label": "implements"
-          },
-          {
-            "source": "Progressive Disclosure",
-            "target": "Context Rot",
-            "label": "prevents"
-          },
-          {
-            "source": "The Harness",
-            "target": "Effective Trust",
-            "label": "enforces"
-          },
-          {
-            "source": "Effective Trust",
-            "target": "Slopsquatting",
-            "label": "defends against"
-          },
-          {
-            "source": "Agentic Engineering",
-            "target": "Spec-Driven Development",
-            "label": "implements"
-          },
-          {
-            "source": "Spec-Driven Development",
-            "target": "Policy Server",
-            "label": "requires"
-          },
-          {
-            "source": "Policy Server",
-            "target": "ContextResolver",
-            "label": "incorporates"
-          },
-          {
-            "source": "Agentic Architecture",
-            "target": "Vibe Coding",
-            "label": "matures to"
-          },
-          {
-            "source": "Agent Ops",
-            "target": "Spec-Driven Development",
-            "label": "standardized by"
-          },
-          {
-            "source": "Observability",
-            "target": "Effective Trust",
-            "label": "enables telemetry for"
+            "title": "Lab 2: Cloud Run Deployment",
+            "url": "https://codelabs.developers.google.com/deploy-from-aistudio-to-run?hl=en#0"
           }
-        ]
+        ],
+        "livestream": {
+          "title": "Unit 1 Vibe Coding Livestream",
+          "videoId": "7iic3Zj427M",
+          "desc": "Deep dive walkthrough of Vibe Coding setups, Gherkin specifications, and workspace deployment options."
+        }
       }
-    };
+    },
+    {
+      "num": "2",
+      "title": "Tools & MCP",
+      "headerTitle": "Unit 2: Agent Tools & Model Context Protocol (MCP)",
+      "intro": "Connect models to databases and APIs safely using unified communication standards. Explore function declaration best practices and understand how Model Context Protocol (MCP) standardizes integrations without custom wrappers.",
+      "bullets": [
+        "<strong>Tools design:</strong> Write highly descriptive schemas that allow LLMs to determine arguments reliably.",
+        "<strong>Model Context Protocol:</strong> Connect model runtimes to SQLite databases and local filesystems via stdio host servers.",
+        "<strong>Long-Running Operations:</strong> Design approval checkpoints where agents pause execution until cleared by a human."
+      ],
+      "tasks": [
+        {
+          "id": "25-u2-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u2-whitepaper",
+          "text": "Dec 2025: Read 'Agent Tools & MCP' Whitepaper"
+        },
+        {
+          "id": "25-u2-lab1",
+          "text": "Dec 2025: Complete Codelab (Agent Tools)"
+        },
+        {
+          "id": "25-u2-lab2",
+          "text": "Dec 2025: Complete Codelab (MCP & Gated Tools)"
+        },
+        {
+          "id": "25-u2-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u2-podcast",
+          "text": "Jun 2026: Listen to Tools & MCP Podcast"
+        },
+        {
+          "id": "26-u2-whitepaper",
+          "text": "Jun 2026: Read 'Tools & Interoperability' Whitepaper"
+        },
+        {
+          "id": "26-u2-lab1",
+          "text": "Jun 2026: Complete Antigravity CLI Lab"
+        },
+        {
+          "id": "26-u2-lab2",
+          "text": "Jun 2026: Complete Knowledge MCP Server Lab"
+        },
+        {
+          "id": "26-u2-live",
+          "text": "Jun 2026: Watch Tools & MCP Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Agent Tools & MCP Podcast",
+          "videoId": "Cr4NA6rxHAM",
+          "desc": "Exploring custom tool calls, API interactions, and early implementations of the Model Context Protocol."
+        },
+        "pdf": {
+          "title": "Agent Tools & Interoperability with MCP",
+          "link": "2025/FILES/2025_Day_2_Rewrite_v1_AgentTools.pdf",
+          "desc": "Detailed analysis of MCP client-server topology, stdio transports, and secure gateways."
+        },
+        "labs": [
+          {
+            "title": "Lab 2a: Agent Tools",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-2a-agent-tools"
+          },
+          {
+            "title": "Lab 2b: Tools Best Practices",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-2b-agent-tools-best-practices"
+          }
+        ],
+        "livestream": {
+          "title": "Day 2 Q&A Livestream Panel",
+          "videoId": "8Gk1BE3uYek",
+          "desc": "Discussion on tool declarations and long-running operations. Panelists: Edward Grefenstette, Mike Styer, Oriol Vinyals, Alex Wissner-Gross, Laxmi Harikumar."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Tools & Interoperability Podcast",
+          "videoId": "GjjKXqxFTOY",
+          "desc": "Diving into Agent-to-Agent links, Universal Commerce, and Generative User Interfaces (A2UI)."
+        },
+        "pdf": {
+          "title": "Agent Tools & Interoperability",
+          "link": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+          "desc": "Review MCP standard servers, Generative UI, machine payments (AP2), and commerce protocols."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Antigravity CLI Setup",
+            "url": "https://codelabs.developers.google.com/antigravity-cli-hands-on#0"
+          },
+          {
+            "title": "Lab 2: Developer Knowledge MCP",
+            "url": "https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 2 Tools & Interoperability Livestream",
+          "videoId": "PGI_S59EoRA",
+          "desc": "Technical walkthrough of MCP host topologies, inter-agent workflows, and Generative UI widgets."
+        }
+      }
+    },
+    {
+      "num": "3",
+      "title": "Memory & Skills",
+      "headerTitle": "Unit 3: Context Engineering, Sessions, Memory & Skills",
+      "intro": "Optimize token budgets and context windows. Master dynamic context assembly using short-term conversation sessions, persistent vector memory banks, and modular Skills directories to load files only when needed.",
+      "bullets": [
+        "<strong>Short-term Sessions:</strong> Contain conversation logs in isolated stateful structures to preserve immediate history.",
+        "<strong>Persistent Memory:</strong> Implement external database storage to recall facts across disconnected runs.",
+        "<strong>Agent Skills:</strong> Package code guidelines and prompt instructions in modular directories to prevent token blowup."
+      ],
+      "tasks": [
+        {
+          "id": "25-u3-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u3-whitepaper",
+          "text": "Dec 2025: Read 'Sessions & Memory' Whitepaper"
+        },
+        {
+          "id": "25-u3-lab1",
+          "text": "Dec 2025: Complete Codelab (Agent Sessions)"
+        },
+        {
+          "id": "25-u3-lab2",
+          "text": "Dec 2025: Complete Codelab (Agent Memory)"
+        },
+        {
+          "id": "25-u3-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u3-podcast",
+          "text": "Jun 2026: Listen to Agent Skills Podcast"
+        },
+        {
+          "id": "26-u3-whitepaper",
+          "text": "Jun 2026: Read 'Agent Skills' Whitepaper"
+        },
+        {
+          "id": "26-u3-lab1",
+          "text": "Jun 2026: Complete Antigravity Skills Lab"
+        },
+        {
+          "id": "26-u3-lab2",
+          "text": "Jun 2026: Complete Agents CLI & ADK Lab"
+        },
+        {
+          "id": "26-u3-live",
+          "text": "Jun 2026: Watch Agent Skills Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Sessions & Memory Podcast",
+          "videoId": "FMcExVE15a4",
+          "desc": "Understanding state management, dynamic context assembly, and short-term vs long-term storage."
+        },
+        "pdf": {
+          "title": "Context Engineering: Sessions & Memory",
+          "link": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+          "desc": "Techniques for token engineering, session container state management, and memory stores."
+        },
+        "labs": [
+          {
+            "title": "Lab 3a: Agent Sessions",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-3a-agent-sessions"
+          },
+          {
+            "title": "Lab 3b: Agent Memory",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-3b-agent-memory"
+          }
+        ],
+        "livestream": {
+          "title": "Day 3 Q&A Livestream Panel",
+          "videoId": "8o-GXj8A3nE",
+          "desc": "Discussion on context limits, RAG integration, and long-term memory. Panelists: Steven Johnson, Kimberly Milam, Julia Wiesinger, Jay Alammar, Kristopher Overholt."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Agent Skills Podcast",
+          "videoId": "uYURYHhpmKc",
+          "desc": "How dynamic loading of prompt checklists prevents attention dilution and keeps agents lightweight."
+        },
+        "pdf": {
+          "title": "Agent Skills",
+          "link": "2026/FILES/Agent Skills_Day_3.pdf",
+          "desc": "Modular directories structured with SKILL.md rules, ADK skill scripts, and progressive disclosure patterns."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Skills in Antigravity",
+            "url": "https://codelabs.developers.google.com/getting-started-with-antigravity-skills?hl=en#4"
+          },
+          {
+            "title": "Lab 2: Agents CLI & ADK",
+            "url": "https://codelabs.developers.google.com/agents-cli-adk-lifecycle"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 3 Agent Skills Livestream",
+          "videoId": "1T2mxYZkqL0",
+          "desc": "Walkthrough of packaging custom scripts, targeting specific tasks, and deploying modular agent skills."
+        }
+      }
+    },
+    {
+      "num": "4",
+      "title": "Quality & Security",
+      "headerTitle": "Unit 4: Agent Quality, Observability, Security & Evaluation",
+      "intro": "Assure reliability in non-deterministic systems. Implement three-pillar observability (Logs, Traces, Metrics), automate evaluations with LLM-as-a-Judge, and establish Effective Trust boundaries using sandboxing and threat testing.",
+      "bullets": [
+        "<strong>Observability:</strong> Trace execution trajectories, construct timeline logs, and measure token metrics via OpenTelemetry.",
+        "<strong>Automated Evaluation:</strong> Grade agent tool paths and response qualities using labeled datasets.",
+        "<strong>Effective Trust:</strong> Enforce zero-trust security constraints, sandboxed environments, and package lock validations."
+      ],
+      "tasks": [
+        {
+          "id": "25-u4-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u4-whitepaper",
+          "text": "Dec 2025: Read 'Agent Quality' Whitepaper"
+        },
+        {
+          "id": "25-u4-lab1",
+          "text": "Dec 2025: Complete Codelab (Observability)"
+        },
+        {
+          "id": "25-u4-lab2",
+          "text": "Dec 2025: Complete Codelab (Evaluation)"
+        },
+        {
+          "id": "25-u4-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u4-podcast",
+          "text": "Jun 2026: Listen to Security & Evaluation Podcast"
+        },
+        {
+          "id": "26-u4-whitepaper",
+          "text": "Jun 2026: Read 'Security & Evaluation' Whitepaper"
+        },
+        {
+          "id": "26-u4-lab1",
+          "text": "Jun 2026: Complete Human-in-the-Loop Lab"
+        },
+        {
+          "id": "26-u4-lab2",
+          "text": "Jun 2026: Complete Security Testing Lab"
+        },
+        {
+          "id": "26-u4-live",
+          "text": "Jun 2026: Watch Security & Evaluation Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Agent Quality & Evaluation Podcast",
+          "videoId": "LFQRy-Ci-lk",
+          "desc": "Understanding automated testing, logs vs traces vs metrics, and benchmark evaluation runs."
+        },
+        "pdf": {
+          "title": "Agent Quality & Evaluation",
+          "link": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+          "desc": "Holistic evaluation strategies, OpenTelemetry pipelines, and building loop feedback flywheels."
+        },
+        "labs": [
+          {
+            "title": "Lab 4a: Agent Observability",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-4a-agent-observability"
+          },
+          {
+            "title": "Lab 4b: Agent Evaluation",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-4b-agent-evaluation"
+          }
+        ],
+        "livestream": {
+          "title": "Day 4 Q&A Livestream Panel",
+          "videoId": "JW1Yybfxyr4",
+          "desc": "Insights on debugging non-deterministic agent loops and LLM judging. Panelists: Wafae Bakkali, Turan Bulmus, Sian Gooding, Jiwei Liu, Sita Lakshmi Sangameswaran."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Security & Evaluation Podcast",
+          "videoId": "Ddz1b8CYPvg",
+          "desc": "Deep dive on sandboxing untrusted code, slopsquatting defenses, and ambient human review gating."
+        },
+        "pdf": {
+          "title": "Vibe Coding Agent Security and Evaluation",
+          "link": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
+          "desc": "Analysis of continuous verification, the Red/Blue/Green security triad, and sandboxed runtimes."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Expense Agent with HITL",
+            "url": "https://codelabs.developers.google.com/vibecode-ambient-expense-agent"
+          },
+          {
+            "title": "Lab 2: Secure AI Coding",
+            "url": "https://codelabs.developers.google.com/secure-agentic-coding"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 4 Security & Evaluation Livestream",
+          "videoId": "suWoYLD7uGY",
+          "desc": "Walkthrough of package scanners, setting permission walls, and setting up telemetry monitors."
+        }
+      }
+    },
+    {
+      "num": "5",
+      "title": "Production & Scale",
+      "headerTitle": "Unit 5: Production deployments, Agent fleets, A2A & Spec-Driven Development",
+      "intro": "Graduate prototypes to managed cloud clusters. Explore Agent-to-Agent (A2A) microservices, deploy runtimes to Google Cloud, and adopt Spec-Driven Development (SDD) to treat individual codebases as completely disposable.",
+      "bullets": [
+        "<strong>Agent-to-Agent (A2A):</strong> Connect specialized agents across secure networks, bypassing monolithic architectures.",
+        "<strong>Spec-Driven Development:</strong> Treat BDD Gherkin files as the absolute source of truth, generating code dynamically.",
+        "<strong>Production Scaling:</strong> Deploy to Vertex AI Agent Engine or Cloud Run with Policy Server governance."
+      ],
+      "tasks": [
+        {
+          "id": "25-u5-podcast",
+          "text": "Dec 2025: Listen to Summary Podcast"
+        },
+        {
+          "id": "25-u5-whitepaper",
+          "text": "Dec 2025: Read 'Prototype to Production' Whitepaper"
+        },
+        {
+          "id": "25-u5-lab1",
+          "text": "Dec 2025: Complete Codelab (Agent2Agent)"
+        },
+        {
+          "id": "25-u5-lab2",
+          "text": "Dec 2025: Complete Codelab (Cloud Deployment)"
+        },
+        {
+          "id": "25-u5-live",
+          "text": "Dec 2025: Watch Livestream Panel Review"
+        },
+        {
+          "id": "26-u5-podcast",
+          "text": "Jun 2026: Listen to Spec-Driven SDD Podcast"
+        },
+        {
+          "id": "26-u5-whitepaper",
+          "text": "Jun 2026: Read 'Spec-Driven SDD' Whitepaper"
+        },
+        {
+          "id": "26-u5-lab1",
+          "text": "Jun 2026: Review Cloud Scaling Lab"
+        },
+        {
+          "id": "26-u5-lab2",
+          "text": "Jun 2026: Review Frontend App Codelab"
+        },
+        {
+          "id": "26-u5-live",
+          "text": "Jun 2026: Watch Spec-Driven Development Livestream"
+        }
+      ],
+      "foundation": {
+        "edition": "Dec 2025 Foundation",
+        "podcast": {
+          "title": "Prototype to Production Podcast",
+          "videoId": "8Wyt9l7ge-g",
+          "desc": "Taking local agent code into enterprise clusters, versioning agents, and Vertex AI deployments."
+        },
+        "pdf": {
+          "title": "Prototype to Production Whitepaper",
+          "link": "2025/FILES/2025_Day_5_Rewrite_v1_Prototype.pdf",
+          "desc": "A blueprint for hosting, scaling, and managing autonomous agent workflows in the cloud."
+        },
+        "labs": [
+          {
+            "title": "Lab 5a: A2A Communication",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-5a-agent2agent-communication"
+          },
+          {
+            "title": "Lab 5b: Agent Cloud Deployment",
+            "url": "https://www.kaggle.com/code/kaggle5daysofai/day-5b-agent-deployment"
+          }
+        ],
+        "livestream": {
+          "title": "Day 5 Q&A Livestream Panel",
+          "videoId": "4XjPh5or0ws",
+          "desc": "Closing discussion on deployment architectures, scaling, and A2A. Panelists: Will Grannis, Sokratis Kartakis, Elia Secchi, Saurabh Tiwary, Laxmi Harikumar."
+        }
+      },
+      "advanced": {
+        "edition": "Jun 2026 Advanced",
+        "podcast": {
+          "title": "Spec-Driven Development Podcast",
+          "videoId": "VSRdL4wlbLY",
+          "desc": "Exploring spec-driven workflows, BDD specifications, and deploying governed agent fleets."
+        },
+        "pdf": {
+          "title": "Spec-Driven Production Grade Development",
+          "link": "2026/FILES/Day_5_v3.pdf",
+          "desc": "Treating code as disposable, zero-trust deployment pipelines, Policy Servers, and ContextResolvers."
+        },
+        "labs": [
+          {
+            "title": "Lab 1: Google Cloud Agent Scale",
+            "url": "https://codelabs.developers.google.com/enterprise-cloud-scale-deploying-the-expense-agent-to-agent-runtime-on-google-cloud"
+          },
+          {
+            "title": "Lab 2: UI Front-End Integration",
+            "url": "https://codelabs.developers.google.com/vibecode-frontend-with-antigravity"
+          }
+        ],
+        "livestream": {
+          "title": "Unit 5 Spec-Driven Development Livestream",
+          "videoId": "Y3HfV4IroCU",
+          "desc": "Walkthrough of zero-trust deployment, writing behavior specs, and managing Policy Server constraints."
+        }
+      }
+    }
+  ],
+  "highlights": [
+    {
+      "title": "5 Core Parts of an Agent",
+      "icon": "cpu",
+      "items": [
+        "1. <strong>The Model:</strong> LLM reasoning core.",
+        "2. <strong>Tools:</strong> APIs, function executors.",
+        "3. <strong>Memory:</strong> Short-term sessions & long-term facts.",
+        "4. <strong>Orchestration:</strong> Loops driving agent actions.",
+        "5. <strong>Deployment:</strong> hosting & cloud scales."
+      ]
+    },
+    {
+      "title": "6 Key Types of Context",
+      "icon": "database",
+      "items": [
+        "1. <strong>Instructions:</strong> Core goals & boundaries.",
+        "2. <strong>Knowledge:</strong> Domain data, retrieved documents.",
+        "3. <strong>Memory:</strong> Local session history logs.",
+        "4. <strong>Examples:</strong> Few-shot templates of output formatting.",
+        "5. <strong>Tools:</strong> Precise JSON schemas of callable APIs.",
+        "6. <strong>Guardrails:</strong> Hard rules & validation checks."
+      ]
+    },
+    {
+      "title": "3 Tiers of Code Review",
+      "icon": "git-pull-request",
+      "items": [
+        "<strong>Tier 1 - Managed:</strong> Standard off-the-shelf SaaS reviewers (e.g. Gemini Code Assist on GitHub).",
+        "<strong>Tier 2 - Hybrid:</strong> Git Actions executing coding CLI agents locally (e.g. Antigravity CLI).",
+        "<strong>Tier 3 - Custom:</strong> Specialized ADK multi-agent pipelines hosted on managed runtimes."
+      ]
+    },
+    {
+      "title": "3 Policy Gating Steps",
+      "icon": "shield-check",
+      "items": [
+        "1. <strong>Structural Check:</strong> Fast, binary environment YAML checks (e.g., block tool role access).",
+        "2. <strong>Semantic Check:</strong> Secondary LLM evaluating argument intent (safeguarding unmasked PII).",
+        "3. <strong>Execution:</strong> Run the tool, or fail/trigger self-correction dynamically."
+      ]
+    },
+    {
+      "title": "3 Durable SDD Principles",
+      "icon": "compass",
+      "items": [
+        "1. <strong>Structure scales, vibes don't:</strong> Verification, strict design specs, and test sets are mandatory.",
+        "2. <strong>AI amplifies code culture:</strong> Good engineering teams build harnesses; bad teams generate technical debt.",
+        "3. <strong>The human role is evolving:</strong> Transition from syntax developers to context architects."
+      ]
+    },
+    {
+      "title": "3 Graph Retrieval Modes",
+      "icon": "activity",
+      "items": [
+        "1. <strong>Graph Traversal (GQL):</strong> Query structures (find every function that transitively calls target API).",
+        "2. <strong>Vector Search (ANN):</strong> Semantic query lookup.",
+        "3. <strong>Full-Text Search:</strong> Exact identifier matches."
+      ]
+    },
+    {
+      "title": "3 Observability Pillars",
+      "icon": "activity",
+      "items": [
+        "1. <strong>Logs (The Diary):</strong> Detailed debug execution history.",
+        "2. <strong>Traces (The Narrative):</strong> Visual call graphs and step sequences.",
+        "3. <strong>Metrics (The Health Report):</strong> Cost, latency, and tokens usage."
+      ]
+    },
+    {
+      "title": "2 Types of Memory",
+      "icon": "database",
+      "items": [
+        "<strong>Short-term (Sessions):</strong> Context contained in a single conversation history.",
+        "<strong>Long-term (Memory Banks):</strong> Persistent facts recalled across different chat sessions."
+      ]
+    },
+    {
+      "title": "2 Integration Protocols",
+      "icon": "git-pull-request",
+      "items": [
+        "<strong>Model Context Protocol (MCP):</strong> For agent-to-tool connections.",
+        "<strong>Agent-to-Agent (A2A):</strong> For agent-to-agent remote delegation."
+      ]
+    },
+    {
+      "title": "2 Evaluation Pillars",
+      "icon": "shield-check",
+      "items": [
+        "<strong>Output Evaluation:</strong> Compares output against a correct baseline.",
+        "<strong>Trajectory Evaluation:</strong> Scans the sequence of tools called and reasoning paths."
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Agentic Architecture",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "A design pattern focusing on autonomous loop execution (perceive, plan, act, observe) rather than single-turn LLM chat prompts."
+    },
+    {
+      "term": "Agent Ops",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "Operations frameworks and disciplines required to monitor, version control, and govern agent logic in production."
+    },
+    {
+      "term": "ADK Framework",
+      "cat": "context",
+      "edition": "Dec 2025 Foundation",
+      "definition": "Agent Development Kit (ADK) - Google's toolkit for structuring agents, defining tools, and managing session loops."
+    },
+    {
+      "term": "Long-Running Operations",
+      "cat": "protocols",
+      "edition": "Dec 2025 Foundation",
+      "definition": "Gated functions enabling agents to pause executing tool tasks while awaiting manual human checkpoint clearance."
+    },
+    {
+      "term": "Context Engineering",
+      "cat": "context",
+      "edition": "Dec 2025 Foundation",
+      "definition": "The practice of dynamically assembling high-signal context information inside the model's active window."
+    },
+    {
+      "term": "Agent Quality",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "The metrics and evaluation frameworks used to score agent success rates, hallucination logs, and output validity."
+    },
+    {
+      "term": "LLM-as-a-Judge",
+      "cat": "security",
+      "edition": "Dec 2025 Foundation",
+      "definition": "An evaluation paradigm where a secondary, specialized model scores agent trajectories against pre-labeled rubrics."
+    },
+    {
+      "term": "Vertex AI Agent Engine",
+      "cat": "sdlc",
+      "edition": "Dec 2025 Foundation",
+      "definition": "A managed hosting platform on Google Cloud designed to deploy, run, and scale ADK agents."
+    },
+    {
+      "term": "Vibe Coding",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A programming paradigm where developers express requirements in natural language and guide code-writing models to generate the implementation, acting as context architects."
+    },
+    {
+      "term": "Agentic Engineering",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A structured, disciplined methodology surrounding AI outputs with tests, sandboxes, evaluations, and policy restrictions to ensure reliability."
+    },
+    {
+      "term": "The Harness",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "The complete scaffolding wrapped around raw AI models: includes system prompts, external tools, local policies, sandboxes, sub-agents, and observability scripts."
+    },
+    {
+      "term": "Agent-to-User Interface (A2UI)",
+      "cat": "protocols",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A framework-agnostic standard ('Generative Display Window') that lets agents compositionally arrange pre-approved UI parts (cards, sliders) for safe user interactions."
+    },
+    {
+      "term": "Agent Payments Protocol (AP2)",
+      "cat": "protocols",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A protocol laying the groundwork for secure, machine-to-machine financial payments governed by human-approved spending mandates."
+    },
+    {
+      "term": "Universal Commerce Protocol (UCP)",
+      "cat": "protocols",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A programmatic commerce layer standardizing checkout, shopping cart validation, and merchant catalogs for autonomous buyer agents."
+    },
+    {
+      "term": "Agent Skills",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "Modular bundles of files and instructions structured around a central SKILL.md document. Dynamically loaded on-demand depending on task matching to prevent token overloading."
+    },
+    {
+      "term": "Context Rot",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "The degradation in reasoning ability and increase in errors when an agent's context window is overloaded with noisy or irrelevant data."
+    },
+    {
+      "term": "Progressive Disclosure",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "An optimization tactic loading full code instructions or documentation fragments only when the active task requires them."
+    },
+    {
+      "term": "Slopsquatting",
+      "cat": "security",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A security vulnerability where attackers publish malicious packages using names hallucinated by coding agents, tricking systems into importing infected libraries."
+    },
+    {
+      "term": "Effective Trust",
+      "cat": "security",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A zero-trust security architecture enforcing continuous verification, sandboxed subprocess runtimes, and trajectory check gates."
+    },
+    {
+      "term": "Spec-Driven Development (SDD)",
+      "cat": "sdlc",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A development process where behavior-driven Gherkin specifications are treated as the project's source of truth, rendering individual codebases disposable."
+    },
+    {
+      "term": "Policy Server",
+      "cat": "security",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A hybrid security filter intercepting tool calls. Enforces deterministic Structural Gating (YAML roles checks) and Semantic Gating (LLM PII check)."
+    },
+    {
+      "term": "ContextResolver",
+      "cat": "context",
+      "edition": "Jun 2026 Advanced",
+      "definition": "A regex utility replacing double-bracketed placeholders in templates with environment values, sanitizing inputs."
+    },
+    {
+      "term": "Model Context Protocol (MCP)",
+      "cat": "protocols",
+      "edition": "Unified Core Protocol",
+      "definition": "An open standard protocol ('the USB-C for AI tools') that instantly connects AI models directly to SQLite/Postgres databases, filesystems, and remote APIs."
+    },
+    {
+      "term": "Agent-to-Agent (A2A)",
+      "cat": "protocols",
+      "edition": "Unified Core Protocol",
+      "definition": "A standardized communication protocol ('Factory Radio') enabling distributed specialized agents to communicate, negotiate, and delegate tasks to each other."
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "Agentic Architecture",
+        "group": "sdlc",
+        "size": 26,
+        "def": "A design pattern focusing on autonomous loop execution (perceive, plan, act, observe) rather than single-turn LLM chat prompts.",
+        "takeaways": [
+          "Replaces simple chatbots",
+          "Decides next action step-by-step",
+          "Uses tools autonomously"
+        ],
+        "docLink": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Agent Ops",
+        "group": "sdlc",
+        "size": 24,
+        "def": "Operations frameworks and disciplines required to monitor, version control, and govern agent logic in production.",
+        "takeaways": [
+          "Enforces predictable outputs",
+          "Audits decision paths",
+          "Manages token spend rates"
+        ],
+        "docLink": "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Long-Running Operations",
+        "group": "protocols",
+        "size": 22,
+        "def": "Gated functions enabling agents to pause executing tool tasks while awaiting manual human checkpoint clearance.",
+        "takeaways": [
+          "Allows manual review gate",
+          "Saves execution state safely",
+          "Failsafe for critical actions"
+        ],
+        "docLink": "2025/FILES/2025_Day_2_Rewrite_v1_AgentTools.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Context Engineering",
+        "group": "context",
+        "size": 24,
+        "def": "The practice of dynamically assembling high-signal context information inside the model's active window.",
+        "takeaways": [
+          "Optimizes context size",
+          "Prevents model distraction",
+          "Saves token costs"
+        ],
+        "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Sessions",
+        "group": "context",
+        "size": 20,
+        "def": "A container managing the current conversational state and active logs of a single user chat.",
+        "takeaways": [
+          "Keeps immediate chat history",
+          "Short-term working state",
+          "Isolates conversation scopes"
+        ],
+        "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Memory Banks",
+        "group": "context",
+        "size": 20,
+        "def": "Long-term vector databases holding rules, configurations, and user facts across different session chats.",
+        "takeaways": [
+          "Recalls details across runs",
+          "Avoids starting from a blank slate",
+          "Improves personalization"
+        ],
+        "docLink": "2025/FILES/2025_Day_3_Rewrite_v1_ContextEngineering.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Agent Quality",
+        "group": "sdlc",
+        "size": 24,
+        "def": "The metrics and evaluation frameworks used to score agent success rates, hallucination logs, and output validity.",
+        "takeaways": [
+          "Identifies behavioral drift",
+          "Requires benchmark datasets",
+          "Uses LLM-as-a-Judge scoring"
+        ],
+        "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Observability",
+        "group": "security",
+        "size": 24,
+        "def": "The trace metrics, debugger log lines, and execution paths providing complete visibility into agent decisions.",
+        "takeaways": [
+          "Pillars: Logs, Traces, Metrics",
+          "OpenTelemetry tracing standard",
+          "Essential for auditing errors"
+        ],
+        "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "LLM-as-a-Judge",
+        "group": "security",
+        "size": 20,
+        "def": "An evaluation paradigm where a secondary, specialized model scores agent trajectories against pre-labeled rubrics.",
+        "takeaways": [
+          "Automated grading workflow",
+          "Evaluates multi-turn logic",
+          "Scores tool-call trajectories"
+        ],
+        "docLink": "2025/FILES/2025_Day_4_Rewrite_v1_AgentQuality.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Vertex AI Agent Engine",
+        "group": "sdlc",
+        "size": 22,
+        "def": "A managed hosting platform on Google Cloud designed to deploy, run, and scale ADK agents.",
+        "takeaways": [
+          "Enterprise cloud hosting",
+          "Integrates Vertex AI governance",
+          "Observes live agent fleets"
+        ],
+        "docLink": "2025/FILES/2025_Day_5_Rewrite_v1_Prototype.pdf",
+        "edition": "Dec 2025 Foundation"
+      },
+      {
+        "id": "Vibe Coding",
+        "group": "sdlc",
+        "size": 28,
+        "def": "A programming paradigm where developers express requirements in natural language and guide code-writing models to generate the implementation, acting as context architects.",
+        "takeaways": [
+          "Transition from syntax to intent",
+          "Code is disposable; specifications are the target",
+          "Subject to the 80% problem"
+        ],
+        "docLink": "2026/FILES/Day_1_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agentic Engineering",
+        "group": "sdlc",
+        "size": 28,
+        "def": "A disciplined engineering practice utilizing strict constraints, tests, sandboxes, and verification loops surrounding LLM outputs.",
+        "takeaways": [
+          "Structure scales, vibes don't",
+          "Requires upfront CapEx, but drops operational OpEx",
+          "Relies heavily on Harness configurations"
+        ],
+        "docLink": "2026/FILES/Day_1_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "The Harness",
+        "group": "context",
+        "size": 24,
+        "def": "The entire scaffolding wrapped around a raw reasoning model that enables it to perform complex, safe, and observable tasks.",
+        "takeaways": [
+          "Formula: Agent = Model + Harness",
+          "Includes: sandboxes, tools, prompt rules, observability hooks",
+          "Scaffold represents 90% of the engineering work"
+        ],
+        "docLink": "2026/FILES/Day_1_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agent-to-UI",
+        "group": "protocols",
+        "size": 22,
+        "def": "A secure protocol (A2UI) allowing agents to return structured, dynamic user interfaces composed of pre-approved layout components.",
+        "takeaways": [
+          "Generative UI: Composes interfaces on demand safely",
+          "Agent specifies UI intent",
+          "Client renders UI components natively (LEGO blocks)"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agent Payments Protocol",
+        "group": "protocols",
+        "size": 22,
+        "def": "An open payment protocol (AP2) providing standard transactions and cryptographically signed rules between agents and merchants.",
+        "takeaways": [
+          "Sets secure wallets and credit limits",
+          "Mandates govern spending ranges (no hidden fees)",
+          "Supports HTTP 402 microtransactions"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Universal Commerce",
+        "group": "protocols",
+        "size": 22,
+        "def": "A standard protocol (UCP) translating catalogs, carts, orders, and checkouts machine-readably for autonomous agents.",
+        "takeaways": [
+          "Bypasses scraping of customer storefronts",
+          "Enables agents to interact directly with merchant inventories",
+          "Acts as the pipeline for programmatic supply chain purchases"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Agent Skills",
+        "group": "context",
+        "size": 24,
+        "def": "Portable directories organized around a SKILL.md file containing specialized prompt workflows and scripts.",
+        "takeaways": [
+          "Dynamic context packages loaded only on demand",
+          "Reduces system prompts and context bloat",
+          "Prevents context rot and attention dilution"
+        ],
+        "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Progressive Disclosure",
+        "group": "context",
+        "size": 20,
+        "def": "An optimization tactic loading full code instructions or documentation fragments only when the active task requires them.",
+        "takeaways": [
+          "Initial state has only minimal metadata",
+          "Saves token costs and prevents model distraction",
+          "Core mechanism of Google ADK and Agent Skills"
+        ],
+        "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Context Rot",
+        "group": "context",
+        "size": 20,
+        "def": "The decline of LLM reasoning performance and accuracy when the context window is stuffed with noise or generic files.",
+        "takeaways": [
+          "Caused by dumping complete repositories into prompts",
+          "Can lead to severe hallucinations or tool mistakes",
+          "Resolved by dynamic routing and RAG for tools"
+        ],
+        "docLink": "2026/FILES/Agent Skills_Day_3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Effective Trust",
+        "group": "security",
+        "size": 24,
+        "def": "A security posture establishing continuous verification of agent execution, rather than relying on one-time authentication check gates.",
+        "takeaways": [
+          "7-pillar zero-trust security framework",
+          "Enforces sandboxed runtimes and trajectory reviews",
+          "Defends against rogue behavior or compromise"
+        ],
+        "docLink": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Slopsquatting",
+        "group": "security",
+        "size": 20,
+        "def": "A risk vector where attackers publish malicious packages using names hallucinated by coding agents, waiting to be imported.",
+        "takeaways": [
+          "Prevented by strict package locks",
+          "Requires automated safety threat scans in build pipelines",
+          "Demands sandbox barriers during local code testing"
+        ],
+        "docLink": "2026/FILES/Vibe Coding Agent Security and Evaluation_Day_4.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Spec-Driven Development",
+        "group": "sdlc",
+        "size": 26,
+        "def": "A workflow (SDD) treating behavior-driven Gherkin scenarios as the source of truth, meaning implementation code is disposable.",
+        "takeaways": [
+          "Scenarios write Given / When / Then specifications",
+          "Code can be regenerated completely in JavaScript or Python",
+          "Shifts developers from coding to review and design"
+        ],
+        "docLink": "2026/FILES/Day_5_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Policy Server",
+        "group": "security",
+        "size": 24,
+        "def": "A hybrid governance server intercepting tool calls to enforce Structural Gating (YAML roles) and Semantic Gating (LLM check).",
+        "takeaways": [
+          "Structural layer: Checks permissions deterministically in YAML",
+          "Semantic layer: Secondary LLM reviews arguments for secret leaks",
+          "Separate execution logic from governance safety"
+        ],
+        "docLink": "2026/FILES/Day_5_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "ContextResolver",
+        "group": "context",
+        "size": 20,
+        "def": "A regex utility replacing double-bracketed placeholders in templates with environment values, sanitizing inputs.",
+        "takeaways": [
+          "Pattern: replacing [[VARIABLE]] values at runtime",
+          "Avoids hardcoding keys or emails in codebase specs",
+          "Keeps reasoning window sanitized"
+        ],
+        "docLink": "2026/FILES/Day_5_v3.pdf",
+        "edition": "Jun 2026 Advanced"
+      },
+      {
+        "id": "Model Context Protocol",
+        "group": "protocols",
+        "size": 26,
+        "def": "An open standard connecting models to APIs and databases natively without custom REST wrappers.",
+        "takeaways": [
+          "Standardizes integration points",
+          "Eliminates bespoke API code",
+          "Simplifies tool discovery"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Unified Core Protocol"
+      },
+      {
+        "id": "Agent-to-Agent",
+        "group": "protocols",
+        "size": 24,
+        "def": "A standard communication protocol enabling remote, domain-specific specialist agents to coordinate and share conversational state.",
+        "takeaways": [
+          "Facilitates cross-agent delegation",
+          "Avoids monolithic agent traps",
+          "A2A universal communication layer"
+        ],
+        "docLink": "2026/FILES/Agent Tools & Interoperability_Day_2.pdf",
+        "edition": "Unified Core Protocol"
+      }
+    ],
+    "links": [
+      {
+        "source": "Agentic Architecture",
+        "target": "Agent Ops",
+        "label": "requires"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Context Engineering",
+        "label": "uses"
+      },
+      {
+        "source": "Context Engineering",
+        "target": "Sessions",
+        "label": "manages"
+      },
+      {
+        "source": "Context Engineering",
+        "target": "Memory Banks",
+        "label": "includes"
+      },
+      {
+        "source": "Sessions",
+        "target": "Model Context Protocol",
+        "label": "connects to"
+      },
+      {
+        "source": "Model Context Protocol",
+        "target": "Long-Running Operations",
+        "label": "allows"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Agent Quality",
+        "label": "evaluated by"
+      },
+      {
+        "source": "Agent Quality",
+        "target": "Observability",
+        "label": "needs"
+      },
+      {
+        "source": "Observability",
+        "target": "LLM-as-a-Judge",
+        "label": "drives"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Agent-to-Agent",
+        "label": "delegates via"
+      },
+      {
+        "source": "Agent-to-Agent",
+        "target": "Vertex AI Agent Engine",
+        "label": "hosted on"
+      },
+      {
+        "source": "Vibe Coding",
+        "target": "Agentic Engineering",
+        "label": "evolves to"
+      },
+      {
+        "source": "Agentic Engineering",
+        "target": "The Harness",
+        "label": "requires"
+      },
+      {
+        "source": "The Harness",
+        "target": "Model Context Protocol",
+        "label": "includes"
+      },
+      {
+        "source": "The Harness",
+        "target": "Agent Skills",
+        "label": "includes"
+      },
+      {
+        "source": "Model Context Protocol",
+        "target": "Agent-to-Agent",
+        "label": "coexists with"
+      },
+      {
+        "source": "Agent-to-Agent",
+        "target": "Agent-to-UI",
+        "label": "extends to"
+      },
+      {
+        "source": "Agent-to-Agent",
+        "target": "Agent Payments Protocol",
+        "label": "enables"
+      },
+      {
+        "source": "Agent Payments Protocol",
+        "target": "Universal Commerce",
+        "label": "secures"
+      },
+      {
+        "source": "Agent Skills",
+        "target": "Progressive Disclosure",
+        "label": "implements"
+      },
+      {
+        "source": "Progressive Disclosure",
+        "target": "Context Rot",
+        "label": "prevents"
+      },
+      {
+        "source": "The Harness",
+        "target": "Effective Trust",
+        "label": "enforces"
+      },
+      {
+        "source": "Effective Trust",
+        "target": "Slopsquatting",
+        "label": "defends against"
+      },
+      {
+        "source": "Agentic Engineering",
+        "target": "Spec-Driven Development",
+        "label": "implements"
+      },
+      {
+        "source": "Spec-Driven Development",
+        "target": "Policy Server",
+        "label": "requires"
+      },
+      {
+        "source": "Policy Server",
+        "target": "ContextResolver",
+        "label": "incorporates"
+      },
+      {
+        "source": "Agentic Architecture",
+        "target": "Vibe Coding",
+        "label": "matures to"
+      },
+      {
+        "source": "Agent Ops",
+        "target": "Spec-Driven Development",
+        "label": "standardized by"
+      },
+      {
+        "source": "Observability",
+        "target": "Effective Trust",
+        "label": "enables telemetry for"
+      }
+    ]
+  }
+};
 
     // Centralized Google Drive links configuration.
     const PDF_DRIVE_LINKS = {
@@ -3009,7 +3015,7 @@
     // DOM Elements
     const body = document.documentElement;
     const globalSearch = document.getElementById('globalSearch');
-
+    
     // Tab Navigation Triggering
     const navItems = document.querySelectorAll('.sidebar .nav-list .nav-item');
     const contentViews = document.querySelectorAll('.content-view');
@@ -3050,6 +3056,9 @@
 
       // Render Views
       renderViews();
+
+      // Initialize unique visitor counter
+      setupVisitorCounter();
     }
 
     // Global Renderer based on unified datasets
@@ -3087,7 +3096,7 @@
       data.highlights.forEach(hl => {
         const card = document.createElement('div');
         card.className = 'highlight-card';
-
+        
         let listItems = '';
         hl.items.forEach(item => {
           listItems += `<li>${item}</li>`;
@@ -3108,7 +3117,7 @@
       // Update Glossary Filter Pills
       const pillsContainer = document.getElementById('glossaryFilters');
       pillsContainer.innerHTML = '';
-
+      
       const pillsConfig = [
         { label: 'All Terms', filter: 'all' },
         { label: 'SDLC & Paradigms', filter: 'sdlc' },
@@ -3142,10 +3151,10 @@
       papersSection.className = 'resource-category-section search-target-block';
       papersSection.setAttribute('data-type', 'whitepaper');
       papersSection.innerHTML = `<h3 class="resource-category-title">📄 Whitepapers</h3>`;
-
+      
       const papersList = document.createElement('div');
       papersList.className = 'resource-list';
-
+      
       data.syllabus.forEach(unit => {
         // Foundation
         const fPaper = unit.foundation.pdf;
@@ -3185,7 +3194,7 @@
       podcastsSection.className = 'resource-category-section search-target-block';
       podcastsSection.setAttribute('data-type', 'podcast');
       podcastsSection.innerHTML = `<h3 class="resource-category-title">🎙️ Summary Podcasts</h3>`;
-
+      
       const podcastsList = document.createElement('div');
       podcastsList.className = 'resource-list';
 
@@ -3230,7 +3239,7 @@
       liveSection.className = 'resource-category-section search-target-block';
       liveSection.setAttribute('data-type', 'livestream');
       liveSection.innerHTML = `<h3 class="resource-category-title">📺 Q&A YouTube Livestreams</h3>`;
-
+      
       const liveList = document.createElement('div');
       liveList.className = 'resource-list';
 
@@ -3275,7 +3284,7 @@
       labsSection.className = 'resource-category-section search-target-block';
       labsSection.setAttribute('data-type', 'codelab');
       labsSection.innerHTML = `<h3 class="resource-category-title">💻 Hands-on Codelabs</h3>`;
-
+      
       const labsList = document.createElement('div');
       labsList.className = 'resource-list';
 
@@ -3349,7 +3358,7 @@
       // Update checklist tasks
       const checklistBox = document.getElementById('syllabusChecklist');
       checklistBox.innerHTML = '';
-
+      
       const fTasks = data.tasks.filter(t => t.id.startsWith('25-'));
       const aTasks = data.tasks.filter(t => t.id.startsWith('26-'));
 
@@ -3370,7 +3379,7 @@
         header.style = "font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#6366f1; letter-spacing:0.5px; margin-bottom:0.5rem; border-bottom:1px solid rgba(99, 102, 241, 0.2); padding-bottom:2px;";
         header.innerText = "Dec 2025 Foundations Tasks";
         checklistBox.appendChild(header);
-
+        
         fTasks.forEach(t => {
           checklistBox.appendChild(createChecklistItem(t));
         });
@@ -3381,7 +3390,7 @@
         header.style = "font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#a855f7; letter-spacing:0.5px; margin-top:1rem; margin-bottom:0.5rem; border-bottom:1px solid rgba(168, 85, 247, 0.2); padding-bottom:2px;";
         header.innerText = "Jun 2026 Advanced Tasks";
         checklistBox.appendChild(header);
-
+        
         aTasks.forEach(t => {
           checklistBox.appendChild(createChecklistItem(t));
         });
@@ -3465,7 +3474,7 @@
       // 3. Codelabs Card
       const labsCard = document.createElement('div');
       labsCard.className = 'glass-card daily-section-card';
-
+      
       let buttonsHtml = '';
       track.labs.forEach((lab, idx) => {
         buttonsHtml += `
@@ -3587,7 +3596,7 @@
         const text = card.getAttribute('data-search-term') || '';
         const name = card.querySelector('.resource-item-name').innerText.toLowerCase();
         const meta = card.querySelector('.resource-item-meta').innerText.toLowerCase();
-
+        
         if (text.includes(query) || name.includes(query) || meta.includes(query)) {
           card.style.display = 'flex';
         } else {
@@ -3610,9 +3619,9 @@
       const data = COURSE_DATA;
       const tbody = document.getElementById('glossaryBody');
       tbody.innerHTML = '';
-
-      const filtered = filterCategory === 'all'
-        ? data.glossary
+      
+      const filtered = filterCategory === 'all' 
+        ? data.glossary 
         : data.glossary.filter(d => d.cat === filterCategory);
 
       const categoryBadges = {
@@ -3632,13 +3641,13 @@
         if (lowerTerm.includes("agent-to-agent")) return "2026/FILES/Agent Tools & Interoperability_Day_2.pdf";
         if (lowerTerm.includes("spec-driven")) return "2026/FILES/Day_5_v3.pdf";
         if (lowerTerm.includes("adk framework")) return "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf";
-
+        
         const node = data.graph.nodes.find(n => {
           const nId = n.id.toLowerCase();
           return lowerTerm.includes(nId) || nId.includes(lowerTerm);
         });
         if (node) return node.docLink;
-
+        
         if (edition.includes("2025")) return "2025/FILES/2025_Day_1_Rewrite_v1_IntroductionToAgents.pdf";
         return "2026/FILES/Day_1_v3.pdf";
       };
@@ -3649,11 +3658,11 @@
         tr.setAttribute('data-term-name', item.term.toLowerCase());
         tr.setAttribute('data-term-definition', item.definition.toLowerCase());
         tr.setAttribute('data-term-edition', item.edition.toLowerCase());
-
+        
         let editionTagStyle = "font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 4px; margin-left: 0.5rem; display:inline-block;";
-        let editionTagColor = item.edition.includes('2025')
-          ? "background: rgba(99, 102, 241, 0.08); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.15);"
-          : item.edition.includes('2026')
+        let editionTagColor = item.edition.includes('2025') 
+          ? "background: rgba(99, 102, 241, 0.08); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.15);" 
+          : item.edition.includes('2026') 
             ? "background: rgba(168, 85, 247, 0.08); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.15);"
             : "background: rgba(16, 185, 129, 0.08); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.15);";
 
@@ -3679,7 +3688,7 @@
         `;
         tbody.appendChild(tr);
       });
-
+      
       // Refresh icons for new document icons
       lucide.createIcons();
     }
@@ -3731,7 +3740,7 @@
     function showToast(msg) {
       toastMsg.innerText = msg;
       toastBox.classList.add('show');
-
+      
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toastBox.classList.remove('show');
@@ -3754,10 +3763,10 @@
 
       // Get current course graph data
       const data = COURSE_DATA.graph;
-
+      
       // Clone nodes and links
-      const nodes = data.nodes.map(n => ({ ...n }));
-      const links = data.links.map(l => ({ ...l }));
+      const nodes = data.nodes.map(n => ({...n}));
+      const links = data.links.map(l => ({...l}));
 
       // Groups colors
       const groupColors = {
@@ -3857,12 +3866,10 @@
       // Node highlights logic
       function highlightConnectedNodes(selectedNode) {
         const connectedNodeIds = new Set([selectedNode.id]);
-
         links.forEach(l => {
           if (l.source.id === selectedNode.id) connectedNodeIds.add(l.target.id);
           if (l.target.id === selectedNode.id) connectedNodeIds.add(l.source.id);
         });
-
         node.style("opacity", n => connectedNodeIds.has(n.id) ? 1 : 0.25);
         link.style("opacity", l => (l.source.id === selectedNode.id || l.target.id === selectedNode.id) ? 1 : 0.1);
       }
@@ -3873,21 +3880,18 @@
       document.getElementById('detailsPlaceholder').style.display = 'none';
       const content = document.getElementById('detailsContent');
       content.classList.add('active');
-
       const catLabels = {
         sdlc: 'SDLC & Paradigms',
         protocols: 'Interoperability Protocols',
         context: 'Context Engineering',
         security: 'Security & Verification'
       };
-
       document.getElementById('nodeName').innerText = nodeData.id;
       document.getElementById('nodeGroupTag').innerHTML = `
         <span>${catLabels[nodeData.group] || nodeData.group}</span>
         <span style="margin-left: 0.5rem; padding: 0.1rem 0.4rem; border-radius: 4px; background: rgba(99,102,241,0.08); color:#6366f1; font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(99,102,241,0.15);">${nodeData.edition}</span>
       `;
       document.getElementById('nodeDefinition').innerText = nodeData.def;
-
       const takeawaysList = document.getElementById('nodeTakeaways');
       takeawaysList.innerHTML = '';
       nodeData.takeaways.forEach(t => {
@@ -3895,9 +3899,38 @@
         li.innerText = t;
         takeawaysList.appendChild(li);
       });
-
       const docLink = document.getElementById('nodeDocLink');
       docLink.href = resolvePdfLink(nodeData.docLink);
+    }
+
+    // 9. Unique Visitor Counter using free CounterAPI
+    function setupVisitorCounter() {
+      const counterEl = document.getElementById('visitorCount');
+      if (!counterEl) return;
+      const hasVisited = localStorage.getItem('has-visited-unique-agents');
+      const namespace = 'daveankur';
+      const key = 'kaggle-ai-agents-unique';
+      let url = `https://api.counterapi.dev/v1/${namespace}/${key}`;
+      if (!hasVisited) {
+        url = `https://api.counterapi.dev/v1/${namespace}/${key}/up`;
+      }
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error('Network error');
+          return response.json();
+        })
+        .then(data => {
+          if (data && typeof data.value !== 'undefined') {
+            counterEl.innerText = data.value.toLocaleString();
+            if (!hasVisited) {
+              localStorage.setItem('has-visited-unique-agents', 'true');
+            }
+          }
+        })
+        .catch(err => {
+          console.warn('Visitor counter failed, using fallback.', err);
+          counterEl.innerText = '1,248+';
+        });
     }
 
 

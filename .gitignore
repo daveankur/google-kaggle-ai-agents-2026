@@ -11,3 +11,7 @@
 # Ignore common OS junk files
 .DS_Store
 Thumbs.db
+
+# Ignore local PDF directory
+kaggle-google/
+
